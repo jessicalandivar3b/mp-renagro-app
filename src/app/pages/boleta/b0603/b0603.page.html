@@ -1,0 +1,294 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>6.3 - Maquinaria, equipos e implementos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h2>6.3.1 - Seleccione la maquinaria, equipos e implementos a los que puede acceder HOY:</h2>
+
+        @if (boleta().tractorRuedaShow) {
+        <ion-item button (click)='openModal("tractorRueda","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.1</span>Tractor de rueda</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().tractorRueda)() }}
+            {{ boleta().tractorRueda }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().tractorJardinShow) {
+        <ion-item button (click)='openModal("tractorJardin","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.2</span>Tractor de jardín</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().tractorJardin)() }}
+            {{ boleta().tractorJardin }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().tractorOrugaShow) {
+        <ion-item button (click)='openModal("tractorOruga","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.3</span>Tractor de oruga</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().tractorOruga)() }}
+            {{ boleta().tractorOruga }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().motocultorShow) {
+        <ion-item button (click)='openModal("motocultor","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.4</span>Motocultor</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().motocultor)() }}
+            {{ boleta().motocultor }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().bombaEstacionariaFumigaShow) {
+        <ion-item button (click)='openModal("bombaEstacionariaFumiga","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.5</span>Bomba estacionaria de fumigación</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().bombaEstacionariaFumiga)() }}
+            {{ boleta().bombaEstacionariaFumiga }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().plantaElectricaTermicaShow) {
+        <ion-item button (click)='openModal("plantaElectricaTermica","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.6</span>Plantas eléctricas o térmicas</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().plantaElectricaTermica)() }}
+            {{ boleta().plantaElectricaTermica }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().secadoraShow) {
+        <ion-item button (click)='openModal("secadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.7</span>Secadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().secadora)() }}
+            {{ boleta().secadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().motoguadaniaShow) {
+        <ion-item button (click)='openModal("motoguadania","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.8</span>Motoguadaña</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().motoguadania)() }}
+            {{ boleta().motoguadania }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().aradoShow) {
+        <ion-item button (click)='openModal("arado","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.9</span>Arado</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().arado)() }}
+            {{ boleta().arado }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().cosechadoraShow) {
+        <ion-item button (click)='openModal("cosechadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.10</span>Cosechadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().cosechadora)() }}
+            {{ boleta().cosechadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().carretonShow) {
+        <ion-item button (click)='openModal("carreton","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.11</span>Carretón</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().carreton)() }}
+            {{ boleta().carreton }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().desgranadoraShow) {
+        <ion-item button (click)='openModal("desgranadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.12</span>Desgranadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().desgranadora)() }}
+            {{ boleta().desgranadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().empacadoraShow) {
+        <ion-item button (click)='openModal("empacadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.13</span>Empacadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().empacadora)() }}
+            {{ boleta().empacadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().ensiladoraShow) {
+        <ion-item button (click)='openModal("ensiladora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.14</span>Ensiladora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().ensiladora)() }}
+            {{ boleta().ensiladora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().enfardadoraShow) {
+        <ion-item button (click)='openModal("enfardadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.15</span>Enfardadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().enfardadora)() }}
+            {{ boleta().enfardadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().fangueadoraShow) {
+        <ion-item button (click)='openModal("fangueadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.16</span>Fangueadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().fangueadora)() }}
+            {{ boleta().fangueadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().fertilizadoraShow) {
+        <ion-item button (click)='openModal("fertilizadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.17</span>Fertilizadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().fertilizadora)() }}
+            {{ boleta().fertilizadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().fumigadoraShow) {
+        <ion-item button (click)='openModal("fumigadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.18</span>Fumigadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().fumigadora)() }}
+            {{ boleta().fumigadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().romplowShow) {
+        <ion-item button (click)='openModal("romplow","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.19</span>Romplow</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().romplow)() }}
+            {{ boleta().romplow }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().rastraShow) {
+        <ion-item button (click)='openModal("rastra","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.20</span>Rastra</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().rastra)() }}
+            {{ boleta().rastra }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().rotocultorShow) {
+        <ion-item button (click)='openModal("rotocultor","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.21</span>Rotocultor</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().rotocultor)() }}
+            {{ boleta().rotocultor }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sembradoraShow) {
+        <ion-item button (click)='openModal("sembradora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.22</span>Sembradora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sembradora)() }}
+            {{ boleta().sembradora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().segadoraShow) {
+        <ion-item button (click)='openModal("segadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.23</span>Segadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().segadora)() }}
+            {{ boleta().segadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().subsoladoraShow) {
+        <ion-item button (click)='openModal("subsoladora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.24</span>Subsoladora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().subsoladora)() }}
+            {{ boleta().subsoladora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().surcadoraShow) {
+        <ion-item button (click)='openModal("surcadora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.25</span>Surcadora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().surcadora)() }}
+            {{ boleta().surcadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().trilladoraShow) {
+        <ion-item button (click)='openModal("trilladora","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.26</span>Trilladora</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().trilladora)() }}
+            {{ boleta().trilladora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().bombaAguaShow) {
+        <ion-item button (click)='openModal("bombaAgua","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.27</span>Bomba de agua</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().bombaAgua)() }}
+            {{ boleta().bombaAgua }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().bombaMochilaShow) {
+        <ion-item button (click)='openModal("bombaMochila","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.28</span>Bomba de mochila</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().bombaMochila)() }}
+            {{ boleta().bombaMochila }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().bombaMochilaMotorShow) {
+        <ion-item button (click)='openModal("bombaMochilaMotor","boleta")'>
+            <ion-label><span class="label-codigo">6.3.1.29</span>Bomba de mochila con motor</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().bombaMochilaMotor)() }}
+            {{ boleta().bombaMochilaMotor }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

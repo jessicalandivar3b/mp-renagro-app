@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>2.7 - Asociatividad</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h1>2.7 - Asociatividad</h1>
+
+        @if (boleta().isPerteneceAsociacionCoopShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.7.1</span>¿La persona productora pertenece a alguna cooperativa o asociación con fines agropecuarios?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isPerteneceAsociacionCoop"
+                (ionChange)="this.boletaService.onInputChange($event, 'isPerteneceAsociacionCoop')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().tipoDeMiembroShow) {
+        <ion-item button (click)='openModal("tipoDeMiembro","boleta")'>
+            <ion-label><span class="label-codigo">2.7.2</span>En caso de una respuesta afirmativa indique:</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().tipoDeMiembro)() }}
+            {{ boleta().tipoDeMiembro }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().nombreAsociacionCoopShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">2.7.2.1</span>Nombre cooperativa o asociación</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #nombreAsociacionCoopInput="ngModel" name="nombreAsociacionCoop" type="text"
+                    required="true" maxlength="Parametros.MAX_LENGTH_GENERICO" mpAlphanumeric [(ngModel)]="boleta().nombreAsociacionCoop"
+                    (ionChange)="this.boletaService.onInputChange($event, 'nombreAsociacionCoop')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="nombreAsociacionCoop" [control]="nombreAsociacionCoopInput.control"
+            [value]="boleta().nombreAsociacionCoop"></mp-input-error>
+      }
+
+        @if (boleta().respuestaNegativaMiembroShow) {
+        <ion-item button (click)='openModal("respuestaNegativaMiembro","boleta")'>
+            <ion-label><span class="label-codigo">2.7.3</span>En caso de una respuesta negativa, indique la razón:</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().respuestaNegativaMiembro)() }}
+            {{ boleta().respuestaNegativaMiembro }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

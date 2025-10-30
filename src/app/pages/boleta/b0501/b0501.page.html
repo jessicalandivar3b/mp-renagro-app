@@ -1,0 +1,187 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>5.1 - Prácticas de mejoramiento de suelos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h2>5.1.1 - En el año anterior, ¿cuáles de las siguientes prácticas de mejoramiento de suelo realizó?</h2>
+
+        @if (boleta().isIncorporaAbonoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">5.1.1.1</span>Incorporación de abonos orgánicos (compost, guano, rastrojos, abonos verdes, etc.)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isIncorporaAbono"
+                (ionChange)="this.boletaService.onInputChange($event, 'isIncorporaAbono')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isEvitaErosionShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">5.1.1.2</span>Evitar erosión (terrazas, labranza mínima, labranza cero)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isEvitaErosion"
+                (ionChange)="this.boletaService.onInputChange($event, 'isEvitaErosion')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isRotaCultivoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">5.1.1.3</span>Rotación de cultivos</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isRotaCultivo"
+                (ionChange)="this.boletaService.onInputChange($event, 'isRotaCultivo')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isPastoreoRotativoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">5.1.1.4</span>Pastoreo rotativo (solo si hay especies pecuarias)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isPastoreoRotativo"
+                (ionChange)="this.boletaService.onInputChange($event, 'isPastoreoRotativo')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isNoRealizaMejoraShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">5.1.1.5</span>No realizó o no realiza</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isNoRealizaMejora"
+                (ionChange)="this.boletaService.onInputChange($event, 'isNoRealizaMejora')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isOtraPracticaMejoraShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">5.1.1.6</span>Otra Practica Mejora</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isOtraPracticaMejora"
+                (ionChange)="this.boletaService.onInputChange($event, 'isOtraPracticaMejora')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().otraPracticaMejoraShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">5.1.1.6.1</span>Otro especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otraPracticaMejoraInput="ngModel" name="otraPracticaMejora" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otraPracticaMejora"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otraPracticaMejora')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otraPracticaMejora" [control]="otraPracticaMejoraInput.control"
+            [value]="boleta().otraPracticaMejora"></mp-input-error>
+      }
+
+        @if (boleta().manejoResiduoAnimalShow) {
+        <ion-item button (click)='openModal("manejoResiduoAnimal","boleta")'>
+            <ion-label><span class="label-codigo">5.1.2</span>En el año anterior, ¿cómo manejó o trató principalmente los residuos de animales (estiércol, orina)?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().manejoResiduoAnimal)() }}
+            {{ boleta().manejoResiduoAnimal }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().otroManejoResiduoAnimalShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">5.1.2.1</span>Otra manejo residuo animal especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otroManejoResiduoAnimalInput="ngModel" name="otroManejoResiduoAnimal" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otroManejoResiduoAnimal"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otroManejoResiduoAnimal')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otroManejoResiduoAnimal" [control]="otroManejoResiduoAnimalInput.control"
+            [value]="boleta().otroManejoResiduoAnimal"></mp-input-error>
+      }
+
+        @if (boleta().manejoResiduoAgricolaShow) {
+        <ion-item button (click)='openModal("manejoResiduoAgricola","boleta")'>
+            <ion-label><span class="label-codigo">5.1.3</span>En el año anterior, ¿cuál fue el principal manejo que realizó con los residuos  agrícolas que se generaron en los terrenos en a esta entrevista?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().manejoResiduoAgricola)() }}
+            {{ boleta().manejoResiduoAgricola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().otroManejoResiduoAgricolaShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">5.1.3.1</span>Otra manejo residuo agricola (rastrojo) especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otroManejoResiduoAgricolaInput="ngModel" name="otroManejoResiduoAgricola" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otroManejoResiduoAgricola"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otroManejoResiduoAgricola')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otroManejoResiduoAgricola" [control]="otroManejoResiduoAgricolaInput.control"
+            [value]="boleta().otroManejoResiduoAgricola"></mp-input-error>
+      }
+
+        @if (boleta().isTratamientoAguaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">5.1.4</span>En caso de tener agua de riego. En el año anterior, ¿realizó tratamientos de aguas después de utilizarla en sus terrenos?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isTratamientoAgua"
+                (ionChange)="this.boletaService.onInputChange($event, 'isTratamientoAgua')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().manejoEnvaseShow) {
+        <ion-item button (click)='openModal("manejoEnvase","boleta")'>
+            <ion-label><span class="label-codigo">5.1.5</span>En el año anterior, ¿cuál fue el principal manejo que realizó a los envases de los fertilizantes, plaguicidas y medicamentos veterinarios?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().manejoEnvase)() }}
+            {{ boleta().manejoEnvase }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().manejoEnvaseOtroShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">5.1.5.1</span>Otro manejo envase, especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #manejoEnvaseOtroInput="ngModel" name="manejoEnvaseOtro" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().manejoEnvaseOtro"
+                    (ionChange)="this.boletaService.onInputChange($event, 'manejoEnvaseOtro')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="manejoEnvaseOtro" [control]="manejoEnvaseOtroInput.control"
+            [value]="boleta().manejoEnvaseOtro"></mp-input-error>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

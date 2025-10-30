@@ -1,0 +1,280 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>7.1 - Destino de la producción</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h3>7.1.1.1 - Principal destino del AUTOCONSUMO</h3>
+
+        @if (boleta().autoconsumoAgricolaShow) {
+        <ion-item button (click)='openModal("autoconsumoAgricola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.1.1</span>Autoconsumo Agrícola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().autoconsumoAgricola)() }}
+            {{ boleta().autoconsumoAgricola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().autoconsumoBovinaShow) {
+        <ion-item button (click)='openModal("autoconsumoBovina","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.1.2</span>Autoconsumo Bovina</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().autoconsumoBovina)() }}
+            {{ boleta().autoconsumoBovina }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().autoconsumoPorcicolaShow) {
+        <ion-item button (click)='openModal("autoconsumoPorcicola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.1.3</span>Autoconsumo Porcícola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().autoconsumoPorcicola)() }}
+            {{ boleta().autoconsumoPorcicola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().autoconsumoAvicolaShow) {
+        <ion-item button (click)='openModal("autoconsumoAvicola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.1.4</span>Autoconsumo Avícola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().autoconsumoAvicola)() }}
+            {{ boleta().autoconsumoAvicola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().autoconsumoOtrasAvesShow) {
+        <ion-item button (click)='openModal("autoconsumoOtrasAves","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.1.5</span>Autoconsumo Otras aves</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().autoconsumoOtrasAves)() }}
+            {{ boleta().autoconsumoOtrasAves }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().autoconsumoOvinoCaprinoShow) {
+        <ion-item button (click)='openModal("autoconsumoOvinoCaprino","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.1.6</span>Autoconsumo Ovino/Caprino</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().autoconsumoOvinoCaprino)() }}
+            {{ boleta().autoconsumoOvinoCaprino }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().autoconsumoCuyesConejosShow) {
+        <ion-item button (click)='openModal("autoconsumoCuyesConejos","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.1.7</span>Autoconsumo Cuyes/Conejos</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().autoconsumoCuyesConejos)() }}
+            {{ boleta().autoconsumoCuyesConejos }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().autoconsumoApicolaShow) {
+        <ion-item button (click)='openModal("autoconsumoApicola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.1.8</span>Autoconsumo Apicola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().autoconsumoApicola)() }}
+            {{ boleta().autoconsumoApicola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().autoconsumoForestalShow) {
+        <ion-item button (click)='openModal("autoconsumoForestal","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.1.9</span>Autoconsumo Forestal</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().autoconsumoForestal)() }}
+            {{ boleta().autoconsumoForestal }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        <h3>7.1.1.2 - Principal COMPRADOR</h3>
+
+        @if (boleta().compradorAgricolaShow) {
+        <ion-item button (click)='openModal("compradorAgricola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.2.1</span>Comprador Agrícola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().compradorAgricola)() }}
+            {{ boleta().compradorAgricola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().compradorBovinaShow) {
+        <ion-item button (click)='openModal("compradorBovina","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.2.2</span>Comprador Bovina</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().compradorBovina)() }}
+            {{ boleta().compradorBovina }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().compradorPorcicolaShow) {
+        <ion-item button (click)='openModal("compradorPorcicola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.2.3</span>Comprador Porcícola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().compradorPorcicola)() }}
+            {{ boleta().compradorPorcicola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().compradorAvicolaShow) {
+        <ion-item button (click)='openModal("compradorAvicola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.2.4</span>Comprador Avícola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().compradorAvicola)() }}
+            {{ boleta().compradorAvicola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().compradorOtrasAvesShow) {
+        <ion-item button (click)='openModal("compradorOtrasAves","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.2.5</span>Comprador Otras aves</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().compradorOtrasAves)() }}
+            {{ boleta().compradorOtrasAves }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().compradorOvinoCaprinoShow) {
+        <ion-item button (click)='openModal("compradorOvinoCaprino","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.2.6</span>Comprador Ovino/Caprino</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().compradorOvinoCaprino)() }}
+            {{ boleta().compradorOvinoCaprino }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().compradorCuyesConejosShow) {
+        <ion-item button (click)='openModal("compradorCuyesConejos","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.2.7</span>Comprador Cuyes/Conejos</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().compradorCuyesConejos)() }}
+            {{ boleta().compradorCuyesConejos }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().compradorApicolaShow) {
+        <ion-item button (click)='openModal("compradorApicola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.2.8</span>Comprador Apicola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().compradorApicola)() }}
+            {{ boleta().compradorApicola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().compradorForestalShow) {
+        <ion-item button (click)='openModal("compradorForestal","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.2.9</span>Comprador Forestal</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().compradorForestal)() }}
+            {{ boleta().compradorForestal }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        <h3>7.1.1.3 - Principal SITIO para COMERCIALIZACIÓN</h3>
+
+        @if (boleta().sitioAgricolaShow) {
+        <ion-item button (click)='openModal("sitioAgricola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.3.1</span>Sitio Agrícola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sitioAgricola)() }}
+            {{ boleta().sitioAgricola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sitioBovinaShow) {
+        <ion-item button (click)='openModal("sitioBovina","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.3.2</span>Sitio Bovina</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sitioBovina)() }}
+            {{ boleta().sitioBovina }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sitioPorcicolaShow) {
+        <ion-item button (click)='openModal("sitioPorcicola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.3.3</span>Sitio Porcícola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sitioPorcicola)() }}
+            {{ boleta().sitioPorcicola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sitioAvicolaShow) {
+        <ion-item button (click)='openModal("sitioAvicola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.3.4</span>Sitio Avícola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sitioAvicola)() }}
+            {{ boleta().sitioAvicola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sitioOtrasAvesShow) {
+        <ion-item button (click)='openModal("sitioOtrasAves","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.3.5</span>Sitio Otras aves</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sitioOtrasAves)() }}
+            {{ boleta().sitioOtrasAves }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sitioOvinoCaprinoShow) {
+        <ion-item button (click)='openModal("sitioOvinoCaprino","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.3.6</span>Sitio Ovino/Caprino</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sitioOvinoCaprino)() }}
+            {{ boleta().sitioOvinoCaprino }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sitioCuyesConejosShow) {
+        <ion-item button (click)='openModal("sitioCuyesConejos","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.3.7</span>Sitio Cuyes/Conejos</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sitioCuyesConejos)() }}
+            {{ boleta().sitioCuyesConejos }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sitioApicolaShow) {
+        <ion-item button (click)='openModal("sitioApicola","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.3.8</span>Sitio Apicola</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sitioApicola)() }}
+            {{ boleta().sitioApicola }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sitioForestalShow) {
+        <ion-item button (click)='openModal("sitioForestal","boleta")'>
+            <ion-label><span class="label-codigo">7.1.1.3.9</span>Sitio Forestal</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sitioForestal)() }}
+            {{ boleta().sitioForestal }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

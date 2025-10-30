@@ -1,0 +1,135 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">    
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Boletas Asignadas</ion-title>
+    <ion-note slot="end" class="ion-padding-end ion-text-light">
+      Código: <strong>{{ codigoEncuestador }}</strong>
+    </ion-note>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding-vertical">
+
+  @if (isLoading()) {
+  <div class="ion-text-center ion-padding">
+    <ion-spinner name="crescent" color="success"></ion-spinner>
+    <p>Cargando listado de boletas...</p>
+  </div>
+  }
+
+  @if (error()) {
+  <div class="ion-text-center ion-padding error-box">
+    <ion-note color="danger" class="ion-text-wrap">{{ error() }}</ion-note>
+    <ion-button expand="block" (click)="fetchBoletas()" color="warning" class="ion-margin-top">
+      Reintentar Carga
+    </ion-button>
+  </div>
+  }
+
+  @if (!isLoading() && boletas().length > 0) {
+  <ion-list>
+    <ion-item lines="none" class="list-header">
+      <ion-label>
+        <h2 class="ion-no-margin">Total de Boletas: {{ boletas().length }}</h2>
+      </ion-label>
+    </ion-item>
+
+    @for (boleta of boletas(); track boleta.codigoUPA) {
+    <ion-item lines="full" detail button (click)="selectBoleta(boleta.codigoUPA)" class="boleta-card">
+      <ion-label class="ion-text-wrap">
+
+        <div class="info-container">
+
+          <div class="producer-actions-container">
+            <ion-note class="producer-note ion-text-end">
+              @if (boleta.personaProductora) {
+              <strong>{{ boleta.personaProductora.primerNombre }} {{
+                boleta.personaProductora.primerApellido
+                }}</strong>
+              } @else {
+              <strong class="text-unavailable">[Productor no disponible]</strong>
+              }
+            </ion-note>
+            <ion-button size="small" fill="clear" color="primary" class="btn-ver-json"
+              (click)="$event.stopPropagation(); showJsonPanel(boleta);">
+              Ver JSON
+            </ion-button>
+          </div>
+          <p class="detail-info upa-line ion-no-margin">
+            <span>UPA:</span> <strong>{{ boleta.codigoUPA }}</strong>
+          </p>
+
+          <p class="detail-info ion-no-margin flex-row">
+            <span>Estado:</span>
+            <span class="estado-tag" [class.tag-finalizada]="boleta.estadoBoleta === 'FINALIZADA'"
+              [class.tag-pendiente]="boleta.estadoBoleta !== 'FINALIZADA'"
+              [attr.title]="boleta.estadoBoleta === 'FINALIZADA' ? 'Encuesta Finalizada (R)' : 'Encuesta Pendiente'">
+              {{ boleta.estadoBoleta === 'FINALIZADA' ? 'R' : boleta.estadoBoleta }}
+            </span>
+          </p>
+
+          <p class="detail-info ion-no-margin">
+            ID de Levantamiento: <strong>{{ boleta.boletaIdLevanta || 'No aplica' }}</strong>
+          </p>
+
+
+        </div>
+      </ion-label>
+    </ion-item>
+    }
+  </ion-list>
+  }
+
+  @if (!isLoading() && !error() && boletas().length === 0) {
+  <div class="ion-text-center ion-padding empty-state">
+    <ion-icon name="clipboard-outline" color="medium" size="large"></ion-icon>
+    <p class="ion-padding-top">
+      <ion-note color="medium">No se encontraron boletas asignadas para este código.</ion-note>
+    </p>
+  </div>
+  }
+
+  @if (isJsonPanelOpen()) {
+  <div class="json-panel-overlay" (click)="closeJsonPanel()"></div>
+  <div class="json-panel-sidebar">
+    <ion-header class="ion-no-border">
+      <ion-toolbar color="dark">
+        <ion-title>JSON de Boleta</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeJsonPanel()">
+            <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding-vertical">
+      <pre class="json-code" [innerHTML]="formatJson(selectedBoletaJson())"></pre>
+    </ion-content>
+  </div>
+  }
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="mp-footer-buttons-toolbar">
+    <div class="mp-footer-buttons-container">
+
+      <ion-button fill="solid" color="primary" (click)="grabarBoletaActual()" [disabled]="isSaving()"
+        class="mp-footer-button">
+        @if (isSaving()) {
+        <ion-spinner name="crescent"></ion-spinner>
+        } @else {
+        <span>💾 Grabar Boleta Actual</span>
+        }
+      </ion-button>
+
+      <ion-button fill="solid" color="secondary" (click)="nuevaBoleta()" class="mp-footer-button">
+        <ion-icon name="document-text-outline" slot="start"></ion-icon>
+        <span> Nueva Boleta</span>
+      </ion-button>
+
+    </div>
+  </ion-toolbar>
+</ion-footer>

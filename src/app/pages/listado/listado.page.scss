@@ -1,0 +1,427 @@
+/* src/app/pages/listado/listado.page.scss */
+
+/* 1. COLOR DE LA BARRA SUPERIOR (HEADER) */
+ion-toolbar {
+    --background: #034C21;
+    /* Verde oscuro (Barra Superior) */
+    color: white;
+}
+
+/* Color y estilo del título y código de encuestador */
+ion-title {
+    color: white;
+    font-weight: 600;
+}
+
+ion-note[slot="end"] {
+    color: #ecf0f1 !important;
+    font-weight: bold;
+}
+
+/* 2. COLOR DE FONDO DEL CONTENIDO */
+ion-content {
+    --background: #f7f9fc;
+    /* Fondo muy claro para contraste */
+}
+
+// 3. ESTILO PARA EL ENCABEZADO DE LA LISTA ("Total de Boletas")
+ion-list-header {
+    --border-color: transparent;
+
+    /* 🎯 SOLUCIÓN: El fondo es ahora BLANCO */
+    background: white;
+    /* El color aquí no importa mucho, se define en ion-label h2 */
+    color: #034C21;
+
+    margin-bottom: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    ion-label h2 {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        padding-left: 5px;
+
+        /* 🎯 SOLUCIÓN: La letra es VERDE OSCURO y más grande */
+        color: #034C21;
+        font-size: 1.2em;
+    }
+}
+
+// 4. ESTILOS DE LOS ÍTEMS INDIVIDUALES
+ion-item {
+    --padding-start: 16px;
+    --inner-padding-end: 16px;
+    --border-radius: 8px;
+    margin-bottom: 12px;
+    --background: white;
+    /* Cada ítem sigue siendo blanco */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease-in-out;
+
+    &.activated {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        transform: translateY(-1px);
+    }
+}
+
+// 5. TIPOGRAFÍA
+ion-label {
+    padding: 8px 0;
+
+    h3 {
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 4px;
+
+        strong {
+            font-size: 1.1em;
+        }
+    }
+
+    p {
+        color: #555;
+        font-size: 0.9em;
+        margin-top: 2px;
+    }
+
+    .codigo-upa {
+        font-weight: 500;
+        color: #7f8c8d;
+        font-style: italic;
+    }
+}
+
+/* Colores y Variables de Ionic */
+:root {
+    --ion-color-primary: #008000;
+    /* Verde oscuro para encabezados/acciones y Botón Nueva Boleta */
+    --ion-color-primary-shade: #006400;
+    --ion-color-success: #034C21;
+    /* Color solicitado para Botón Grabar Boleta Actual */
+    --ion-color-danger: #dc3545;
+    --ion-color-warning: #ffc107;
+    --ion-color-medium-shade: #6c757d;
+}
+
+ion-toolbar[color="primary"] {
+    --background: var(--ion-color-primary);
+    color: white;
+}
+
+.ion-text-light {
+    color: white !important;
+}
+
+/* --- Fin Estilos del Footer --- */
+
+/* Estilo para la lista */
+ion-list {
+    background: none;
+    padding: 0 8px;
+}
+
+.list-header {
+    margin-bottom: 12px;
+}
+
+/* 1. Estilo de la tarjeta de boleta */
+.boleta-card {
+    --padding-start: 15px;
+    --padding-end: 15px;
+    --inner-padding-end: 15px;
+    --background: #ffffff;
+    border-radius: 4px;
+    /* Más sutil para parecerse a la imagen */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    /* Sombra muy sutil */
+    margin-bottom: 0;
+    /* Elimina el margen inferior si lines="full" está activo */
+}
+
+/* Contenedor que permite flotar el texto del productor a la derecha */
+.info-container {
+    position: relative;
+}
+
+/* Estilo para la nota del productor (derecha) */
+.producer-note {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.0em;
+    /* Tamaño estándar */
+    color: #333;
+    font-weight: 500;
+    text-align: right;
+    max-width: 50%;
+}
+
+.text-unavailable {
+    color: var(--ion-color-medium-shade);
+    /* Gris para no disponible */
+}
+
+
+/* Estilos de las líneas de detalle */
+.detail-info {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 1px;
+}
+
+/* CLAVE: Clase para usar Flexbox y pegar los elementos */
+.flex-row {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    white-space: nowrap;
+    /* 💡 SOLUCIÓN DEFINITIVA: Eliminar el espacio tipográfico del contenedor */
+    font-size: 0;
+}
+
+
+/* Regla específica para alinear correctamente los textos y sus valores */
+.detail-info span {
+    font-style: italic;
+    /* Para la etiqueta "UPA:", se ve cursiva en la imagen original */
+    color: #555;
+    margin-right: 0;
+    padding-right: 0;
+    /* 💡 Restablecer el tamaño de fuente */
+    font-size: 1em;
+}
+
+.detail-info strong {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Asegura que el UPA se vea cursiva y el código en negrita */
+.upa-line strong {
+    font-weight: 600;
+    color: #000;
+    font-style: normal;
+}
+
+.upa-line span {
+    font-style: italic;
+    color: #555;
+}
+
+
+/* Estilo para el Estado (Tag/Etiqueta) */
+.estado-tag {
+    /* Asegura la alineación inline */
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    /* --- */
+    background: none;
+    color: var(--ion-color-danger);
+    font-weight: bold;
+    /* 💡 Restablecer el tamaño de fuente */
+    font-size: 1em;
+    /* 💡 Margen negativo eliminado ya que font-size: 0 lo hace innecesario */
+    /* margin-left: -4px; */
+}
+
+.tag-finalizada {
+    color: var(--ion-color-primary-shade);
+}
+
+.tag-pendiente {
+    color: var(--ion-color-danger);
+}
+
+ion-item.boleta-card {
+    /* Asegura un borde inferior sutil */
+    --border-color: #e0e0e0;
+    --border-width: 1px;
+}
+
+/* Asegura el espacio inferior de 16px para el divisor visible entre tarjetas */
+.boleta-card:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+/* ------------------------------------------- */
+/* 6. ESTILOS DEL BOTÓN "VER JSON" Y SU CONTENEDOR (SOLUCIÓN DEFINITIVA: UNA LÍNEA Y FLUJO) */
+/* ------------------------------------------- */
+
+.producer-actions-container {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    z-index: 2;
+
+    // 🎯 CLAVE: Aumentar el ancho máximo para que quepa el texto largo en UNA LÍNEA.
+    max-width: 200px; // Ajustado a 180px para garantizar que quepa "[Productor no disponible]"
+    width: auto;
+
+    // El padding-right se aplica al contenedor para separarlo del borde derecho del ion-item.
+    // 🎯 CLAVE: Usamos un padding más grande para compensar el ancho de la flecha de Ionic.
+    padding-right: 200px;
+
+    // ✅ Usamos Flexbox vertical para el apilamiento y alineación
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Alinea los hijos a la derecha dentro del contenedor */
+}
+
+.producer-note {
+    // 🎯 CLAVE: Reintroducir white-space: nowrap; para que el texto NO se envuelva
+    white-space: nowrap;
+
+    display: block;
+    text-align: right;
+    /* Alinea el texto a la derecha */
+    min-height: 20px;
+
+    // ✅ CLAVE: Margin-bottom para separar el botón que viene abajo
+    margin-bottom: 5px;
+
+    // ELIMINAMOS TODAS LAS PROPIEDADES DE POSICIONAMIENTO CONFLICTIVAS
+    position: unset;
+    top: unset;
+    right: unset;
+
+    color: var(--ion-color-medium);
+}
+
+.btn-ver-json {
+    --padding-start: 0;
+    --padding-end: 0;
+    --min-height: 18px;
+
+    display: block;
+    // ✅ align-self: flex-end; es lo que lo alinea a la derecha (gracias al padre)
+    //align-self: flex-end;
+    margin: 0 auto;
+    width: 180px;
+
+
+    // ✅ La separación vertical ya la da margin-bottom en la nota
+    margin-top: 5px;
+    margin-right: 15px;
+
+
+    // ELIMINAMOS TODAS LAS PROPIEDADES DE POSICIONAMIENTO CONFLICTIVAS
+    position: unset;
+    top: unset;
+    right: unset;
+
+    font-size: 0.75rem;
+    height: 20px;
+
+    color: var(--ion-color-primary);
+}
+
+/* OPCIONAL: Estilo para el texto [Productor no disponible] */
+.text-unavailable {
+    color: var(--ion-color-medium-shade);
+    font-weight: bold;
+}
+
+/* ---------------------------------------------------- */
+/* 7. ESTILOS DEL PANEL LATERAL JSON (VERSIÓN FINAL MEJORADA) */
+/* ---------------------------------------------------- */
+
+/* Capa de fondo oscuro para el efecto modal */
+.json-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(6, 63, 31, 0.6);
+    /* Oscurecer más el fondo */
+    z-index: 9999;
+}
+
+/* El panel lateral deslizante: MÁS PEQUEÑO */
+.json-panel-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    /* 🎯 CAMBIO CLAVE: Reducir el ancho y establecer un máximo */
+    width: 75%;
+    max-width: 350px;
+    /* Un poco más estrecho para móvil/tablet */
+
+    height: 100%;
+    background: #ffffff;
+    box-shadow: -8px 0 15px rgba(0, 0, 0, 0.4);
+    /* Sombra más pronunciada */
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+
+    /* Toolbar oscura para el encabezado del panel */
+    ion-toolbar {
+        --background: #283747;
+        /* Azul oscuro/gris para el encabezado */
+        color: white;
+        font-weight: 600;
+        min-height: 50px;
+    }
+
+    /* Contenido (ion-content) */
+    ion-content {
+        --background: #fafafa;
+        /* Fondo muy claro para contraste */
+        padding: 10px;
+        overflow-y: auto;
+    }
+}
+
+/* 🎯 ESTILOS PARA EL CÓDIGO JSON (Fondo oscuro y Resaltado de Sintaxis) */
+.json-code {
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-family: 'Consolas', 'Courier New', monospace;
+    /* Fuente de código limpia */
+    font-size: 0.7em;
+    padding: 10px;
+    background: #ffffff;
+    /* Fondo oscuro de editor de código */
+    border-radius: 4px;
+    overflow-x: auto;
+    /* --- INICIO DEL CÓDIGO FALTANTE --- */
+    color: #000000;
+    /* Color de texto base claro */
+    line-height: 1.4;
+    /* Mejora la legibilidad */
+
+    /* Colores del Resaltado de Sintaxis (Funcionan con la función formatJson de tu TS) */
+
+    /* Claves (Keys) */
+    .json-key {
+        color: #9cdcfe;
+        /* Azul claro */
+        font-weight: 500;
+    }
+
+    /* Valores String */
+    .json-string {
+        color: #ce9178;
+        /* Naranja/Marrón */
+    }
+
+    /* Valores Numéricos */
+    .json-number {
+        color: #b5cea8;
+        /* Verde claro */
+    }
+
+    /* Valores Booleanos y Null */
+    .json-boolean,
+    .json-null {
+        color: #569cd6;
+        /* Azul brillante */
+        font-weight: bold;
+    }
+}

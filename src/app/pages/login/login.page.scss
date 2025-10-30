@@ -1,0 +1,99 @@
+/* src/app/pages/login/login.page.scss */
+
+// Paleta de colores minimalista
+$primary-color: #022f16;
+$secondary-color: #4CAF50;
+$card-bg: #FFFFFF;
+$text-color: #075f3d;
+$error-color: #f44336;
+$button-text-color: #FFFFFF;
+
+// Estilo del ion-content para centrar el formulario y aplicar el fondo degradado
+ion-content {
+  --background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+// Estilos de la tarjeta de login
+.login-card {
+  background-color: $card-bg;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+
+  // Posicionamiento absoluto para centrado perfecto
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Estilos para la sección del logo y título
+.logo-section {
+  margin-bottom: 25px;
+}
+
+// Estilo del logo
+.logo-section ion-img {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 15px;
+  display: block;
+}
+
+// Estilo del título "LOGIN"
+.logo-section h2 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #125834;
+  margin-bottom: 0;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+// Estilos de los campos de entrada
+ion-item {
+  --background: #ffffff;
+  --border-radius: 8px;
+  --border-style: none;
+  margin-bottom: 15px;
+  --padding-start: 12px;
+}
+
+// Estilos del input y placeholder
+ion-input {
+  --color: $text-color;
+  --placeholder-color: #9e9e9e;
+  --placeholder-opacity: 1;
+}
+
+// Mensaje de error
+.error-message {
+  color: $error-color;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+// Estilo del botón "Iniciar Sesión"
+ion-button {
+  background: $primary-color;
+  color: $button-text-color;
+  border-radius: 8px;
+  height: 50px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-top: 25px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    --background: darken($primary-color, 10%);
+  }
+
+}

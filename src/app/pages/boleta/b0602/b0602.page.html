@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>6.2 - Disponibilidad del agua para riego</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h1>6.2 - Disponibilidad del agua para riego</h1>
+
+        @if (boleta().isTerrenoAccedeRiegoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.2.1</span>De los terrenos que corresponden a esta entrevista, ¿al menos uno de ellos accede a riego?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isTerrenoAccedeRiego"
+                (ionChange)="this.boletaService.onInputChange($event, 'isTerrenoAccedeRiego')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().fuenteAguaRiegoShow) {
+        <ion-item button (click)='openModal("fuenteAguaRiego","boleta")'>
+            <ion-label><span class="label-codigo">6.2.2</span>¿De dónde obtiene el agua para riego?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().fuenteAguaRiego)() }}
+            {{ boleta().fuenteAguaRiego }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sistemaAguaRiegoShow) {
+        <ion-item button (click)='openModal("sistemaAguaRiego","boleta")'>
+            <ion-label><span class="label-codigo">6.2.3</span>El agua de riego disponible pertenece a un sistema:</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().sistemaAguaRiego)() }}
+            {{ boleta().sistemaAguaRiego }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

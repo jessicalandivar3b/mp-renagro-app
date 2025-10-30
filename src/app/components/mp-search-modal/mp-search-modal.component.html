@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-title>Seleccione</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar..." (ionInput)="onSearch($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    @for (item of filteredItems(); track item.codigo) {
+    <ion-item (click)="selectItem(item)">
+      <ion-label>{{ item.descripcion }}</ion-label>
+    </ion-item>
+    }
+    @if (filteredItems().length === 0) {
+    <ion-item>
+      <ion-label>No se encontraron resultados.</ion-label>
+    </ion-item>
+    }
+  </ion-list>
+</ion-content>

@@ -1,0 +1,271 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end">
+
+            <ion-button (click)="goToCultivoPage()">
+                <ion-icon name="list-outline"></ion-icon>
+            </ion-button>
+
+            <ion-button (click)="cultivoService.addCultivo()">
+                <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-button>
+
+            <ion-button (click)="cultivoService.removeCultivo()">
+                <ion-icon name="remove-circle-outline"></ion-icon>
+            </ion-button>
+
+        </ion-buttons>
+        <ion-title>3.1 - Cultivos perennes, transitorios, flores, silvicultura, fungicultura y mosaicos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+        <ion-list>
+
+            <h1>3.1 - Cultivos perennes, transitorios, flores, silvicultura, fungicultura y mosaicos</h1>
+
+            @if (terreno().isCultivoEnTerrenosShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1</span>¿Al día de HOY, la persona productora (PP) tiene
+                    cultivos en los terrenos que corresponden a esta entrevista?</ion-label>
+                <ion-toggle slot="end" [checked]="terreno().isCultivoEnTerrenos"
+                    (ionChange)="this.terrenoService.onInputChange($event, 'isCultivoEnTerrenos')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            <h3>3.1.1.2 - Nombre del cultivo</h3>
+
+            @if (cultivo().nombreCultivoShow) {
+            <ion-item button (click)='openModal("nombreCultivo","cultivo")'>
+                <ion-label><span class="label-codigo">3.1.1.2.1</span>Nombre del cultivo</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().nombreCultivo)() }}
+                    {{ cultivo().nombreCultivo }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (cultivo().otroNombreCultivoShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">3.1.1.2.2</span>Otro nombre del cultivo</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #otroNombreCultivoInput="ngModel" name="otroNombreCultivo" type="text" required="true"
+                        maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="cultivo().otroNombreCultivo"
+                        (ionChange)="this.cultivoService.onInputChange($event, 'otroNombreCultivo')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="otroNombreCultivo" [control]="otroNombreCultivoInput.control"
+                [value]="cultivo().otroNombreCultivo"></mp-input-error>
+            }
+
+            @if (cultivo().superficiePlantadaShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">3.1.1.3.2</span>Superficie plantada/sembrada</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #superficiePlantadaInput="ngModel" name="superficiePlantada" type="number"
+                        required="true" min="0.1" max="99999.9" [mpDecimalPrecision]="1"
+                        [(ngModel)]="cultivo().superficiePlantada"
+                        (ionChange)="this.cultivoService.onInputChange($event, 'superficiePlantada')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="superficiePlantada" [control]="superficiePlantadaInput.control"
+                [value]="cultivo().superficiePlantada"></mp-input-error>
+            }
+
+            <h3>3.1.1.3 - Superficie plantada/sembrada</h3>
+
+            <h2>3.2.5 - Superficie plantada</h2>
+
+            @if (cultivo().superficiePlantadaUnidadShow) {
+            <ion-item button (click)='openModal("superficiePlantadaUnidad","cultivo")'>
+                <ion-label><span class="label-codigo">3.1.1.3.1</span>Unidad de superficie plantada/sembrada</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().superficiePlantadaUnidad)() }}
+                    {{ cultivo().superficiePlantadaUnidad }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (cultivo().superficieRiegoShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">3.1.1.4.2</span>Superficie Riego</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #superficieRiegoInput="ngModel" name="superficieRiego" type="number" required="true"
+                        min="0" max="99999.9" [mpDecimalPrecision]="1" [(ngModel)]="cultivo().superficieRiego"
+                        (ionChange)="this.cultivoService.onInputChange($event, 'superficieRiego')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="superficieRiego" [control]="superficieRiegoInput.control"
+                [value]="cultivo().superficieRiego"></mp-input-error>
+            }
+
+            <h3>3.1.1.4 - De este cultivo,indique la superficie que recibe riego</h3>
+
+            @if (cultivo().superficieRiegoUnidadShow) {
+            <ion-item button (click)='openModal("superficieRiegoUnidad","cultivo")'>
+                <ion-label><span class="label-codigo">3.1.1.4.1</span>Unidad de superficie de riego</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().superficieRiegoUnidad)() }}
+                    {{ cultivo().superficieRiegoUnidad }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (cultivo().metodoDeRiegoShow) {
+            <ion-item button (click)='openModal("metodoDeRiego","cultivo")'>
+                <ion-label><span class="label-codigo">3.1.1.5</span>Principal método de riego.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().metodoDeRiego)() }}
+                    {{ cultivo().metodoDeRiego }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (cultivo().cultivoAsociadoShow) {
+            <ion-item button (click)='openModal("cultivoAsociado","cultivo")'>
+                <ion-label><span class="label-codigo">3.1.1.6</span>El cultivo está:</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().cultivoAsociado)() }}
+                    {{ cultivo().cultivoAsociado }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (cultivo().formaCultivarShow) {
+            <ion-item button (click)='openModal("formaCultivar","cultivo")'>
+                <ion-label><span class="label-codigo">3.1.1.7</span>Cultivado a:</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().formaCultivar)() }}
+                    {{ cultivo().formaCultivar }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (cultivo().isControlPlagasQuimicoShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1.14</span>El control de plagas fue con insumos
+                    SINTETICO/QUIMICO</ion-label>
+                <ion-toggle slot="end" [checked]="cultivo().isControlPlagasQuimico"
+                    (ionChange)="this.cultivoService.onInputChange($event, 'isControlPlagasQuimico')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (cultivo().isControlPlagasOrganicoShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1.13</span>El control de plagas fue con insumos
+                    ORGANICOS</ion-label>
+                <ion-toggle slot="end" [checked]="cultivo().isControlPlagasOrganico"
+                    (ionChange)="this.cultivoService.onInputChange($event, 'isControlPlagasOrganico')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (cultivo().sacosDeUreaUsadoShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">3.1.1.12</span>¿Cuántos sacos de ÚREA utilizó?</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #sacosDeUreaUsadoInput="ngModel" name="sacosDeUreaUsado" type="number" required="true"
+                        min="0" max="999" [mpDecimalPrecision]="0" [(ngModel)]="cultivo().sacosDeUreaUsado"
+                        (ionChange)="this.cultivoService.onInputChange($event, 'sacosDeUreaUsado')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="sacosDeUreaUsado" [control]="sacosDeUreaUsadoInput.control"
+                [value]="cultivo().sacosDeUreaUsado"></mp-input-error>
+            }
+
+            @if (cultivo().isUsoFertilizanteQuimicoShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1.11</span>¿Utilizó fertilizantes
+                    SINTÉTICO/QUÍMICO?</ion-label>
+                <ion-toggle slot="end" [checked]="cultivo().isUsoFertilizanteQuimico"
+                    (ionChange)="this.cultivoService.onInputChange($event, 'isUsoFertilizanteQuimico')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (cultivo().isUsoFertilizanteOrganicoShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1.10</span>¿Utilizó fertilizantes ORGÁNICOS?</ion-label>
+                <ion-toggle slot="end" [checked]="cultivo().isUsoFertilizanteOrganico"
+                    (ionChange)="this.cultivoService.onInputChange($event, 'isUsoFertilizanteOrganico')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (cultivo().isUsoSemillaNativaCampesinaShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1.9</span>¿Utilizó semillas nativas o campesinas?</ion-label>
+                <ion-toggle slot="end" [checked]="cultivo().isUsoSemillaNativaCampesina"
+                    (ionChange)="this.cultivoService.onInputChange($event, 'isUsoSemillaNativaCampesina')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (cultivo().isUsoMaterialVegetativoShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1.8</span>¿Utilizó material vegetativo
+                    certificado?</ion-label>
+                <ion-toggle slot="end" [checked]="cultivo().isUsoMaterialVegetativo"
+                    (ionChange)="this.cultivoService.onInputChange($event, 'isUsoMaterialVegetativo')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (cultivo().isCertificacionOrganicaShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1.15</span>¿Cuenta con una CERTIFICACIÓN ORGÁNICA?</ion-label>
+                <ion-toggle slot="end" [checked]="cultivo().isCertificacionOrganica"
+                    (ionChange)="this.cultivoService.onInputChange($event, 'isCertificacionOrganica')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (cultivo().isSeguroAgricolaShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1.16</span>¿Tiene SEGURO AGRÍCOLA?</ion-label>
+                <ion-toggle slot="end" [checked]="cultivo().isSeguroAgricola"
+                    (ionChange)="this.cultivoService.onInputChange($event, 'isSeguroAgricola')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (cultivo().isLlevaRegistroProduccionShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.1.1.17</span>¿Lleva un registro de la producción?</ion-label>
+                <ion-toggle slot="end" [checked]="cultivo().isLlevaRegistroProduccion"
+                    (ionChange)="this.cultivoService.onInputChange($event, 'isLlevaRegistroProduccion')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+        </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

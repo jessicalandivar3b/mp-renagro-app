@@ -1,0 +1,560 @@
+[
+    {
+        "grupo": "boleta",
+        "campo": "arado",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "autoconsumoAgricola",
+        "catalogo": "431"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "autoconsumoApicola",
+        "catalogo": "431"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "autoconsumoAvicola",
+        "catalogo": "431"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "autoconsumoBovina",
+        "catalogo": "431"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "autoconsumoCuyesConejos",
+        "catalogo": "431"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "autoconsumoForestal",
+        "catalogo": "431"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "autoconsumoOtrasAves",
+        "catalogo": "431"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "autoconsumoOvinoCaprino",
+        "catalogo": "431"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "autoconsumoPorcicola",
+        "catalogo": "431"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "bombaAgua",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "bombaEstacionariaFumiga",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "bombaMochila",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "bombaMochilaMotor",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "canton",
+        "catalogo": "CANT",
+        "padre": "provincia",
+        "encera": [
+            "parroquia"
+        ]
+    },
+    {
+        "grupo": "boleta",
+        "campo": "cantonVive",
+        "catalogo": "CANT",
+        "padre": "provinciaVive",
+        "encera": [
+            "parroquiaVive"
+        ]
+    },
+    {
+        "grupo": "boleta",
+        "campo": "carreton",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "compradorAgricola",
+        "catalogo": "145"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "compradorApicola",
+        "catalogo": "145"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "compradorAvicola",
+        "catalogo": "145"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "compradorBovina",
+        "catalogo": "145"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "compradorCuyesConejos",
+        "catalogo": "145"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "compradorForestal",
+        "catalogo": "145"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "compradorOtrasAves",
+        "catalogo": "145"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "compradorOvinoCaprino",
+        "catalogo": "145"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "compradorPorcicola",
+        "catalogo": "145"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "cosechadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "desgranadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "empacadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "empacadoraForestal",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "enfardadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "ensiladora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "extencionAgricolaInstitucion",
+        "catalogo": "190"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "extencionAgricolaRecibida",
+        "catalogo": "444"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "fangueadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "fertilizadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "fuenteAguaRiego",
+        "catalogo": "147"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "fumigadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "informanteRelacion",
+        "catalogo": "192"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "manejoEnvase",
+        "catalogo": "519"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "manejoResiduoAgricola",
+        "catalogo": "518"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "manejoResiduoAnimal",
+        "catalogo": "517"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "motocultor",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "motoguadania",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "motosierra",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "necesidadConocimientos",
+        "catalogo": "464"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "otroMaquinariaEquipoAcceso",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "parroquia",
+        "catalogo": "PARR",
+        "padre": "canton"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "parroquiaVive",
+        "catalogo": "PARR",
+        "padre": "cantonVive"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "plantaElectricaTermica",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "prestamoDestino",
+        "catalogo": "432"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "prestamoFuente",
+        "catalogo": "187"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "prestamoNegacion",
+        "catalogo": "456"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "prestamoPersona",
+        "catalogo": "520"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "prestamoRazonNoGestiono",
+        "catalogo": "188"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "provincia",
+        "catalogo": "PROV",
+        "encera": [
+            "canton",
+            "parroquia"
+        ]
+    },
+    {
+        "grupo": "boleta",
+        "campo": "provinciaVive",
+        "catalogo": "PROV",
+        "encera": [
+            "cantonVive",
+            "parroquiaVive"
+        ]
+    },
+    {
+        "grupo": "boleta",
+        "campo": "rastra",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "respuestaNegativaMiembro",
+        "catalogo": "516"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "romplow",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "rotocultor",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "secadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "segadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sembradora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sistemaAguaRiego",
+        "catalogo": "148"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sitioAgricola",
+        "catalogo": "234"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sitioApicola",
+        "catalogo": "234"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sitioAvicola",
+        "catalogo": "234"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sitioBovina",
+        "catalogo": "234"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sitioCuyesConejos",
+        "catalogo": "234"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sitioForestal",
+        "catalogo": "234"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sitioOtrasAves",
+        "catalogo": "234"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sitioOvinoCaprino",
+        "catalogo": "234"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "sitioPorcicola",
+        "catalogo": "234"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "subsoladora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "surcadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "tipoDeMiembro",
+        "catalogo": "469"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "tractorForestal",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "tractorJardin",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "tractorOruga",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "tractorRueda",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "boleta",
+        "campo": "trilladora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "bovino",
+        "campo": "ordeniadora",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "bovino",
+        "campo": "principalFormaReproduccion",
+        "catalogo": "154"
+    },
+    {
+        "grupo": "bovino",
+        "campo": "principalProduccionGanado",
+        "catalogo": "525"
+    },
+    {
+        "grupo": "bovino",
+        "campo": "tanqueEnfriamiento",
+        "catalogo": "524"
+    },
+    {
+        "grupo": "cul_forestal",
+        "campo": "nombreEspecieForestal",
+        "catalogo": "509"
+    },
+    {
+        "grupo": "cul_forestal",
+        "campo": "principalDestinoDeUso",
+        "catalogo": "522"
+    },
+    {
+        "grupo": "cul_forestal",
+        "campo": "superficiePlantadaUnidad",
+        "catalogo": "507"
+    },
+    {
+        "grupo": "cultivos",
+        "campo": "cultivoAsociado",
+        "catalogo": "139"
+    },
+    {
+        "grupo": "cultivos",
+        "campo": "formaCultivar",
+        "catalogo": "177"
+    },
+    {
+        "grupo": "cultivos",
+        "campo": "metodoDeRiego",
+        "catalogo": "146"
+    },
+    {
+        "grupo": "cultivos",
+        "campo": "nombreCultivo",
+        "catalogo": "509"
+    },
+    {
+        "grupo": "cultivos",
+        "campo": "superficiePlantadaUnidad",
+        "catalogo": "507"
+    },
+    {
+        "grupo": "cultivos",
+        "campo": "superficieRiegoUnidad",
+        "catalogo": "507"
+    },
+    {
+        "grupo": "miembroHogar",
+        "campo": "autoidentificacion",
+        "catalogo": "132"
+    },
+    {
+        "grupo": "miembroHogar",
+        "campo": "genero",
+        "catalogo": "8"
+    },
+    {
+        "grupo": "miembroHogar",
+        "campo": "manejoTerrenos",
+        "catalogo": "521"
+    },
+    {
+        "grupo": "miembroHogar",
+        "campo": "nivelInstruccion",
+        "catalogo": "194"
+    },
+    {
+        "grupo": "miembroHogar",
+        "campo": "relacionPersonaProd",
+        "catalogo": "527"
+    },
+    {
+        "grupo": "miembroHogar",
+        "campo": "tipoIdentificacion",
+        "catalogo": "7"
+    },
+    {
+        "grupo": "personaProductora",
+        "campo": "tipoIdentificacion",
+        "catalogo": "7"
+    },
+    {
+        "grupo": "pollo",
+        "campo": "razonNoRegistro",
+        "catalogo": "523"
+    },
+    {
+        "grupo": "porcino",
+        "campo": "fuenteReprodruccionPorcina",
+        "catalogo": "161"
+    },
+    {
+        "grupo": "terreno",
+        "campo": "accesoTierra",
+        "catalogo": "504"
+    },
+    {
+        "grupo": "terreno",
+        "campo": "coberturaTierra",
+        "catalogo": "505"
+    },
+    {
+        "grupo": "terreno",
+        "campo": "superficieUnidad",
+        "catalogo": "507"
+    },
+    {
+        "grupo": "terreno",
+        "campo": "tenencia",
+        "catalogo": "466"
+    }
+]

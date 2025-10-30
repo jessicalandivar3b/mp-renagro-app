@@ -1,0 +1,576 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>4.2 - Ganado bovino</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        @if (boleta().bovino.isBovinoRegistroProduccionShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.2</span>¿Lleva un registro de la producción?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isBovinoRegistroProduccion"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isBovinoRegistroProduccion')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.ternerosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.3</span>TERNEROS (menor a 1 año)</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #ternerosInput="ngModel" name="terneros" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.terneros"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.terneros')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="terneros" [control]="ternerosInput.control"
+            [value]="boleta().bovino.terneros"></mp-input-error>
+      }
+
+        @if (boleta().bovino.toretesShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.4</span>TORETES (entre 1 y 2 años)</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #toretesInput="ngModel" name="toretes" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.toretes"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.toretes')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="toretes" [control]="toretesInput.control"
+            [value]="boleta().bovino.toretes"></mp-input-error>
+      }
+
+        @if (boleta().bovino.torosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.5</span>TOROS (mas de 2 años)</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #torosInput="ngModel" name="toros" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.toros"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.toros')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="toros" [control]="torosInput.control"
+            [value]="boleta().bovino.toros"></mp-input-error>
+      }
+
+        @if (boleta().bovino.subtotalMachosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.6</span>Subtotal machos</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #subtotalMachosInput="ngModel" name="subtotalMachos" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.subtotalMachos"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.subtotalMachos')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="subtotalMachos" [control]="subtotalMachosInput.control"
+            [value]="boleta().bovino.subtotalMachos"></mp-input-error>
+      }
+
+        @if (boleta().bovino.ternerasShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.7</span>TERNERAS (menor a 1 año)</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #ternerasInput="ngModel" name="terneras" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.terneras"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.terneras')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="terneras" [control]="ternerasInput.control"
+            [value]="boleta().bovino.terneras"></mp-input-error>
+      }
+
+        @if (boleta().bovino.vaconasShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.8</span>VACONAS (entre 1 y 2 años)</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #vaconasInput="ngModel" name="vaconas" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.vaconas"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.vaconas')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="vaconas" [control]="vaconasInput.control"
+            [value]="boleta().bovino.vaconas"></mp-input-error>
+      }
+
+        @if (boleta().bovino.vacasEnProduccionShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.9</span>VACAS (>2 años) en produccion</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #vacasEnProduccionInput="ngModel" name="vacasEnProduccion" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.vacasEnProduccion"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.vacasEnProduccion')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="vacasEnProduccion" [control]="vacasEnProduccionInput.control"
+            [value]="boleta().bovino.vacasEnProduccion"></mp-input-error>
+      }
+
+        @if (boleta().bovino.vacasSecasShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.10</span>VACAS (>2 años) secas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #vacasSecasInput="ngModel" name="vacasSecas" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.vacasSecas"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.vacasSecas')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="vacasSecas" [control]="vacasSecasInput.control"
+            [value]="boleta().bovino.vacasSecas"></mp-input-error>
+      }
+
+        @if (boleta().bovino.subtotalHembrasShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.11</span>Subtotal hembras</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #subtotalHembrasInput="ngModel" name="subtotalHembras" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.subtotalHembras"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.subtotalHembras')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="subtotalHembras" [control]="subtotalHembrasInput.control"
+            [value]="boleta().bovino.subtotalHembras"></mp-input-error>
+      }
+
+        @if (boleta().bovino.totalGanadoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.12</span>Total (machos + hembras)</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #totalGanadoInput="ngModel" name="totalGanado" type="number"
+                    required="true" min="1" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.totalGanado"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.totalGanado')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="totalGanado" [control]="totalGanadoInput.control"
+            [value]="boleta().bovino.totalGanado"></mp-input-error>
+      }
+
+        @if (boleta().bovino.propositoParaLechePropioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.13</span>Propósito para LECHE Propio</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #propositoParaLechePropioInput="ngModel" name="propositoParaLechePropio" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.propositoParaLechePropio"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.propositoParaLechePropio')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="propositoParaLechePropio" [control]="propositoParaLechePropioInput.control"
+            [value]="boleta().bovino.propositoParaLechePropio"></mp-input-error>
+      }
+
+        @if (boleta().bovino.propositoParaCarnePropioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.14</span>Propósito para CARNE Propio</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #propositoParaCarnePropioInput="ngModel" name="propositoParaCarnePropio" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.propositoParaCarnePropio"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.propositoParaCarnePropio')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="propositoParaCarnePropio" [control]="propositoParaCarnePropioInput.control"
+            [value]="boleta().bovino.propositoParaCarnePropio"></mp-input-error>
+      }
+
+        @if (boleta().bovino.doblePropositoPropioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.15</span>Doble propósito  Propio</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #doblePropositoPropioInput="ngModel" name="doblePropositoPropio" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.doblePropositoPropio"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.doblePropositoPropio')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="doblePropositoPropio" [control]="doblePropositoPropioInput.control"
+            [value]="boleta().bovino.doblePropositoPropio"></mp-input-error>
+      }
+
+        @if (boleta().bovino.subtotalPropioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.16</span>Subtotal PROPIOS</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #subtotalPropioInput="ngModel" name="subtotalPropio" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.subtotalPropio"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.subtotalPropio')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="subtotalPropio" [control]="subtotalPropioInput.control"
+            [value]="boleta().bovino.subtotalPropio"></mp-input-error>
+      }
+
+        @if (boleta().bovino.propositoParaLecheAjenoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.17</span>Propósito para LECHE  Ajeno</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #propositoParaLecheAjenoInput="ngModel" name="propositoParaLecheAjeno" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.propositoParaLecheAjeno"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.propositoParaLecheAjeno')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="propositoParaLecheAjeno" [control]="propositoParaLecheAjenoInput.control"
+            [value]="boleta().bovino.propositoParaLecheAjeno"></mp-input-error>
+      }
+
+        @if (boleta().bovino.propositoParaCarneAjenoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.18</span>Propósito para CARNE Ajeno</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #propositoParaCarneAjenoInput="ngModel" name="propositoParaCarneAjeno" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.propositoParaCarneAjeno"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.propositoParaCarneAjeno')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="propositoParaCarneAjeno" [control]="propositoParaCarneAjenoInput.control"
+            [value]="boleta().bovino.propositoParaCarneAjeno"></mp-input-error>
+      }
+
+        @if (boleta().bovino.doblePropositoAjenoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.19</span>Doble propósito  Ajeno</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #doblePropositoAjenoInput="ngModel" name="doblePropositoAjeno" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.doblePropositoAjeno"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.doblePropositoAjeno')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="doblePropositoAjeno" [control]="doblePropositoAjenoInput.control"
+            [value]="boleta().bovino.doblePropositoAjeno"></mp-input-error>
+      }
+
+        @if (boleta().bovino.subtotalAjenosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.20</span>Subtotal AJENOS</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #subtotalAjenosInput="ngModel" name="subtotalAjenos" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.subtotalAjenos"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.subtotalAjenos')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="subtotalAjenos" [control]="subtotalAjenosInput.control"
+            [value]="boleta().bovino.subtotalAjenos"></mp-input-error>
+      }
+
+        @if (boleta().bovino.noSabePropositoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.21</span>NO SABE EL PROPÓSITO</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #noSabePropositoInput="ngModel" name="noSabeProposito" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.noSabeProposito"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.noSabeProposito')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="noSabeProposito" [control]="noSabePropositoInput.control"
+            [value]="boleta().bovino.noSabeProposito"></mp-input-error>
+      }
+
+        @if (boleta().bovino.totalGanadoPropositoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.22</span>Total  Ganado Proposito</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #totalGanadoPropositoInput="ngModel" name="totalGanadoProposito" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.totalGanadoProposito"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.totalGanadoProposito')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="totalGanadoProposito" [control]="totalGanadoPropositoInput.control"
+            [value]="boleta().bovino.totalGanadoProposito"></mp-input-error>
+      }
+
+        @if (boleta().bovino.isVacaOrdeniadaAyerShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.23</span>¿El dia de ayer, las vacas fueron ordeñadas?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isVacaOrdeniadaAyer"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isVacaOrdeniadaAyer')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.litrosLecheObtenidoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.24</span>¿Cuántos litros de leche obtuvo en total?</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #litrosLecheObtenidoInput="ngModel" name="litrosLecheObtenido" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.litrosLecheObtenido"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.litrosLecheObtenido')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="litrosLecheObtenido" [control]="litrosLecheObtenidoInput.control"
+            [value]="boleta().bovino.litrosLecheObtenido"></mp-input-error>
+      }
+
+        @if (boleta().bovino.principalFormaReproduccionShow) {
+        <ion-item button (click)='openModal("principalFormaReproduccion","bovino")'>
+            <ion-label><span class="label-codigo">4.2.25</span>Durante el año anterior, ¿cual fue la principal forma de reproduccion del ganado bovino?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().bovino.principalFormaReproduccion)() }}
+            {{ boleta().bovino.principalFormaReproduccion }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        <h2>4.2.26 - Durante el año anterior, ¿contra qué enfermedades vacunó al ganado bovino?</h2>
+
+        @if (boleta().bovino.isVacunaBrucelosisShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.26.1</span>Brucelosis</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isVacunaBrucelosis"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isVacunaBrucelosis')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.isVacunaCarbuncoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.26.2</span>Carbunco (carbón)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isVacunaCarbunco"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isVacunaCarbunco')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.isVacunaFiebreAftosaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.26.3</span>Fiebre aftosa</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isVacunaFiebreAftosa"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isVacunaFiebreAftosa')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.isVacunaIBRShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.26.4</span>IBR (Rinotraqueitis infecciosa bovina)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isVacunaIBR"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isVacunaIBR')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.isVacunaPapilomatosisBovinaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.26.5</span>Papilomatosis bovina (bubas, verrugas)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isVacunaPapilomatosisBovina"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isVacunaPapilomatosisBovina')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.isNingunaVacunaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.26.6</span>Ninguna</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isNingunaVacuna"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isNingunaVacuna')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.isNoSabeVacunaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.26.7</span>No sabe/no responde</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isNoSabeVacuna"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isNoSabeVacuna')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.isOtraVacunaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.26.8</span>Otra vacuna</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isOtraVacuna"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isOtraVacuna')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.otraVacunaShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.26.8.1</span>Otra</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otraVacunaInput="ngModel" name="otraVacuna" type="text"
+                    required="true" maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="boleta().bovino.otraVacuna"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.otraVacuna')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otraVacuna" [control]="otraVacunaInput.control"
+            [value]="boleta().bovino.otraVacuna"></mp-input-error>
+      }
+
+        @if (boleta().bovino.principalProduccionGanadoShow) {
+        <ion-item button (click)='openModal("principalProduccionGanado","bovino")'>
+            <ion-label><span class="label-codigo">4.2.27</span>Durante el año anterior, ¿cual fue el principal sistema de produccion del ganado?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().bovino.principalProduccionGanado)() }}
+            {{ boleta().bovino.principalProduccionGanado }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        <h2>4.2.28 - Seleccione la maquinaria, equipos e implementos a los que puede acceder HOY:</h2>
+
+        @if (boleta().bovino.ordeniadoraShow) {
+        <ion-item button (click)='openModal("ordeniadora","bovino")'>
+            <ion-label><span class="label-codigo">4.2.28.1</span>Ordeñadora.</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().bovino.ordeniadora)() }}
+            {{ boleta().bovino.ordeniadora }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.tanqueEnfriamientoShow) {
+        <ion-item button (click)='openModal("tanqueEnfriamiento","bovino")'>
+            <ion-label><span class="label-codigo">4.2.28.2</span>Tanque de enfriamiento.</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().bovino.tanqueEnfriamiento)() }}
+            {{ boleta().bovino.tanqueEnfriamiento }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.isDescansoAlimentoBovinoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.29</span>¿Dispone de infraestructura para descanso, alimentacion o manejo del ganado bovino?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().bovino.isDescansoAlimentoBovino"
+                (ionChange)="this.boletaService.onInputChange($event, 'bovino.isDescansoAlimentoBovino')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().bovino.numeroGalponesShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.29.1</span>Número de galpones:</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numeroGalponesInput="ngModel" name="numeroGalpones" type="number"
+                    required="true" min="1" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.numeroGalpones"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.numeroGalpones')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numeroGalpones" [control]="numeroGalponesInput.control"
+            [value]="boleta().bovino.numeroGalpones"></mp-input-error>
+      }
+
+        @if (boleta().bovino.capacidadTotalExplotacionShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.2.29.2</span>Capacidad total de la explotación:</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #capacidadTotalExplotacionInput="ngModel" name="capacidadTotalExplotacion" type="number"
+                    required="true" min="1" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().bovino.capacidadTotalExplotacion"
+                    (ionChange)="this.boletaService.onInputChange($event, 'bovino.capacidadTotalExplotacion')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="capacidadTotalExplotacion" [control]="capacidadTotalExplotacionInput.control"
+            [value]="boleta().bovino.capacidadTotalExplotacion"></mp-input-error>
+      }
+
+        <h1>4.1 - Existencia de animales</h1>
+
+        @if (boleta().isPecuarioEnTerrenoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.1.1</span>Al día de HOY, ¿existen animales, infraestructura o equipos pecuarios en los terrenos que corresponden a esta entrevista?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isPecuarioEnTerreno"
+                (ionChange)="this.boletaService.onInputChange($event, 'isPecuarioEnTerreno')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        <h1>4.2 - Ganado bovino</h1>
+
+        @if (boleta().isBovinoEnTerrenoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.2.1</span>Al dia de HOY, ¿existe ganado bovino en los terrenos que corresponden a esta entrevista?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isBovinoEnTerreno"
+                (ionChange)="this.boletaService.onInputChange($event, 'isBovinoEnTerreno')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

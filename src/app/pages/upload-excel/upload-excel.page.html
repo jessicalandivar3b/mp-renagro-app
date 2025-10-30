@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Carga Masiva de Datos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Configuración de Archivo</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">1. Seleccione la Entidad a Cargar</ion-label>
+        <ion-select placeholder="Seleccionar..." (ionChange)="onEntityChange($event)" [value]="selectedEntity"
+          interface="popover">
+          <ion-select-option value="meta">Metas</ion-select-option>
+          <ion-select-option value="avance">Avances</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" class="ion-margin-bottom">
+        <ion-label position="stacked">2. Seleccione Archivo Excel</ion-label>
+
+        <input type="file" #fileInput (change)="onFileSelected($event)"
+          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          style="display: none;">
+
+        <ion-button expand="block" fill="outline" (click)="fileInput.click()" [disabled]="!selectedEntity">
+          <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+          {{ selectedFile ? 'Cambiar Archivo (' + selectedFile.name + ')' : 'Seleccionar Archivo...' }}
+        </ion-button>
+      </ion-item>
+
+      <ion-item *ngIf="selectedFile" lines="none" class="ion-margin-top ion-margin-bottom">
+        <ion-icon name="document-text-outline" slot="start" color="success"></ion-icon>
+        <ion-label class="ion-text-wrap">
+          <p>Archivo Seleccionado:</p>
+          <h2>{{ selectedFile.name }}</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-button expand="block" color="primary" (click)="uploadData()" [disabled]="!selectedFile || !selectedEntity"
+        class="ion-margin-top">
+        <ion-icon name="arrow-up-circle-outline" slot="start"></ion-icon>
+        Subir y Procesar {{ selectedEntity ? selectedEntity.toUpperCase() : 'Datos' }}
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-text color="medium" class="ion-padding-top">
+    <p class="ion-text-center">El sistema procesará el archivo para la entidad seleccionada (Metas o Avances).</p>
+  </ion-text>
+
+</ion-content>

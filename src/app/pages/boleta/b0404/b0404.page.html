@@ -1,0 +1,362 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>4.4 - Pollos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        @if (boleta().pollo.isLlevaRegistroPolloShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.2</span>¿Lleva un registro de la producción?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isLlevaRegistroPollo"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isLlevaRegistroPollo')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        <h2>4.4.3 - Durante el ano anterior, ¿contra qué enfermedades vacuno a las aves?</h2>
+
+        @if (boleta().pollo.isNewcastleEnfermedadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.3.1</span>Newcastle (parálisis)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isNewcastleEnfermedad"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isNewcastleEnfermedad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.isSalmonellaEnfermedadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.3.2</span>Salmonella (diarrea)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isSalmonellaEnfermedad"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isSalmonellaEnfermedad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.isGumboroEnfermedadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.3.3</span>Gumboro (plumas erizadas)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isGumboroEnfermedad"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isGumboroEnfermedad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.isTRTEnfermedadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.3.4</span>TRT (cabeza hinchada)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isTRTEnfermedad"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isTRTEnfermedad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.isBronquitisEnfermedadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.3.5</span>Bronquitis (gripe)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isBronquitisEnfermedad"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isBronquitisEnfermedad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.isMycoplasmaEnfermedadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.3.6</span>Mycoplasma (mocos)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isMycoplasmaEnfermedad"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isMycoplasmaEnfermedad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.isLlaringotraqueitisEnfermedadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.3.7</span>Laringotraqueitis (tos y jadeo)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isLlaringotraqueitisEnfermedad"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isLlaringotraqueitisEnfermedad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.isNingunaEnfermedadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.3.9</span>Ninguna</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isNingunaEnfermedad"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isNingunaEnfermedad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.isOtrasEnfermedadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.3.8</span>Otra enfermedad</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isOtrasEnfermedad"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isOtrasEnfermedad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.otraEnfermedadShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.3.8.1</span>Otra enfermedad especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otraEnfermedadInput="ngModel" name="otraEnfermedad" type="text"
+                    required="true" maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="boleta().pollo.otraEnfermedad"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.otraEnfermedad')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otraEnfermedad" [control]="otraEnfermedadInput.control"
+            [value]="boleta().pollo.otraEnfermedad"></mp-input-error>
+      }
+
+        @if (boleta().pollo.isPollosCorrespondeShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.4</span>Los pollos corresponden a:</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().pollo.isPollosCorresponde"
+                (ionChange)="this.boletaService.onInputChange($event, 'pollo.isPollosCorresponde')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.numAvesTraspatioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.6</span>En el caso de las aves de TRASPATIO, indique el numero de pollitos, pollitas, pollos, pollas, gallos y gallinas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numAvesTraspatioInput="ngModel" name="numAvesTraspatio" type="number"
+                    required="true" min="0" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.numAvesTraspatio"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.numAvesTraspatio')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numAvesTraspatio" [control]="numAvesTraspatioInput.control"
+            [value]="boleta().pollo.numAvesTraspatio"></mp-input-error>
+      }
+
+        <h2>4.4.5 - Indique el numero de pollos por categoria y los ciclos efectuados en el año anterior:</h2>
+
+        @if (boleta().pollo.numBroilersShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.5.1</span>Numero Broilers (engorde)</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numBroilersInput="ngModel" name="numBroilers" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.numBroilers"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.numBroilers')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numBroilers" [control]="numBroilersInput.control"
+            [value]="boleta().pollo.numBroilers"></mp-input-error>
+      }
+
+        @if (boleta().pollo.numReproLivianosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.5.5</span>Numero Reproductoras livianas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numReproLivianosInput="ngModel" name="numReproLivianos" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.numReproLivianos"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.numReproLivianos')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numReproLivianos" [control]="numReproLivianosInput.control"
+            [value]="boleta().pollo.numReproLivianos"></mp-input-error>
+      }
+
+        @if (boleta().pollo.numReproPesadosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.5.3</span>Numero Reproductoras pesadas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numReproPesadosInput="ngModel" name="numReproPesados" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.numReproPesados"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.numReproPesados')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numReproPesados" [control]="numReproPesadosInput.control"
+            [value]="boleta().pollo.numReproPesados"></mp-input-error>
+      }
+
+        @if (boleta().pollo.numPonedorasShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.5.7</span>Numero Ponedoras</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numPonedorasInput="ngModel" name="numPonedoras" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.numPonedoras"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.numPonedoras')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numPonedoras" [control]="numPonedorasInput.control"
+            [value]="boleta().pollo.numPonedoras"></mp-input-error>
+      }
+
+        @if (boleta().pollo.numCiclosBroilersShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.5.2</span>No. Ciclos en el año anterior Broilers (engorde)</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numCiclosBroilersInput="ngModel" name="numCiclosBroilers" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.numCiclosBroilers"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.numCiclosBroilers')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numCiclosBroilers" [control]="numCiclosBroilersInput.control"
+            [value]="boleta().pollo.numCiclosBroilers"></mp-input-error>
+      }
+
+        @if (boleta().pollo.numCiclosReproPesadosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.5.4</span>No. Ciclos en el año anterior Reproductoras pesadas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numCiclosReproPesadosInput="ngModel" name="numCiclosReproPesados" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.numCiclosReproPesados"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.numCiclosReproPesados')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numCiclosReproPesados" [control]="numCiclosReproPesadosInput.control"
+            [value]="boleta().pollo.numCiclosReproPesados"></mp-input-error>
+      }
+
+        @if (boleta().pollo.numCiclosReproLivianosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.5.6</span>No. Ciclos en el año anterior Reproductoras livianas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numCiclosReproLivianosInput="ngModel" name="numCiclosReproLivianos" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.numCiclosReproLivianos"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.numCiclosReproLivianos')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numCiclosReproLivianos" [control]="numCiclosReproLivianosInput.control"
+            [value]="boleta().pollo.numCiclosReproLivianos"></mp-input-error>
+      }
+
+        @if (boleta().pollo.numCiclosPonedorasShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.5.8</span>No. Ciclos en el año anterior Ponedoras</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numCiclosPonedorasInput="ngModel" name="numCiclosPonedoras" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.numCiclosPonedoras"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.numCiclosPonedoras')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numCiclosPonedoras" [control]="numCiclosPonedorasInput.control"
+            [value]="boleta().pollo.numCiclosPonedoras"></mp-input-error>
+      }
+
+        @if (boleta().pollo.razonNoRegistroShow) {
+        <ion-item button (click)='openModal("razonNoRegistro","pollo")'>
+            <ion-label><span class="label-codigo">4.4.7</span>Indique la razón:</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().pollo.razonNoRegistro)() }}
+            {{ boleta().pollo.razonNoRegistro }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().pollo.otraRazonNoRegistroShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.7.1</span>Otra</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otraRazonNoRegistroInput="ngModel" name="otraRazonNoRegistro" type="text"
+                    required="true" maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="boleta().pollo.otraRazonNoRegistro"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.otraRazonNoRegistro')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otraRazonNoRegistro" [control]="otraRazonNoRegistroInput.control"
+            [value]="boleta().pollo.otraRazonNoRegistro"></mp-input-error>
+      }
+
+        @if (boleta().pollo.galponesPollosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.8</span>Indique el número de galpones:</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #galponesPollosInput="ngModel" name="galponesPollos" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.galponesPollos"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.galponesPollos')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="galponesPollos" [control]="galponesPollosInput.control"
+            [value]="boleta().pollo.galponesPollos"></mp-input-error>
+      }
+
+        @if (boleta().pollo.explotacionPollosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.4.9</span>¿Cuál es la capacidad máxima de aves en la explotación?</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #explotacionPollosInput="ngModel" name="explotacionPollos" type="number"
+                    required="true" min="0" max="99999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().pollo.explotacionPollos"
+                    (ionChange)="this.boletaService.onInputChange($event, 'pollo.explotacionPollos')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="explotacionPollos" [control]="explotacionPollosInput.control"
+            [value]="boleta().pollo.explotacionPollos"></mp-input-error>
+      }
+
+        <h1>4.4 - Pollos</h1>
+
+        @if (boleta().isPoseePolloShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.4.1</span>Al día de HOY, ¿la persona productora (PP) posee pollos de traspatio o de plantel?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isPoseePollo"
+                (ionChange)="this.boletaService.onInputChange($event, 'isPoseePollo')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

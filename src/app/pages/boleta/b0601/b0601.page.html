@@ -1,0 +1,130 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>6.1 - Infraestructura agrícola</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h2>6.1.1 - Del siguiente listado, seleccione las infraestructuras presentes en los terrenos de esta entrevista</h2>
+
+        @if (boleta().isBodegaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.1.1.1</span>Bodega</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isBodega"
+                (ionChange)="this.boletaService.onInputChange($event, 'isBodega')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isSiloShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.1.1.2</span>Silo</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isSilo"
+                (ionChange)="this.boletaService.onInputChange($event, 'isSilo')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isEmpacadorShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.1.1.3</span>Empacadora</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isEmpacador"
+                (ionChange)="this.boletaService.onInputChange($event, 'isEmpacador')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isReservorioShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.1.1.4</span>Reservorio</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isReservorio"
+                (ionChange)="this.boletaService.onInputChange($event, 'isReservorio')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isCuartoMaquinariaRiegoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.1.1.5</span>Cuarto de máquinas para riego</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isCuartoMaquinariaRiego"
+                (ionChange)="this.boletaService.onInputChange($event, 'isCuartoMaquinariaRiego')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isInvernaderoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.1.1.6</span>Invernadero</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isInvernadero"
+                (ionChange)="this.boletaService.onInputChange($event, 'isInvernadero')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isConstruccionSecadoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.1.1.7</span>Construcciòn secado/fermentado</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isConstruccionSecado"
+                (ionChange)="this.boletaService.onInputChange($event, 'isConstruccionSecado')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isInfraestructuraNingunoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.1.1.8</span>Ninguna Infraestructura</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isInfraestructuraNinguno"
+                (ionChange)="this.boletaService.onInputChange($event, 'isInfraestructuraNinguno')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isInfraestructuraOtraShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">6.1.1.9</span>Otra infraestructura</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isInfraestructuraOtra"
+                (ionChange)="this.boletaService.onInputChange($event, 'isInfraestructuraOtra')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().infraestructuraOtraShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">6.1.1.9.1</span>Otra Infraestructura especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #infraestructuraOtraInput="ngModel" name="infraestructuraOtra" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().infraestructuraOtra"
+                    (ionChange)="this.boletaService.onInputChange($event, 'infraestructuraOtra')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="infraestructuraOtra" [control]="infraestructuraOtraInput.control"
+            [value]="boleta().infraestructuraOtra"></mp-input-error>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,166 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button (click)="terrenoService.addTerreno()">
+                <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-button (click)="terrenoService.removeTerreno()">
+                <ion-icon name="remove-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-buttons slot="start">
+                <ion-button (click)="goToTerrenosPage()">
+                    <ion-icon name="list-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-buttons>
+        <ion-title>1.2 - Uso de suelo de los terrenos con fines agrícolas, pecuarios, apícolas, silvícolas y/o
+            fungicultura</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+        <ion-list>
+
+            @if (terreno().terrenoNoShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">1.2.2</span>Terreno No.</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #terrenoNoInput="ngModel" name="terrenoNo" type="number" required="true" min="1" max="99"
+                        [mpDecimalPrecision]="0" [(ngModel)]="terreno().terrenoNo"
+                        (ionChange)="this.terrenoService.onInputChange($event, 'terrenoNo')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="terrenoNo" [control]="terrenoNoInput.control"
+                [value]="terreno().terrenoNo"></mp-input-error>
+            }
+
+            @if (terreno().tenenciaShow) {
+            <ion-item button (click)='openModal("tenencia","terreno")'>
+                <ion-label><span class="label-codigo">1.2.3</span>Tenencia de la tierra.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(terreno().tenencia)() }}
+                    {{ terreno().tenencia }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (terreno().accesoTierraShow) {
+            <ion-item button (click)='openModal("accesoTierra","terreno")'>
+                <ion-label><span class="label-codigo">1.2.4</span>Acceso a la tierra.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(terreno().accesoTierra)() }}
+                    {{ terreno().accesoTierra }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (terreno().coberturaTierraShow) {
+            <ion-item button (click)='openModal("coberturaTierra","terreno")'>
+                <ion-label><span class="label-codigo">1.2.5</span>Cobertura de uso de la tierra.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(terreno().coberturaTierra)() }}
+                    {{ terreno().coberturaTierra }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            <h2>1.2.6 - Superficie</h2>
+
+            @if (terreno().superficieUnidadShow) {
+            <ion-item button (click)='openModal("superficieUnidad","terreno")'>
+                <ion-label><span class="label-codigo">1.2.6.1</span>Superficie Unidad de Medida</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(terreno().superficieUnidad)() }}
+                    {{ terreno().superficieUnidad }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (terreno().superficieShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">1.2.6.2</span>Superficie</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #superficieInput="ngModel" name="superficie" type="number" required="true" min="0.1"
+                        max="99999" [mpDecimalPrecision]="1" [(ngModel)]="terreno().superficie"
+                        (ionChange)="this.terrenoService.onInputChange($event, 'superficie')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="superficie" [control]="superficieInput.control"
+                [value]="terreno().superficie"></mp-input-error>
+            }
+
+            <h2>1.2.7 - Medios de producción que comparte</h2>
+
+            @if (terreno().isInfraestructuraShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">1.2.7.1</span>Infraestructura agropecuaria</ion-label>
+                <ion-toggle slot="end" [checked]="terreno().isInfraestructura"
+                    (ionChange)="this.terrenoService.onInputChange($event, 'isInfraestructura')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (terreno().isManoDeObraShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">1.2.7.2</span>Mano de obra</ion-label>
+                <ion-toggle slot="end" [checked]="terreno().isManoDeObra"
+                    (ionChange)="this.terrenoService.onInputChange($event, 'isManoDeObra')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (terreno().isMaquinariaImplementosShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">1.2.7.3</span>Maquinaria, equipos y/o implementos</ion-label>
+                <ion-toggle slot="end" [checked]="terreno().isMaquinariaImplementos"
+                    (ionChange)="this.terrenoService.onInputChange($event, 'isMaquinariaImplementos')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (terreno().isTerrenoPrincipalShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">1.2.8</span>Terreno principal</ion-label>
+                <ion-toggle slot="end" [checked]="terreno().isTerrenoPrincipal"
+                    (ionChange)="this.terrenoService.onInputChange($event, 'isTerrenoPrincipal')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            <h1>1.2 - Uso de suelo de los terrenos con fines agrícolas, pecuarios, apícolas, silvícolas y/o
+                fungicultura:</h1>
+
+            @if (boleta().isUsoDeSueloShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">1.2.1</span>¿El terreno a ser encuestado tiene evidencias de uso
+                    con fines agrícolas, pecuarios, apícolas, silvícolas y/o fungicultura?</ion-label>
+                <ion-toggle slot="end" [checked]="boleta().isUsoDeSuelo"
+                    (ionChange)="this.boletaService.onInputChange($event, 'isUsoDeSuelo')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+        </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

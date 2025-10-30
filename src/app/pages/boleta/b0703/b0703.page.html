@@ -1,0 +1,160 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>7.3 - Crédito</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h1>7.3 - Crédito</h1>
+
+        @if (boleta().isGestionFinanciamientoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">7.3.1</span>Durante el último año, ¿se realizó alguna gestión para obtener un FINANCIAMIENTO (préstamo o crédito) para la actividad agrícola, apícola, silvícola, fungicultura, pecuaria o forestal para los terrenos de esta entrevista?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isGestionFinanciamiento"
+                (ionChange)="this.boletaService.onInputChange($event, 'isGestionFinanciamiento')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isPrestamoGestionoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">7.3.1.1</span>¿Obtuvo el préstamo que gestiónó?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isPrestamoGestiono"
+                (ionChange)="this.boletaService.onInputChange($event, 'isPrestamoGestiono')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().prestamoPersonaShow) {
+        <ion-item button (click)='openModal("prestamoPersona","boleta")'>
+            <ion-label><span class="label-codigo">7.3.1.1.1</span>¿Quién obtuvo el préstamo?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().prestamoPersona)() }}
+            {{ boleta().prestamoPersona }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().prestamoFuenteShow) {
+        <ion-item button (click)='openModal("prestamoFuente","boleta")'>
+            <ion-label><span class="label-codigo">7.3.1.1.2</span>¿Cuál fue la principal fuente de préstamo?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().prestamoFuente)() }}
+            {{ boleta().prestamoFuente }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().otroPrestamoFuenteShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">7.3.1.1.2.1</span>Otra fuente, especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otroPrestamoFuenteInput="ngModel" name="otroPrestamoFuente" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otroPrestamoFuente"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otroPrestamoFuente')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otroPrestamoFuente" [control]="otroPrestamoFuenteInput.control"
+            [value]="boleta().otroPrestamoFuente"></mp-input-error>
+      }
+
+        @if (boleta().prestamoDestinoShow) {
+        <ion-item button (click)='openModal("prestamoDestino","boleta")'>
+            <ion-label><span class="label-codigo">7.3.1.1.3.1</span>¿El préstamo lo solicitó PRINCIPALMENTE para?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().prestamoDestino)() }}
+            {{ boleta().prestamoDestino }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().otroPrestamoDestinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">7.3.1.1.3.2</span>Otro especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otroPrestamoDestinoInput="ngModel" name="otroPrestamoDestino" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otroPrestamoDestino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otroPrestamoDestino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otroPrestamoDestino" [control]="otroPrestamoDestinoInput.control"
+            [value]="boleta().otroPrestamoDestino"></mp-input-error>
+      }
+
+        @if (boleta().prestamoNegacionShow) {
+        <ion-item button (click)='openModal("prestamoNegacion","boleta")'>
+            <ion-label><span class="label-codigo">7.3.1.1.4</span>¿Cuál fue la razón por la que no le dieron el préstamo?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().prestamoNegacion)() }}
+            {{ boleta().prestamoNegacion }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().otroPrestamoNegacionShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">7.3.1.1.4.1</span>Otra razon, especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otroPrestamoNegacionInput="ngModel" name="otroPrestamoNegacion" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otroPrestamoNegacion"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otroPrestamoNegacion')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otroPrestamoNegacion" [control]="otroPrestamoNegacionInput.control"
+            [value]="boleta().otroPrestamoNegacion"></mp-input-error>
+      }
+
+        @if (boleta().prestamoRazonNoGestionoShow) {
+        <ion-item button (click)='openModal("prestamoRazonNoGestiono","boleta")'>
+            <ion-label><span class="label-codigo">7.3.1.2</span>¿Cuál fue la razón principal por la que no gestionó un préstamo?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().prestamoRazonNoGestiono)() }}
+            {{ boleta().prestamoRazonNoGestiono }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().otraRazonNoGestionoPrestamoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">7.3.1.2.1</span>Otra razon especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otraRazonNoGestionoPrestamoInput="ngModel" name="otraRazonNoGestionoPrestamo" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otraRazonNoGestionoPrestamo"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otraRazonNoGestionoPrestamo')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otraRazonNoGestionoPrestamo" [control]="otraRazonNoGestionoPrestamoInput.control"
+            [value]="boleta().otraRazonNoGestionoPrestamo"></mp-input-error>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

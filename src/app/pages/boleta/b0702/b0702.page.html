@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>7.2 - Extensión Rural</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h1>7.2 - Extension Rural</h1>
+
+        @if (boleta().isExtensionAgropecuariaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">7.2.1</span>Durante el último año, ¿la persona productora (PP) recibió algún tipo de extensión agropecuaria?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isExtensionAgropecuaria"
+                (ionChange)="this.boletaService.onInputChange($event, 'isExtensionAgropecuaria')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().extencionAgricolaRecibidaShow) {
+        <ion-item button (click)='openModal("extencionAgricolaRecibida","boleta")'>
+            <ion-label><span class="label-codigo">7.2.1.1</span>Durante el último año, ¿cual considera la principal extensión agrícola recibida?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().extencionAgricolaRecibida)() }}
+            {{ boleta().extencionAgricolaRecibida }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().extencionAgricolaInstitucionShow) {
+        <ion-item button (click)='openModal("extencionAgricolaInstitucion","boleta")'>
+            <ion-label><span class="label-codigo">7.2.1.2.1</span>¿Cuál fue la principal institución de la que recibió la extensión agropecuaria?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().extencionAgricolaInstitucion)() }}
+            {{ boleta().extencionAgricolaInstitucion }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().otraExtencionAgricolaInstitucionShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">7.2.1.2.2</span>Otra institucion especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otraExtencionAgricolaInstitucionInput="ngModel" name="otraExtencionAgricolaInstitucion" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otraExtencionAgricolaInstitucion"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otraExtencionAgricolaInstitucion')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otraExtencionAgricolaInstitucion" [control]="otraExtencionAgricolaInstitucionInput.control"
+            [value]="boleta().otraExtencionAgricolaInstitucion"></mp-input-error>
+      }
+
+        @if (boleta().necesidadConocimientosShow) {
+        <ion-item button (click)='openModal("necesidadConocimientos","boleta")'>
+            <ion-label><span class="label-codigo">7.2.2</span>Para extensión rural, seleccione el tema de mayor necesidad de conocimientos.</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().necesidadConocimientos)() }}
+            {{ boleta().necesidadConocimientos }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().otraNecesidadConocimientosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">7.2.2.1</span>Otra mayor nesesidad especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otraNecesidadConocimientosInput="ngModel" name="otraNecesidadConocimientos" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otraNecesidadConocimientos"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otraNecesidadConocimientos')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otraNecesidadConocimientos" [control]="otraNecesidadConocimientosInput.control"
+            [value]="boleta().otraNecesidadConocimientos"></mp-input-error>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

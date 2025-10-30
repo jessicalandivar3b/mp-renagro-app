@@ -1,0 +1,194 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>3.2 - Especies forestales en monocultivo</ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button (click)="goToForestalPage()">
+                <ion-icon slot="icon-only" name="list-outline"></ion-icon>
+            </ion-button>
+
+            <ion-button (click)="this.forestalService.addCultivoForestal()">
+                <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+            </ion-button>
+
+            <ion-button (click)="this.forestalService.removeCultivoForestal()">
+                <ion-icon slot="icon-only" name="remove-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+        <ion-list>
+
+            <h1>3.2 - Especies forestales en monocultivo</h1>
+
+            @if (terreno().isPoseeEspeciesForestalesShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">3.2.1</span>Al día de HOY,¿La persona productora (PP) posee
+                    especies forestales bajo un sistema en monocultivo en los terrenos que corresponden a esta
+                    entrevista?</ion-label>
+                <ion-toggle slot="end" [checked]="terreno().isPoseeEspeciesForestales"
+                    (ionChange)="this.terrenoService.onInputChange($event, 'isPoseeEspeciesForestales')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (forestal().nombreEspecieForestalShow) {
+            <ion-item button (click)='openModal("nombreEspecieForestal","forestal")'>
+                <ion-label><span class="label-codigo">3.2.3.2</span>Nombre de la especie forestal</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(forestal().nombreEspecieForestal)() }}
+                    {{ forestal().nombreEspecieForestal }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (forestal().otroNombreEspecieForestalShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">3.2.3.2.1</span>Otro nombre de la especie forestal</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #otroNombreEspecieForestalInput="ngModel" name="otroNombreEspecieForestal" type="text"
+                        required="true" maxlength="+process.env.DTO_MAX_LENGTH" mpText
+                        [(ngModel)]="forestal().otroNombreEspecieForestal"
+                        (ionChange)="this.forestalService.onInputChange($event, 'otroNombreEspecieForestal')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="otroNombreEspecieForestal" [control]="otroNombreEspecieForestalInput.control"
+                [value]="forestal().otroNombreEspecieForestal"></mp-input-error>
+            }
+
+            @if (forestal().edadEspecieForestalShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">3.2.4</span>Edad de la especie forestal (años)</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #edadEspecieForestalInput="ngModel" name="edadEspecieForestal" type="number"
+                        required="true" min="0" max="99" [mpDecimalPrecision]="0"
+                        [(ngModel)]="forestal().edadEspecieForestal"
+                        (ionChange)="this.forestalService.onInputChange($event, 'edadEspecieForestal')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="edadEspecieForestal" [control]="edadEspecieForestalInput.control"
+                [value]="forestal().edadEspecieForestal"></mp-input-error>
+            }
+
+            @if (forestal().superficiePlantadaShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">3.2.5.2</span>Superficie plantada</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #superficiePlantadaInput="ngModel" name="superficiePlantada" type="number"
+                        required="true" min="0.1" max="99999.9" [mpDecimalPrecision]="1"
+                        [(ngModel)]="forestal().superficiePlantada"
+                        (ionChange)="this.forestalService.onInputChange($event, 'superficiePlantada')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="superficiePlantada" [control]="superficiePlantadaInput.control"
+                [value]="forestal().superficiePlantada"></mp-input-error>
+            }
+
+            <h3>3.1.1.3 - Superficie plantada/sembrada</h3>
+
+            <h2>3.2.5 - Superficie plantada</h2>
+
+            @if (forestal().superficiePlantadaUnidadShow) {
+            <ion-item button (click)='openModal("superficiePlantadaUnidad","forestal")'>
+                <ion-label><span class="label-codigo">3.2.5.1</span>Unidad de superficie plantada</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(forestal().superficiePlantadaUnidad)() }}
+                    {{ forestal().superficiePlantadaUnidad }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (forestal().principalDestinoDeUsoShow) {
+            <ion-item button (click)='openModal("principalDestinoDeUso","forestal")'>
+                <ion-label><span class="label-codigo">3.2.6</span>Principal Destino o Uso.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(forestal().principalDestinoDeUso)() }}
+                    {{ forestal().principalDestinoDeUso }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (boleta().motosierraShow) {
+            <ion-item button (click)='openModal("motosierra","boleta")'>
+                <ion-label><span class="label-codigo">3.2.7.1</span>Motosierra.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().motosierra)() }}
+                    {{ boleta().motosierra }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            <h2>3.2.7 - Seleccione la maquinaria o equipos a los que puede acceder HOY:</h2>
+
+            @if (boleta().tractorForestalShow) {
+            <ion-item button (click)='openModal("tractorForestal","boleta")'>
+                <ion-label><span class="label-codigo">3.2.7.2</span>Tractor forestal (skidder).</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().tractorForestal)() }}
+                    {{ boleta().tractorForestal }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (boleta().empacadoraForestalShow) {
+            <ion-item button (click)='openModal("empacadoraForestal","boleta")'>
+                <ion-label><span class="label-codigo">3.2.7.3</span>Empacadora forestal (pack a back).</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().empacadoraForestal)() }}
+                    {{ boleta().empacadoraForestal }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (boleta().otroMaquinariaEquipoShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">3.2.7.5</span>Otra maquinaria equipo nombre</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #otroMaquinariaEquipoInput="ngModel" name="otroMaquinariaEquipo" type="text"
+                        maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="boleta().otroMaquinariaEquipo"
+                        (ionChange)="this.boletaService.onInputChange($event, 'otroMaquinariaEquipo')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="otroMaquinariaEquipo" [control]="otroMaquinariaEquipoInput.control"
+                [value]="boleta().otroMaquinariaEquipo"></mp-input-error>
+            }
+
+            @if (boleta().otroMaquinariaEquipoAccesoShow) {
+            <ion-item button (click)='openModal("otroMaquinariaEquipoAcceso","boleta")'>
+                <ion-label><span class="label-codigo">3.2.7.4</span>Otros</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().otroMaquinariaEquipoAcceso)() }}
+                    {{ boleta().otroMaquinariaEquipoAcceso }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+        </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

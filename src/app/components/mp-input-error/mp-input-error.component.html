@@ -1,0 +1,14 @@
+@if (control()?.invalid && (control()?.dirty || control()?.touched)) {
+<ion-note slot="helper" class="error-message">
+  @for (error of errors(); track $index) {
+  <span>{{ error }}</span>
+  }
+</ion-note>
+}
+@if (errorsField().length>0) {
+<ion-note slot="helper" class="error-message">
+  @for (error of errorsField(); track $index) {
+  <span>C:{{ error }}</span>
+  }
+</ion-note>
+}

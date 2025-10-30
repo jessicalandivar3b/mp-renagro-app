@@ -1,0 +1,258 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end">
+
+            <ion-button (click)="goToMiembrosPage()">
+                <ion-icon name="list-outline"></ion-icon>
+            </ion-button>
+
+            <ion-button (click)="miembroHogarService.addMiembroHogar()">
+                <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-button>
+
+            <ion-button (click)="miembroHogarService.removeMiembroHogar()">
+                <ion-icon name="remove-circle-outline"></ion-icon>
+            </ion-button>
+
+        </ion-buttons>
+
+        <ion-title>8.2 - Información de los miembros del hogar de la persona productora</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+        <ion-list>
+
+            <h2>8.2.1 - Detalle la información de la PERSONA PRODUCTORA y MIEMBROS DEL HOGAR que FORMAN PARTE DE LAS
+                DECISIONES sobre el manejo de los terrenos que corresponden a esta entrevista:</h2>
+
+            @if (miembroHogar().noHogarShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">8.2.1.1</span>No. Persona</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #noHogarInput="ngModel" name="noHogar" type="number" required="true" min="1"
+                        [mpDecimalPrecision]="0" [(ngModel)]="miembroHogar().noHogar"
+                        (ionChange)="this.miembroHogarService.onInputChange($event, 'noHogar')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="noHogar" [control]="noHogarInput.control"
+                [value]="miembroHogar().noHogar"></mp-input-error>
+            }
+
+            <h2>9.1.2 - Indicar el nombre de la persona que entregó la información:</h2>
+
+            @if (miembroHogar().primerNombreShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">8.2.1.2</span>Primer Nombre</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #primerNombreInput="ngModel" name="primerNombre" type="text" required="true"
+                        maxlength="20" mpText [(ngModel)]="miembroHogar().primerNombre"
+                        (ionChange)="this.miembroHogarService.onInputChange($event, 'primerNombre')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="primerNombre" [control]="primerNombreInput.control"
+                [value]="miembroHogar().primerNombre"></mp-input-error>
+            }
+
+            @if (miembroHogar().primerApellidoShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">8.2.1.3</span>Primer Apellido</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #primerApellidoInput="ngModel" name="primerApellido" type="text" required="true"
+                        maxlength="20" mpText [(ngModel)]="miembroHogar().primerApellido"
+                        (ionChange)="this.miembroHogarService.onInputChange($event, 'primerApellido')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="primerApellido" [control]="primerApellidoInput.control"
+                [value]="miembroHogar().primerApellido"></mp-input-error>
+            }
+
+            <h1>2.2 - Identificación de la persona productora (PP)/empresa</h1>
+
+            @if (miembroHogar().tipoIdentificacionShow) {
+            <ion-item button (click)='openModal("tipoIdentificacion","miembroHogar")'>
+                <ion-label><span class="label-codigo">8.2.1.4</span>Tipo Identificacion de persona
+                    productora</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(miembroHogar().tipoIdentificacion)() }}
+                    {{ miembroHogar().tipoIdentificacion }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (miembroHogar().identificacionShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">8.2.1.4.1</span>Cédula de Ciudadanía/Pasaporte (obligatorio
+                        solo para la PP)</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #identificacionInput="ngModel" name="identificacion" type="text" required="true"
+                        maxlength="24" mpAlphanumeric [(ngModel)]="miembroHogar().identificacion"
+                        (ionChange)="this.miembroHogarService.onInputChange($event, 'identificacion')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="identificacion" [control]="identificacionInput.control"
+                [value]="miembroHogar().identificacion"></mp-input-error>
+            }
+
+            @if (miembroHogar().relacionPersonaProdShow) {
+            <ion-item button (click)='openModal("relacionPersonaProd","miembroHogar")'>
+                <ion-label><span class="label-codigo">8.2.1.5</span>Relación de parentesco con la persona
+                    productora.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(miembroHogar().relacionPersonaProd)() }}
+                    {{ miembroHogar().relacionPersonaProd }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (miembroHogar().manejoTerrenosShow) {
+            <ion-item button (click)='openModal("manejoTerrenos","miembroHogar")'>
+                <ion-label><span class="label-codigo">8.2.1.6</span>Indique la PRINCIPAL decision sobre el manejo de los
+                    terrenos que corresponden a esta entrevista.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(miembroHogar().manejoTerrenos)() }}
+                    {{ miembroHogar().manejoTerrenos }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (miembroHogar().edadShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">8.2.1.7</span>Edad (años)</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #edadInput="ngModel" name="edad" type="number" required="true" min="14" max="120"
+                        [mpDecimalPrecision]="0" [(ngModel)]="miembroHogar().edad"
+                        (ionChange)="this.miembroHogarService.onInputChange($event, 'edad')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="edad" [control]="edadInput.control" [value]="miembroHogar().edad"></mp-input-error>
+            }
+
+            @if (miembroHogar().generoShow) {
+            <ion-item button (click)='openModal("genero","miembroHogar")'>
+                <ion-label><span class="label-codigo">8.2.1.8</span>Genero</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(miembroHogar().genero)() }}
+                    {{ miembroHogar().genero }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (miembroHogar().autoidentificacionShow) {
+            <ion-item button (click)='openModal("autoidentificacion","miembroHogar")'>
+                <ion-label><span class="label-codigo">8.2.1.9</span>Auto-identificación.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(miembroHogar().autoidentificacion)() }}
+                    {{ miembroHogar().autoidentificacion }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            <h3>8.2.1.10 - Nivel de instrucción mas avanzado que cursó y el año más alto que APROBO</h3>
+
+            @if (miembroHogar().nivelInstruccionShow) {
+            <ion-item button (click)='openModal("nivelInstruccion","miembroHogar")'>
+                <ion-label><span class="label-codigo">8.2.1.10.1</span>Nivel - Nivel de instrucción más avanzado que
+                    cursó y el año más alto que APROBÓ.</ion-label>
+                <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(miembroHogar().nivelInstruccion)() }}
+                    {{ miembroHogar().nivelInstruccion }}</ion-text>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+            }
+
+            @if (miembroHogar().anioMasAltoAprobadoShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">8.2.1.10.2</span>Año aprobado</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #anioMasAltoAprobadoInput="ngModel" name="anioMasAltoAprobado" type="number"
+                        required="true" [mpDecimalPrecision]="0" [(ngModel)]="miembroHogar().anioMasAltoAprobado"
+                        (ionChange)="this.miembroHogarService.onInputChange($event, 'anioMasAltoAprobado')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="anioMasAltoAprobado" [control]="anioMasAltoAprobadoInput.control"
+                [value]="miembroHogar().anioMasAltoAprobado"></mp-input-error>
+            }
+
+            <h3>8.2.1.11 - Trabajo dentro de los terrenos considerados en esta entrevista, LA SEMANA ANTERIOR</h3>
+
+            @if (miembroHogar().numeroHorasSemanalesShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">8.2.1.11.1</span>Número de horas semanales</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #numeroHorasSemanalesInput="ngModel" name="numeroHorasSemanales" type="number"
+                        required="true" min="0" max="99" [mpDecimalPrecision]="0"
+                        [(ngModel)]="miembroHogar().numeroHorasSemanales"
+                        (ionChange)="this.miembroHogarService.onInputChange($event, 'numeroHorasSemanales')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="numeroHorasSemanales" [control]="numeroHorasSemanalesInput.control"
+                [value]="miembroHogar().numeroHorasSemanales"></mp-input-error>
+            }
+
+            @if (miembroHogar().isFueRemuneradoShow) {
+            <ion-item>
+                <ion-label><span class="label-codigo">8.2.1.11.2</span>¿Fue remunerado?</ion-label>
+                <ion-toggle slot="end" [checked]="miembroHogar().isFueRemunerado"
+                    (ionChange)="this.miembroHogarService.onInputChange($event, 'isFueRemunerado')">
+                </ion-toggle>
+            </ion-item>
+            }
+
+            @if (miembroHogar().horasOtrasResponsabilidadesShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">8.2.1.12</span>Tiempo para OTRAS RESPONSABILI
+                        DADES ¿Cuántas horas a la semana le dedicó al trabajo de organización comunitaria o
+                        voluntaria</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #horasOtrasResponsabilidadesInput="ngModel" name="horasOtrasResponsabilidades"
+                        type="number" required="true" min="0" max="99" [mpDecimalPrecision]="0"
+                        [(ngModel)]="miembroHogar().horasOtrasResponsabilidades"
+                        (ionChange)="this.miembroHogarService.onInputChange($event, 'horasOtrasResponsabilidades')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="horasOtrasResponsabilidades" [control]="horasOtrasResponsabilidadesInput.control"
+                [value]="miembroHogar().horasOtrasResponsabilidades"></mp-input-error>
+            }
+
+        </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

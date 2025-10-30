@@ -1,0 +1,32 @@
+<ion-menu side="start" menu-id="main-menu" content-id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú de Boletas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list id="inbox-list">
+      <ion-menu-toggle auto-hide="false">
+        <ion-item routerDirection="root" [routerLink]="['/upload-excel']" lines="none" detail="false"
+          routerLinkActive="selected">
+          <ion-icon aria-hidden="true" slot="start" ios="cloud-upload-outline" md="cloud-upload-sharp"></ion-icon>
+          <ion-label>Cargar Archivos</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="false">
+        @for (p of appPages; track p.title) {
+        <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+          <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <ion-label>{{ p.title }}</ion-label>
+        </ion-item>
+        } @empty {
+        <ion-item lines="none">
+          <ion-label>No hay páginas para mostrar</ion-label>
+        </ion-item>
+        }
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>

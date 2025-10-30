@@ -1,0 +1,118 @@
+/* Estilos para que la interfaz se vea más agradable y la información más clara */
+ion-accordion-group {
+    /* Esto es importante para que los acordeones se vean bien */
+    padding: 0 16px;
+}
+
+ion-accordion {
+    border-radius: 8px;
+    margin: 8px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Asegura que el header del acordeón tenga fondo */
+ion-item[slot="header"] {
+    --background: var(--ion-color-light, #f4f5f8);
+    /* Quitamos el padding global para controlarlo internamente */
+    --padding-start: 16px;
+    /* Ajustamos el padding de inicio para el contenido */
+    --inner-padding-end: 0;
+    --padding-end: 0;
+}
+
+/* Ajustamos el ícono de mapa para que no se solape con el botón de menú */
+ion-item[slot="header"] ion-icon[name="map-outline"] {
+    margin-inline-end: 8px;
+    padding-inline-start: 0;
+    color: #296a47;
+}
+
+/* Indentación para las sub-tablas para simular la estructura de árbol */
+.sub-tabla-item {
+    --padding-start: 56px;
+    /* Aumentado para más indentación */
+    --inner-padding-end: 16px;
+    --background: var(--ion-color-step-50, #f7f7f9);
+    /* Ligeramente más claro que el fondo del header */
+}
+
+.text-green {
+    color: var(--ion-color-success, #2dd36f);
+    font-weight: 500;
+}
+
+.superficie-text {
+    font-weight: bold;
+    color: var(--ion-color-medium, #92949c);
+    font-size: 0.9em;
+}
+
+/* ---------------------------------------------------------------------- */
+/* ESTILOS DE LA TARJETA DE RESUMEN (Total Terrenos y Hectáreas) */
+/* ---------------------------------------------------------------------- */
+
+.custom-summary-card {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    /* La tarjeta en sí puede ser blanca */
+    background-color: var(--ion-background-color, #ffffff);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.summary-label {
+    font-size: 0.8rem;
+    color: var(--ion-color-medium);
+    /* Texto gris para las etiquetas */
+    font-weight: 500;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+/* CLASE QUE SOLÍA SER LA CAJA VERDE: LA ELIMINAMOS COMPLETAMENTE DEL CSS */
+/* Ahora los estilos se aplican directamente al valor (h2) */
+
+.summary-value {
+    font-weight: 700;
+    font-size: 1.5rem;
+    /* Aseguramos color oscuro y quitamos cualquier fondo residual */
+    color: var(--ion-color-dark, #000000) !important;
+    background-color: transparent !important;
+    padding: 0;
+    /* Eliminamos cualquier padding que pudiera simular un recuadro */
+    margin: 0;
+}
+
+/* Asegura que los textos dentro de la tarjeta no tengan margen vertical extra */
+.custom-summary-card .ion-text-center {
+    padding: 0;
+}
+
+/* ---------------------------------------------------------------------- */
+/* ESTILOS AÑADIDOS PARA LAS SUPERFICIES DENTRO DE CULTIVOS/FORESTALES */
+/* ---------------------------------------------------------------------- */
+
+.superficie-resumen-valor {
+    // Ajusta el tamaño de la fuente de las líneas 'superficie plantada' y 'superficie riego'.
+    // 0.625rem es el equivalente a 10px. Cambia este valor para aumentar o reducir.
+    font-size: 0.625rem;
+
+    // AÑADIDO: Hace que el texto se vea en negrita, igual que los títulos de Cultivos/Forestales.
+    font-weight: bold;
+}
+
+// Para reducir el espacio vertical entre las líneas de superficie (plantada y riego)
+.superficie-resumen {
+    line-height: 1.1; // Reduce el espacio entre líneas
+}
+
+// Opcional: Ajustar el h4 y el p principal de Cultivos/Forestales
+.sub-tabla-item {
+    ion-label h4 {
+        font-size: 0.9rem; // Título ligeramente más pequeño
+    }
+
+    ion-label p {
+        font-size: 0.75rem; // Descripción ligeramente más pequeña
+    }
+}

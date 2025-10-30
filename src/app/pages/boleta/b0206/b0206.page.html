@@ -1,0 +1,168 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>2.6 - Acceso a beneficios otorgados por el Estado</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h2>2.6.1 - En el último año, la persona productora ha sido beneficiaria de los siguientes servicios:</h2>
+
+        @if (boleta().isAsistenciaTecnicaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.1</span>Asistencia técnica</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isAsistenciaTecnica"
+                (ionChange)="this.boletaService.onInputChange($event, 'isAsistenciaTecnica')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isLegalizacionTierraShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.2</span>Legalización de tierras</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isLegalizacionTierra"
+                (ionChange)="this.boletaService.onInputChange($event, 'isLegalizacionTierra')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isAsesoramientoTecnicoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.3</span>Asesoramiento técnico</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isAsesoramientoTecnico"
+                (ionChange)="this.boletaService.onInputChange($event, 'isAsesoramientoTecnico')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isKitAgricolaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.4</span>Kits agrícolas</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isKitAgricola"
+                (ionChange)="this.boletaService.onInputChange($event, 'isKitAgricola')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isVacunaAgrocalidadShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.5</span>Campañas vacunación (Agrocalidad)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isVacunaAgrocalidad"
+                (ionChange)="this.boletaService.onInputChange($event, 'isVacunaAgrocalidad')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isAccesoRiegoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.6</span>Acceso a riego</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isAccesoRiego"
+                (ionChange)="this.boletaService.onInputChange($event, 'isAccesoRiego')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isAgriculturaFamiliarCampShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.7</span>Registro Agricultura Familiar y Campesina</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isAgriculturaFamiliarCamp"
+                (ionChange)="this.boletaService.onInputChange($event, 'isAgriculturaFamiliarCamp')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isMaquinariaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.8</span>Maquinaria</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isMaquinaria"
+                (ionChange)="this.boletaService.onInputChange($event, 'isMaquinaria')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        <h2>1.2.7 - Medios de producción que comparte</h2>
+
+        @if (boleta().isInfraestructuraShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.9</span>Infraestructura</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isInfraestructura"
+                (ionChange)="this.boletaService.onInputChange($event, 'isInfraestructura')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isEspacioComercioShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.10</span>Espacios comercializar (fìsicos o virtuales)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isEspacioComercio"
+                (ionChange)="this.boletaService.onInputChange($event, 'isEspacioComercio')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isCreditoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.11</span>Crédito</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isCredito"
+                (ionChange)="this.boletaService.onInputChange($event, 'isCredito')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isOtroBeneficioEstadoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.12</span>Otro</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isOtroBeneficioEstado"
+                (ionChange)="this.boletaService.onInputChange($event, 'isOtroBeneficioEstado')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().otroBeneficioEstadoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">2.6.1.12.1</span>Otro Especifique</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #otroBeneficioEstadoInput="ngModel" name="otroBeneficioEstado" type="text"
+                    required="true" maxlength="50" mpText [(ngModel)]="boleta().otroBeneficioEstado"
+                    (ionChange)="this.boletaService.onInputChange($event, 'otroBeneficioEstado')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="otroBeneficioEstado" [control]="otroBeneficioEstadoInput.control"
+            [value]="boleta().otroBeneficioEstado"></mp-input-error>
+      }
+
+        @if (boleta().isNingunoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.6.1.13</span>Ninguno</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isNinguno"
+                (ionChange)="this.boletaService.onInputChange($event, 'isNinguno')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

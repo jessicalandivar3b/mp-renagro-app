@@ -1,0 +1,181 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>8.1 - Acerca de la mano de obra de los NO MIEMBROS DEL HOGAR</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h2>8.1.1 - Indique el número de personas que trabajaron de manera PERMANENTE en los terrenos que corresponden a esta entrevista y están bajo la responsabilidad de la persona productora, durante el último mes.</h2>
+
+        @if (boleta().permanenteHombreNumeroShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">8.1.1.1</span>HOMBRES Numero de personas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #permanenteHombreNumeroInput="ngModel" name="permanenteHombreNumero" type="number"
+                    required="true" min="0" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().permanenteHombreNumero"
+                    (ionChange)="this.boletaService.onInputChange($event, 'permanenteHombreNumero')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="permanenteHombreNumero" [control]="permanenteHombreNumeroInput.control"
+            [value]="boleta().permanenteHombreNumero"></mp-input-error>
+      }
+
+        @if (boleta().permanenteHombreSalarioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">8.1.1.1.1</span>HOMBRES Salario promedio por un mes de trabajo</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #permanenteHombreSalarioInput="ngModel" name="permanenteHombreSalario" type="number"
+                    required="true" min="1" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().permanenteHombreSalario"
+                    (ionChange)="this.boletaService.onInputChange($event, 'permanenteHombreSalario')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="permanenteHombreSalario" [control]="permanenteHombreSalarioInput.control"
+            [value]="boleta().permanenteHombreSalario"></mp-input-error>
+      }
+
+        @if (boleta().permanenteMujerNumeroShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">8.1.1.2</span>MUJERES Numero de personas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #permanenteMujerNumeroInput="ngModel" name="permanenteMujerNumero" type="number"
+                    required="true" min="0" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().permanenteMujerNumero"
+                    (ionChange)="this.boletaService.onInputChange($event, 'permanenteMujerNumero')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="permanenteMujerNumero" [control]="permanenteMujerNumeroInput.control"
+            [value]="boleta().permanenteMujerNumero"></mp-input-error>
+      }
+
+        @if (boleta().permanenteMujerSalarioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">8.1.1.2.1</span>MUJERES Salario promedio por un mes de trabajo</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #permanenteMujerSalarioInput="ngModel" name="permanenteMujerSalario" type="number"
+                    required="true" min="1" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().permanenteMujerSalario"
+                    (ionChange)="this.boletaService.onInputChange($event, 'permanenteMujerSalario')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="permanenteMujerSalario" [control]="permanenteMujerSalarioInput.control"
+            [value]="boleta().permanenteMujerSalario"></mp-input-error>
+      }
+
+        <h2>8.1.2 - Indique el número de personas que trabajaron de manera OCASIONAL en los terrenos que corresponden a esta entrevista y están bajo la responsabilidad de la persona productora, en el úLTIMO AÑO CALENDARIO</h2>
+
+        @if (boleta().ocasionalHombreNumeroShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">8.1.2.1</span>Hombres Numero de personas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #ocasionalHombreNumeroInput="ngModel" name="ocasionalHombreNumero" type="number"
+                    required="true" min="0" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().ocasionalHombreNumero"
+                    (ionChange)="this.boletaService.onInputChange($event, 'ocasionalHombreNumero')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="ocasionalHombreNumero" [control]="ocasionalHombreNumeroInput.control"
+            [value]="boleta().ocasionalHombreNumero"></mp-input-error>
+      }
+
+        @if (boleta().ocasionalMujerNumeroShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">8.1.2.2</span>Mujeres Numero de personas</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #ocasionalMujerNumeroInput="ngModel" name="ocasionalMujerNumero" type="number"
+                    required="true" min="0" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().ocasionalMujerNumero"
+                    (ionChange)="this.boletaService.onInputChange($event, 'ocasionalMujerNumero')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="ocasionalMujerNumero" [control]="ocasionalMujerNumeroInput.control"
+            [value]="boleta().ocasionalMujerNumero"></mp-input-error>
+      }
+
+        @if (boleta().isHombrePagoEfectivoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">8.1.2.1.1</span>Hombres  ¿El pago fue en efectivo?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isHombrePagoEfectivo"
+                (ionChange)="this.boletaService.onInputChange($event, 'isHombrePagoEfectivo')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().isMujerPagoEfectivoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">8.1.2.2.1</span>Mujeres  ¿El pago fue en efectivo?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isMujerPagoEfectivo"
+                (ionChange)="this.boletaService.onInputChange($event, 'isMujerPagoEfectivo')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().ocacionalHombreSalarioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">8.1.2.1.1.1</span>Hombres Salario promedio por una jornada de trabajo ocasional</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #ocacionalHombreSalarioInput="ngModel" name="ocacionalHombreSalario" type="number"
+                    required="true" min="1" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().ocacionalHombreSalario"
+                    (ionChange)="this.boletaService.onInputChange($event, 'ocacionalHombreSalario')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="ocacionalHombreSalario" [control]="ocacionalHombreSalarioInput.control"
+            [value]="boleta().ocacionalHombreSalario"></mp-input-error>
+      }
+
+        @if (boleta().ocacionalMujerSalarioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">8.1.2.2.1.1</span>Mujeres Salario promedio por una jornada de trabajo ocasional</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #ocacionalMujerSalarioInput="ngModel" name="ocacionalMujerSalario" type="number"
+                    required="true" min="1" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().ocacionalMujerSalario"
+                    (ionChange)="this.boletaService.onInputChange($event, 'ocacionalMujerSalario')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="ocacionalMujerSalario" [control]="ocacionalMujerSalarioInput.control"
+            [value]="boleta().ocacionalMujerSalario"></mp-input-error>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

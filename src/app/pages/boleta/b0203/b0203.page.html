@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>2.3 - Domicilio de la persona productora (PP)</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        @if (boleta().isViveTerrenoEntrevistaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.3.1</span>La persona productora (PP) vive en alguno de los terrenos</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isViveTerrenoEntrevista"
+                (ionChange)="this.boletaService.onInputChange($event, 'isViveTerrenoEntrevista')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().provinciaViveShow) {
+        <ion-item button (click)='openModal("provinciaVive","boleta")'>
+            <ion-label><span class="label-codigo">2.3.1.2.1</span>Provincia</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().provinciaVive)() }}
+            {{ boleta().provinciaVive }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().cantonViveShow) {
+        <ion-item button (click)='openModal("cantonVive","boleta")'>
+            <ion-label><span class="label-codigo">2.3.1.2.2</span>Cantón</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().cantonVive)() }}
+            {{ boleta().cantonVive }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().parroquiaViveShow) {
+        <ion-item button (click)='openModal("parroquiaVive","boleta")'>
+            <ion-label><span class="label-codigo">2.3.1.2.3</span>Parroquia</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().parroquiaVive)() }}
+            {{ boleta().parroquiaVive }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().distanciaAlDomicilioShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">2.3.1.2.4</span>Distancia del terreno principal al domicilio(kilómetros)</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #distanciaAlDomicilioInput="ngModel" name="distanciaAlDomicilio" type="number"
+                    required="true" min="0.01" max="999.99" [mpDecimalPrecision]="2" [(ngModel)]="boleta().distanciaAlDomicilio"
+                    (ionChange)="this.boletaService.onInputChange($event, 'distanciaAlDomicilio')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="distanciaAlDomicilio" [control]="distanciaAlDomicilioInput.control"
+            [value]="boleta().distanciaAlDomicilio"></mp-input-error>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,130 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Listado de Terrenos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- 💡 CARD DE RESUMEN AGREGADA: Muestra el total de terrenos y la superficie global -->
+  <ion-card class="ion-margin-top ion-margin-horizontal custom-summary-card">
+    <ion-grid>
+      <ion-row class="ion-align-items-center ion-padding-vertical">
+
+        <!-- Conteo de Terrenos -->
+        <ion-col size="6" class="ion-text-center ion-padding-end ion-border-right">
+          <p class="summary-label ion-no-margin">Total de Terrenos</p>
+          <!-- Usa la señal terrenos() para contar el número de elementos -->
+          <h2 class="summary-value ion-no-margin">{{ terrenos().length }}</h2>
+        </ion-col>
+
+        <!-- Superficie Total Global -->
+        <ion-col size="6" class="ion-text-center ion-padding-start">
+          <p class="summary-label ion-no-margin">Superficie Total (M²)</p>
+          <!-- Usa la señal totalSuperficieGlobal() para el cálculo total -->
+          <h2 class="summary-value ion-no-margin">{{ totalSuperficieGlobal() || 0 }}</h2>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <!-- FIN DE LA CARD DE RESUMEN -->
+
+  <!-- Utilizamos ion-accordion-group para crear la vista de árbol colapsable -->
+  <ion-accordion-group expand="inset">
+
+    @for (terreno of terrenos(); track terreno.terrenoUuid) {
+    <ion-accordion value="terreno-{{ terreno.terrenoUuid }}">
+
+      <!-- ENCABEZADO (HEADER): Muestra la info principal. El 'button' ya no está. -->
+      <!-- Usamos toggle-icon="default" para que el acordeón maneje el ícono de expansión. -->
+      <ion-item slot="header" toggle-icon="default" class="ion-no-padding">
+        <ion-icon name="map-outline" slot="start" color="primary" class="ion-padding-start"></ion-icon>
+        <ion-label class="ion-text-wrap ion-padding-vertical">
+          <h3>Terreno No. {{ terreno.terrenoNo || '(sin número)' }}</h3>
+          <p>{{ catalogoService.getDescripcionByCodigo(terreno.accesoTierra)() }}-{{
+            catalogoService.getDescripcionByCodigo(terreno.coberturaTierra)() }}</p>
+        </ion-label>
+        <ion-text slot="end" class="ion-text-right ion-padding-end">
+                              <span class="superficie-text">{{ getSuperficieTerrenoEnM2(terreno) | number:'1.2-2' }}
+            M²</span>
+                  </ion-text>
+
+        <!-- Botón de NAVEGACIÓN (B0102): Colocamos la navegación en un botón explícito -->
+        <ion-buttons slot="end">
+          <ion-button fill="clear" color="primary"
+            (click)="selectTerreno(terreno.terrenoUuid); $event.stopPropagation()">
+            <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+      <!-- CONTENIDO (CONTENT): Los hijos del árbol (Cultivos y Cultivos Forestales) -->
+      <!-- ESTE CONTENIDO SE MUESTRA AL EXPANDIR EL ACORDEÓN -->
+      <div slot="content" class="ion-no-padding">
+        <ion-list lines="full">
+
+          <!-- Opción para ir a la pantalla de Cultivos (B0301) -->
+          <ion-item button detail class="sub-tabla-item"
+            (click)="navegarACultivo(terreno.terrenoUuid, terreno.cultivos?.[0]?.cultivoUuid)">
+            <ion-icon name="leaf-outline" slot="start"
+              [color]="terreno.isCultivoEnTerrenos ? 'success' : 'medium'"></ion-icon>
+            <ion-label>
+              <h4>Cultivos</h4>
+              <p [class.text-green]="terreno.isCultivoEnTerrenos">
+                {{ terreno.isCultivoEnTerrenos ? terreno.cultivos.length + ' Cultivo(s) registrado(s)' : 'Sin registros'
+                }}
+              </p>
+            </ion-label>
+            <!-- >>> CÓDIGO AGREGADO PARA SUPERFICIE DE CULTIVOS (Líneas 101-110) >>> -->
+                        <!-- INSERCIÓN DE SUPERFICIE PLANTADA  DE CULTIVOS -->
+                        <ion-text slot="end" class="ion-text-right ion-no-padding superficie-resumen">
+                                          <p class="ion-no-margin resumen-line superficie-resumen-valor">
+                                                                                Plantada: {{
+                getSuperficieResumenCultivo(terreno).plantada | number:'1.2-2' }} M²
+                                              </p>
+                                        </ion-text>
+            <!-- <<< FIN DEL CÓDIGO AGREGADO PARA SUPERFICIE DE CULTIVOS <<< -->
+          </ion-item>
+
+          <!-- Opción para ir a la pantalla de Cultivos Forestales (B0302) -->
+          <ion-item button detail class="sub-tabla-item"
+            (click)="navegarAForestal(terreno.terrenoUuid, terreno.cultivosForestales?.[0]?.forestalUuid)">
+            <ion-icon name="tree-outline" slot="start"
+              [color]="terreno.isPoseeEspeciesForestales ? 'success' : 'medium'"></ion-icon>
+            <ion-label>
+              <h4>Cultivos Forestales</h4>
+              <p [class.text-green]="terreno.isPoseeEspeciesForestales">
+                {{ terreno.isPoseeEspeciesForestales ? terreno.cultivosForestales.length + ' Especie(s) registrada(s)' :
+                'Sin registros' }}
+              </p>
+            </ion-label>
+            <!-- >>> CÓDIGO AGREGADO PARA SUPERFICIE FORESTAL (Líneas 125-131) >>> -->
+                        <!-- INSERCIÓN DE SUPERFICIE PLANTADA FORESTAL -->
+                       
+            <!-- Nota: Se utiliza un solo bloque de p para "superficie plantada" según la referencia visual. -->
+                        <ion-text slot="end" class="ion-text-right ion-no-padding superficie-resumen">
+                                          <p class="ion-no-margin resumen-line superficie-resumen-valor">
+                                                                                Plantada: {{
+                getSuperficieResumenForestal(terreno).plantada | number:'1.2-2' }} M²
+                                              </p>
+                                        </ion-text>
+            <!-- <<< FIN DEL CÓDIGO AGREGADO PARA SUPERFICIE FORESTAL <<< -->
+          </ion-item>
+
+        </ion-list>
+      </div>
+    </ion-accordion>
+
+    <!-- Divisor visual entre terrenos si se requiere -->
+    <div class="ion-margin-bottom"></div>
+
+    } @empty {
+    <ion-item>
+      <ion-label>No hay terrenos registrados.</ion-label>
+    </ion-item>
+    }
+  </ion-accordion-group>
+</ion-content>

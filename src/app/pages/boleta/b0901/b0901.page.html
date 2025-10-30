@@ -1,0 +1,133 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>9.1 - Persona responsable del terreno</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h2>9.1.2 - Indicar el nombre de la persona que entregó la información:</h2>
+
+        @if (boleta().personaInformante.primerNombreShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">9.1.2.1</span>Primer nombre</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #primerNombreInput="ngModel" name="primerNombre" type="text"
+                    required="true" maxlength="20" mpText [(ngModel)]="boleta().personaInformante.primerNombre"
+                    (ionChange)="this.boletaService.onInputChange($event, 'personaInformante.primerNombre')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="primerNombre" [control]="primerNombreInput.control"
+            [value]="boleta().personaInformante.primerNombre"></mp-input-error>
+      }
+
+        @if (boleta().personaInformante.segundoNombreShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">9.1.2.2</span>Segundo nombre:</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #segundoNombreInput="ngModel" name="segundoNombre" type="text"
+                    maxlength="20" mpText [(ngModel)]="boleta().personaInformante.segundoNombre"
+                    (ionChange)="this.boletaService.onInputChange($event, 'personaInformante.segundoNombre')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="segundoNombre" [control]="segundoNombreInput.control"
+            [value]="boleta().personaInformante.segundoNombre"></mp-input-error>
+      }
+
+        @if (boleta().personaInformante.primerApellidoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">9.1.2.3</span>Primer apellido:</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #primerApellidoInput="ngModel" name="primerApellido" type="text"
+                    required="true" maxlength="20" mpText [(ngModel)]="boleta().personaInformante.primerApellido"
+                    (ionChange)="this.boletaService.onInputChange($event, 'personaInformante.primerApellido')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="primerApellido" [control]="primerApellidoInput.control"
+            [value]="boleta().personaInformante.primerApellido"></mp-input-error>
+      }
+
+        @if (boleta().personaInformante.segundoApellidoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">9.1.2.4</span>Segundo apellido:</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #segundoApellidoInput="ngModel" name="segundoApellido" type="text"
+                    maxlength="20" mpText [(ngModel)]="boleta().personaInformante.segundoApellido"
+                    (ionChange)="this.boletaService.onInputChange($event, 'personaInformante.segundoApellido')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="segundoApellido" [control]="segundoApellidoInput.control"
+            [value]="boleta().personaInformante.segundoApellido"></mp-input-error>
+      }
+
+        <h1>9.1 - Persona responsable del terreno</h1>
+
+        @if (boleta().isInformanteProductorShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">9.1.1</span>¿La persona productora fue quien entregó la información?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isInformanteProductor"
+                (ionChange)="this.boletaService.onInputChange($event, 'isInformanteProductor')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().informanteTelefonoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">9.1.3</span>Indicar el número telefónico celular:</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #informanteTelefonoInput="ngModel" name="informanteTelefono" type="text"
+                    minlength="10" maxlength="10" mpText [(ngModel)]="boleta().informanteTelefono"
+                    (ionChange)="this.boletaService.onInputChange($event, 'informanteTelefono')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="informanteTelefono" [control]="informanteTelefonoInput.control"
+            [value]="boleta().informanteTelefono"></mp-input-error>
+      }
+
+        @if (boleta().informanteRelacionShow) {
+        <ion-item button (click)='openModal("informanteRelacion","boleta")'>
+            <ion-label><span class="label-codigo">9.1.4</span>¿Cuál es la relación del informante calificado con la persona productora?.</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().informanteRelacion)() }}
+            {{ boleta().informanteRelacion }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

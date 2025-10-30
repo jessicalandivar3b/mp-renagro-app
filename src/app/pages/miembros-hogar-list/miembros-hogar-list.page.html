@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Listado de Miembros del Hogar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+
+    @for (miembro of miembrosHogar(); track miembro.miembroUuid) {
+
+    <ion-item button detail (click)="selectMiembro(miembro.miembroUuid)">
+
+      <ion-label>
+        <ion-text color="primary" class="ion-text-uppercase">
+          <span style="font-weight: bold;">PP No. {{ miembro.noHogar || '-' }}</span>
+        </ion-text>
+        <p>
+          {{ miembro.primerNombre || 'Sin nombre' }} {{ miembro.primerApellido || '' }}
+        </p>
+      </ion-label>
+
+      <div slot="end" class="ion-text-end">
+        <ion-text color="medium" class="ion-text-wrap">
+          {{ catalogoService.getDescripcionByCodigo(miembro.relacionPersonaProd)() || 'Relación N/A' }}
+          <span style="font-weight: bold;">({{ miembro.edad || '??' }} años)</span>
+        </ion-text>
+
+        <p style="margin-top: 4px;">
+          <ion-icon name="time-outline" color="dark"></ion-icon>
+          {{ miembro.numeroHorasSemanales || 0 }} hrs.
+        </p>
+      </div>
+
+    </ion-item>
+
+    <ion-text class="ion-padding-start ion-padding-end ion-text-small">
+      Identificación: {{ miembro.identificacion || 'N/A' }}
+    </ion-text>
+
+    } @empty {
+    <ion-item>
+      <ion-label class="ion-text-center">No hay miembros del hogar registrados.</ion-label>
+    </ion-item>
+    }
+  </ion-list>
+</ion-content>

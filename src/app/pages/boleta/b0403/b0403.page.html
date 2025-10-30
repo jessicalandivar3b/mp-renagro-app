@@ -1,0 +1,346 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>4.3 - Ganado porcino</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        @if (boleta().porcino.isLlevaRegistroPorcinoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.2</span>¿Lleva un registro de la producción?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isLlevaRegistroPorcino"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isLlevaRegistroPorcino')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        <h2>4.3.3 - Indique el número de cabezas de ganado porcino que HOY existen:</h2>
+
+        @if (boleta().porcino.menos2MesMachoPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.1</span>macho menos de 2 meses</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #menos2MesMachoPorcinoInput="ngModel" name="menos2MesMachoPorcino" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.menos2MesMachoPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.menos2MesMachoPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="menos2MesMachoPorcino" [control]="menos2MesMachoPorcinoInput.control"
+            [value]="boleta().porcino.menos2MesMachoPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.menos2MesesHembrasPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.6</span>hembra menos de 2 meses</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #menos2MesesHembrasPorcinoInput="ngModel" name="menos2MesesHembrasPorcino" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.menos2MesesHembrasPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.menos2MesesHembrasPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="menos2MesesHembrasPorcino" [control]="menos2MesesHembrasPorcinoInput.control"
+            [value]="boleta().porcino.menos2MesesHembrasPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.mas2MesMachoPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.2</span>macho mas de 2 meses</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #mas2MesMachoPorcinoInput="ngModel" name="mas2MesMachoPorcino" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.mas2MesMachoPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.mas2MesMachoPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="mas2MesMachoPorcino" [control]="mas2MesMachoPorcinoInput.control"
+            [value]="boleta().porcino.mas2MesMachoPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.mas2MesHembraPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.7</span>hembra mas de 2 meses</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #mas2MesHembraPorcinoInput="ngModel" name="mas2MesHembraPorcino" type="number"
+                    required="true" min="0" max="9999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.mas2MesHembraPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.mas2MesHembraPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="mas2MesHembraPorcino" [control]="mas2MesHembraPorcinoInput.control"
+            [value]="boleta().porcino.mas2MesHembraPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.totalMachoPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.3</span>machos TOTAL</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #totalMachoPorcinoInput="ngModel" name="totalMachoPorcino" type="number"
+                    required="true" min="0" max="99999999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.totalMachoPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.totalMachoPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="totalMachoPorcino" [control]="totalMachoPorcinoInput.control"
+            [value]="boleta().porcino.totalMachoPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.totalHembraPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.8</span>Hembras porcino total</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #totalHembraPorcinoInput="ngModel" name="totalHembraPorcino" type="number"
+                    required="true" min="0" max="99999999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.totalHembraPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.totalHembraPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="totalHembraPorcino" [control]="totalHembraPorcinoInput.control"
+            [value]="boleta().porcino.totalHembraPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.reproductorMachoPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.4</span>Machos Del total, ¿cuántos son reproductores?</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #reproductorMachoPorcinoInput="ngModel" name="reproductorMachoPorcino" type="number"
+                    required="true" min="0" max="99999999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.reproductorMachoPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.reproductorMachoPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="reproductorMachoPorcino" [control]="reproductorMachoPorcinoInput.control"
+            [value]="boleta().porcino.reproductorMachoPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.reproductorHembraPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.9</span>Hembras Del total, ¿cuántos son reproductores?</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #reproductorHembraPorcinoInput="ngModel" name="reproductorHembraPorcino" type="number"
+                    required="true" min="0" max="99999999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.reproductorHembraPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.reproductorHembraPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="reproductorHembraPorcino" [control]="reproductorHembraPorcinoInput.control"
+            [value]="boleta().porcino.reproductorHembraPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.propioMachoPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.5</span>Machos Del total, ¿cuántos son propios?</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #propioMachoPorcinoInput="ngModel" name="propioMachoPorcino" type="number"
+                    required="true" min="0" max="99999999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.propioMachoPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.propioMachoPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="propioMachoPorcino" [control]="propioMachoPorcinoInput.control"
+            [value]="boleta().porcino.propioMachoPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.propioHembraPorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.3.10</span>Hembras Del total, ¿cuántos son propios?</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #propioHembraPorcinoInput="ngModel" name="propioHembraPorcino" type="number"
+                    required="true" min="0" max="99999999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.propioHembraPorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.propioHembraPorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="propioHembraPorcino" [control]="propioHembraPorcinoInput.control"
+            [value]="boleta().porcino.propioHembraPorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.fuenteReprodruccionPorcinaShow) {
+        <ion-item button (click)='openModal("fuenteReprodruccionPorcina","porcino")'>
+            <ion-label><span class="label-codigo">4.3.4</span>Durante el año anterior, ¿cuál fue la principal forma de reproducción del ganado porcino?</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().porcino.fuenteReprodruccionPorcina)() }}
+            {{ boleta().porcino.fuenteReprodruccionPorcina }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        <h2>4.3.5 - Durante el año anterior, ¿contra qué enfermedades vacunó al ganado porcino?</h2>
+
+        @if (boleta().porcino.isPestePorcinaClasicaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.5.1</span>Peste porcina clásica (PPC)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isPestePorcinaClasica"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isPestePorcinaClasica')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.isColibacilosisDiarreaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.5.2</span>Colibacilosis (diarrea)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isColibacilosisDiarrea"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isColibacilosisDiarrea')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.isPasteurellaNeumoniaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.5.3</span>Pasteurella (neumonía)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isPasteurellaNeumonia"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isPasteurellaNeumonia')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.isNeumoniaPorcinaEnzooticaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.5.4</span>Neumonía Porcina Enzootica (tos)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isNeumoniaPorcinaEnzootica"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isNeumoniaPorcinaEnzootica')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.isParvovirusMoqueraShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.5.5</span>Parvovirus-leptospirosis-erisipela (moquera)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isParvovirusMoquera"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isParvovirusMoquera')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.isFiebreAftosaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.5.6</span>Fiebre aftosa</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isFiebreAftosa"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isFiebreAftosa')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.isOtraShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.5.7</span>Otras</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isOtra"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isOtra')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.isNingunaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.5.8</span>Ninguna</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isNinguna"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isNinguna')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.isNoSabeNoRespondeShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.5.9</span>No sabe/no responde</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isNoSabeNoResponde"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isNoSabeNoResponde')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.isDescansoAlimentoPorcinoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.6</span>¿Dispone de infraestructura para descanso, alimentación o manejo del ganado porcino?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().porcino.isDescansoAlimentoPorcino"
+                (ionChange)="this.boletaService.onInputChange($event, 'porcino.isDescansoAlimentoPorcino')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+        @if (boleta().porcino.galponExistentePorcinoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.6.1</span>¿Cuántos galpones existen?</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #galponExistentePorcinoInput="ngModel" name="galponExistentePorcino" type="number"
+                    required="true" min="1" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.galponExistentePorcino"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.galponExistentePorcino')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="galponExistentePorcino" [control]="galponExistentePorcinoInput.control"
+            [value]="boleta().porcino.galponExistentePorcino"></mp-input-error>
+      }
+
+        @if (boleta().porcino.capacidadExplotacionCerdosShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">4.3.6.2</span>¿Cuál es la máxima capacidad de la explotación en número de cerdos?</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #capacidadExplotacionCerdosInput="ngModel" name="capacidadExplotacionCerdos" type="number"
+                    required="true" min="1" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().porcino.capacidadExplotacionCerdos"
+                    (ionChange)="this.boletaService.onInputChange($event, 'porcino.capacidadExplotacionCerdos')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="capacidadExplotacionCerdos" [control]="capacidadExplotacionCerdosInput.control"
+            [value]="boleta().porcino.capacidadExplotacionCerdos"></mp-input-error>
+      }
+
+        <h1>4.3 - Ganado porcino</h1>
+
+        @if (boleta().isExisteGanadoPorcinoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">4.3.1</span>Al día de HOY, ¿existe ganado porcino en los terrenos que corresponden a esta entrevista?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isExisteGanadoPorcino"
+                (ionChange)="this.boletaService.onInputChange($event, 'isExisteGanadoPorcino')">
+            </ion-toggle>
+        </ion-item>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

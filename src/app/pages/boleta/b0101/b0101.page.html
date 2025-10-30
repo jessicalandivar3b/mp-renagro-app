@@ -1,0 +1,156 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>1.1 - Ubicación geográfica</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form #frmData="ngForm">
+    <ion-list>
+
+        <h1>1.1 - Ubicación geográfica:</h1>
+
+        @if (boleta().provinciaShow) {
+        <ion-item button (click)='openModal("provincia","boleta")'>
+            <ion-label><span class="label-codigo">1.1.1</span>Provincia</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().provincia)() }}
+            {{ boleta().provincia }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().cantonShow) {
+        <ion-item button (click)='openModal("canton","boleta")'>
+            <ion-label><span class="label-codigo">1.1.2</span>Cantón</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().canton)() }}
+            {{ boleta().canton }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().parroquiaShow) {
+        <ion-item button (click)='openModal("parroquia","boleta")'>
+            <ion-label><span class="label-codigo">1.1.3</span>Parroquia</ion-label>
+            <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(boleta().parroquia)() }}
+            {{ boleta().parroquia }}</ion-text>
+            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+        </ion-item>
+      }
+
+        @if (boleta().sectorMuestreoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">1.1.4</span>Sector muestreo</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #sectorMuestreoInput="ngModel" name="sectorMuestreo" type="text"
+                    required="true" maxlength="32" mpAlphanumeric [(ngModel)]="boleta().sectorMuestreo"
+                    (ionChange)="this.boletaService.onInputChange($event, 'sectorMuestreo')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="sectorMuestreo" [control]="sectorMuestreoInput.control"
+            [value]="boleta().sectorMuestreo"></mp-input-error>
+      }
+
+        @if (boleta().poligonoShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">1.1.5</span>Polígono</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #poligonoInput="ngModel" name="poligono" type="number"
+                    required="true" min="1" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().poligono"
+                    (ionChange)="this.boletaService.onInputChange($event, 'poligono')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="poligono" [control]="poligonoInput.control"
+            [value]="boleta().poligono"></mp-input-error>
+      }
+
+        @if (boleta().numeroUPAShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">1.1.6</span>Número UPA</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numeroUPAInput="ngModel" name="numeroUPA" type="number"
+                    required="true" min="1" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().numeroUPA"
+                    (ionChange)="this.boletaService.onInputChange($event, 'numeroUPA')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numeroUPA" [control]="numeroUPAInput.control"
+            [value]="boleta().numeroUPA"></mp-input-error>
+      }
+
+        @if (boleta().codigoEncuestadorShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">1.1.7</span>Código encuestador/a</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #codigoEncuestadorInput="ngModel" name="codigoEncuestador" type="number"
+                    required="true" min="1" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().codigoEncuestador"
+                    (ionChange)="this.boletaService.onInputChange($event, 'codigoEncuestador')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="codigoEncuestador" [control]="codigoEncuestadorInput.control"
+            [value]="boleta().codigoEncuestador"></mp-input-error>
+      }
+
+        @if (boleta().numeroBoletaShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">1.1.8</span>Número de boleta</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #numeroBoletaInput="ngModel" name="numeroBoleta" type="number"
+                    required="true" min="1" max="999" [mpDecimalPrecision]="0" [(ngModel)]="boleta().numeroBoleta"
+                    (ionChange)="this.boletaService.onInputChange($event, 'numeroBoleta')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="numeroBoleta" [control]="numeroBoletaInput.control"
+            [value]="boleta().numeroBoleta"></mp-input-error>
+      }
+
+        @if (boleta().codigoUPAShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">1.1.9</span>Codigo UPA</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #codigoUPAInput="ngModel" name="codigoUPA" type="text"
+                    required="true" minlength="18" maxlength="18" mpAlphanumeric [(ngModel)]="boleta().codigoUPA"
+                    (ionChange)="this.boletaService.onInputChange($event, 'codigoUPA')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="codigoUPA" [control]="codigoUPAInput.control"
+            [value]="boleta().codigoUPA"></mp-input-error>
+      }
+
+    </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="mp-footer-buttons-toolbar">
+        <div class="mp-footer-buttons-container">
+            <ion-button fill="solid" color="secondary" (click)="onButtonBack()" class="mp-footer-button">
+                <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+                Anterior
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="onButtonNext()" class="mp-footer-button"
+                [disabled]="frmData.invalid">
+                <span> Siguiente </span>
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>
