@@ -92,6 +92,7 @@ export class MpSearchModalComponent {
 
 
     let campoCatalogo = this.catalogoService.getCampoCatalogoByGrupoCampo(grupoStr, campoStr)();
+    console.log('campoCatalogo al seleccionar item', campoCatalogo);
     if (campoCatalogo && campoCatalogo.encera) {
       // console.log('campoCatalogo.encera', campoCatalogo.encera);
       for (const campoEncera of campoCatalogo.encera) {
@@ -108,12 +109,17 @@ export class MpSearchModalComponent {
           }
       }
     }
-
+console.log("Emite item seleccionado");
+console.log(item);
     this.itemSelected.emit(item);
-    this.closeModal();
+    //this.closeModal();
+    this.closeModal(item); 
   }
 
-  closeModal(): void {
+  /*closeModal(): void {
     this.modalController.dismiss();
-  }
+  }*/
+ closeModal(item?: CatalogoItem): void {
+  this.modalController.dismiss(item);
+}
 }

@@ -1,23 +1,31 @@
-import { Component, inject } from '@angular/core';
-import { IonicModule, ModalController, NavController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CatalogoService } from 'src/app/services/catalogo.service';
-import { DataService } from 'src/app/services/data.service';
-import { MpInputErrorComponent } from "src/app/components/mp-input-error/mp-input-error.component";
+import { IonicModule, ModalController, NavController } from '@ionic/angular';
+import { MpInputErrorComponent } from 'src/app/components/mp-input-error/mp-input-error.component';
 import { MpSearchModalComponent } from 'src/app/components/mp-search-modal/mp-search-modal.component';
-import { MpTextValidator } from 'src/app/validators/text-validator';
-import { MpAlphanumericValidator } from "src/app/validators/alphanumeric-validator";
+import { CatalogoService } from 'src/app/services/catalogo.service';
+import { MpAlphanumericValidator } from 'src/app/validators/alphanumeric-validator';
 import { MpDecimalPrecisionValidator } from 'src/app/validators/decimal-precision-validator';
+import { MpTextValidator } from 'src/app/validators/text-validator';
 
 import { CultivoService } from 'src/app/services/cultivo.service';
 import { TerrenoService } from 'src/app/services/terreno.service';
+import { CatalogoItem } from 'src/app/interfaces/catalogo';
 
 @Component({
   selector: 'app-b0301',
   templateUrl: './b0301.page.html',
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, MpInputErrorComponent, MpTextValidator, MpAlphanumericValidator, MpDecimalPrecisionValidator]
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    MpInputErrorComponent,
+    MpTextValidator,
+    MpAlphanumericValidator,
+    MpDecimalPrecisionValidator,
+  ],
 })
 export class B0301Page {
   private navCtrl = inject(NavController);
@@ -30,7 +38,7 @@ export class B0301Page {
 
   private modalController = inject(ModalController);
 
-  constructor() { }
+  constructor() {}
 
   async openModal(campo: string, grupo: string = 'boleta'): Promise<void> {
     const modal = await this.modalController.create({
@@ -38,18 +46,36 @@ export class B0301Page {
       componentProps: { campo, grupo },
     });
     await modal.present();
-  }
 
+    // Esperar el valor del modal
+    const { data } = await modal.onWillDismiss<CatalogoItem>();
+    console.log('Valor demodal recibido');
+    console.log(data);
+
+    //Actualizar el valor para cultivo
+    if (data) {
+      console.log("ingresa if data")
+      this.cultivoService.onInputChange(data.codigo, campo);
+    }
+  }
   public onButtonBack(): void {
     //this.navCtrl.navigateForward('/home');
-    this.navCtrl.pop();
+    console.log('vALOR DE CILTIVO SELECCIONADO');
+    console.log(this.cultivo());
+    console.log(this.cultivo().nombreCultivo);
+    //this.navCtrl.pop();
   }
 
   public onButtonNext(): void {
-    this.navCtrl.navigateForward('/home/b0302');
+    console.log(this.cultivo());
+    console.log(this.cultivo().nombreCultivo);
+    //this.navCtrl.navigateForward('/home/b0302');
   }
 
   public goToCultivoPage(): void {
-    this.navCtrl.navigateForward('/home/terrenos');
+    console.log('vALOR DE CILTIVO SELECCIONADO');
+    console.log(this.cultivo());
+    console.log(this.cultivo().nombreCultivo);
+    //this.navCtrl.navigateForward('/home/terrenos');
   }
 }

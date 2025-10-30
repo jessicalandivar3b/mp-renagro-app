@@ -130,6 +130,7 @@ export class CultivoService {
      * @param fieldPath La ruta al campo a actualizar.
      */
     public onInputChange(event: any, fieldPath: string): void {
+        console.log('Actualizando campo', fieldPath, 'con valor', event);
         const valueInput = event.detail?.value !== undefined ? event.detail.value : event;
         const selectedUuid = this.cultivoUuid();
         const activeTerreno = this.terrenoService.terreno();
@@ -139,6 +140,7 @@ export class CultivoService {
         }
 
         this.boletaData.update(boleta => {
+            console.log("ingre a actualizar cultivo del signal")
             const terrenoIndex = boleta.terrenos.findIndex(t => t.terrenoUuid === activeTerreno.terrenoUuid);
             if (terrenoIndex === -1) {
                 return boleta;

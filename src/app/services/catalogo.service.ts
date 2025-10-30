@@ -71,9 +71,11 @@ export class CatalogoService {
     }
 
     public getDescripcionByCodigo(codigo: string): () => string | null {
+        console.log(`getDescripcionByCodigo: ${codigo}`);
         return computed(() => {
             const item = this._catalogo().find(
                 (i) => i.codigo === codigo
+                //(i) => i.codigo === "917"
             );
             return item ? item.descripcion : null;
         });
@@ -83,6 +85,7 @@ export class CatalogoService {
     /********************************* CampoCatalogo **************************************/
 
     public getCampoCatalogoByGrupoCampo(grupo: string, campo: string): () => CampoCatalogoItem | null {
+        console.log(`getCampoCatalogoByGrupoCampo: ${grupo}, ${campo}`);
         return computed(() => {
             const item = this._campoCatalogo().find(
                 (i) => i.grupo === grupo && i.campo === campo
