@@ -79,6 +79,7 @@ export class MpSearchModalComponent {
   }
 
   setValue(grupo: string, campo: string, valor: string) {
+    console.log(`setValue=>${grupo}.${campo}=${valor}`);
     switch (grupo) {
       case 'terreno':
         // const campoTerreno = campoStr as keyof Terreno;
@@ -90,7 +91,7 @@ export class MpSearchModalComponent {
         this.miembroHogarService.onInputChange(valor, campo);
         break;
 
-      case 'cultivo':
+      case 'cultivos':
         // const campoCultivo = campo as keyof Cultivo;
         this.cultivoService.onInputChange(valor, campo);
         break;
