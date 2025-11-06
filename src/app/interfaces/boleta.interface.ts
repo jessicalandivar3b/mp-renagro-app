@@ -1,6 +1,8 @@
 // import { v4 as uuidv4 } from 'uuid';
 
 export class Boleta {
+  fechaInicio: Date = new Date();
+  fechaFin: Date = new Date();
   // boletaIdLevanta: string = uuidv4();
   id: number = 0;
   boletaIdLevanta: string = '';

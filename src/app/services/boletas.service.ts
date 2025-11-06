@@ -58,7 +58,7 @@ export class BoletasService {
                 const boletasMap = new Map<string, Boleta>();
                 boletasArray.forEach(boleta => {
                     boletasMap.set(boleta.id.toString(), boleta);
-                    console.log(boleta);
+                    // console.log(boleta);
                 });
                 return boletasMap;
             }

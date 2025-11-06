@@ -25,6 +25,19 @@ export interface User {
     grupos: GrupoElement[];
     poligonos: Poligono[];
 }
+export interface UpdateUserRequest {
+    nombre: string;
+    cedula: string;
+}
+export interface ActPasswordRequest {
+    cedula: string; 
+    claveActual: string; 
+    claveNueva: string;  
+}
+
+export interface ActPasswordResponse {
+    message: string;
+}
 
 export interface GrupoElement {
     grupoCod: string;

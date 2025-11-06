@@ -1,2 +1,165 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
+// src/theme/variables.scss
+
+// ====================================================================
+// 1. VARIABLES GLOBALES CSS (MODO CLARO POR DEFECTO)
+// ====================================================================
+
+:root {
+    --ion-color-primary: #034C21;
+    --ion-color-primary-rgb: 3, 76, 33;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #03431d;
+    --ion-color-primary-tint: #1c5e37;
+
+    /* Colores generales de la aplicación en modo claro */
+    --ion-text-color: #000000;
+    --ion-text-color-rgb: 0, 0, 0;
+    --ion-background-color: #ffffff;
+    --ion-background-color-rgb: 255, 255, 255;
+}
+
+
+// ====================================================================
+// 2. MODIFICACIONES PARA MODO OSCURO (CORREGIDO)
+// ====================================================================
+
+@media (prefers-color-scheme: dark) {
+    // ESTA LLAVE HACE QUE EL CÓDIGO SEA VÁLIDO EN SASS/CSS
+    body { 
+        /* Color de texto claro (blanco) para el input en modo oscuro */
+        --ion-text-color: #ffffff; 
+        --ion-text-color-rgb: 255, 255, 255;
+        
+        /* Fondo de la aplicación más oscuro */
+        --ion-background-color: #121212;
+        --ion-background-color-rgb: 18, 18, 18;
+        
+        /* Fondos de elementos intermedios (items/inputs) */
+        --ion-color-step-50: #1e1e1e;
+        --ion-color-step-100: #2a2a2a; 
+        
+        --ion-item-background: #1e1e1e;
+        --ion-item-background-activated: #333333;
+        
+        --ion-color-light: #222222;
+        --ion-color-light-shade: #1e1e1e;
+    } // CIERRE DEL SELECTOR body
+}
+
+
+// ====================================================================
+// 3. ESTILOS DE COMPONENTES (Fuera de :root)
+// ====================================================================
+
+/* Estilos para ion-toolbar */
+ion-toolbar {
+    --background: var(--ion-color-primary); 
+    --color: var(--ion-color-primary-contrast);
+    --ion-color-base: #ffffff;
+}
+
+/* El resto de tus estilos */
+
+.split-60-40 {
+    --inner-padding-end: 0;
+    --inner-padding-start: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .split-60 {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 60%;
+        max-width: 60%;
+    }
+
+    .split-40 {
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 40%;
+    }
+}
+
+.error-message {
+    color: var(--ion-color-danger, #eb445a);
+    font-size: 0.8em;
+}
+
+h1,
+h2 {
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
+
+// Estilos para el contenedor de la alerta
+ion-alert.custom-alert {
+    --background: var(--ion-background-color); 
+    --border-radius: 12px;
+    --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+// Estilos para el encabezado
+ion-alert.custom-alert::part(header) {
+    background: var(--ion-color-primary) !important;
+    color: var(--ion-color-primary-contrast) !important;
+    font-weight: bold;
+    padding: 16px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+// Estilos para el mensaje
+.alert-message {
+    color: var(--ion-text-color) !important;
+}
+
+// Estilos para el botón
+.alert-button {
+    background: var(--ion-color-primary) !important;
+    color: var(--ion-color-primary-contrast) !important;
+    font-weight: 400 !important;
+    border-radius: 8px !important;
+    transition: background-color 0.3s ease;
+}
+
+/* Regla para el estado hover */
+.alert-button:hover {
+    background: var(--ion-color-primary-shade) !important;
+}
+
+.label-codigo {
+    color: var(--ion-text-color);
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* --- Estilos del Footer Añadidos --- */
+.mp-footer-buttons-toolbar {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    --background: var(--ion-background-color);
+}
+
+.mp-footer-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+.mp-footer-button {
+    flex-grow: 1;
+    margin: 0;
+}

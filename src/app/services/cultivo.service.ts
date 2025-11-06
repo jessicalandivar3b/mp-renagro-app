@@ -1,177 +1,154 @@
 import { Injectable, signal, computed, inject, WritableSignal } from '@angular/core';
 import { Boleta, Cultivo, Terreno } from '../interfaces/boleta.interface';
 import { DataService } from './data.service';
-import { TerrenoService } from './terreno.service';
+import { onInputChangeValue } from '../utils/on-input-change-value';
+import { Utils } from '../utils/utils';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CultivoService {
-    private boletaData!: WritableSignal<Boleta>;
-    private terrenoService = inject(TerrenoService);
+    private boletaService = inject(DataService);
 
-    private cultivoUuid = signal<string | null>(null);
-
-    public initialize(boletaSignal: WritableSignal<Boleta>) {
-        this.boletaData = boletaSignal;
-    }
-
-    // PROPIEDADES REACTIVAS
-    /**
-     * Retorna el objeto Cultivo seleccionado del Terreno activo.
-     * Retorna una nueva instancia si no hay uno seleccionado.
-     */
-    public readonly cultivo = computed(() => {
-        const activeTerreno = this.terrenoService.terreno();
-        const cultivosList = activeTerreno?.cultivos;
-        const selectedUuid = this.cultivoUuid();
-
-        if (!cultivosList || !selectedUuid) {
-            return new Cultivo();
-        }
-        const foundCultivo = cultivosList.find((c: Cultivo) => c.cultivoUuid === selectedUuid);
-        return foundCultivo || new Cultivo();
+    public readonly cultivos = computed(() => {
+        const terreno = this.boletaService.terreno();
+        if (!terreno) return [];
+        const itemsList = terreno.cultivos;
+        return itemsList;
     });
 
-    /**
-     * Expone la lista de cultivos del terreno activo para la vista.
-     */
-    public readonly cultivosList = computed(() => {
-        const activeTerreno = this.terrenoService.terreno();
-        return activeTerreno?.cultivos || [];
+    public readonly cultivo = computed(() => {
+        const terreno = this.boletaService.terreno();
+        if (!terreno) return new Cultivo();
+        const itemsList = terreno.cultivos;
+        const selectedUuid = this.boletaService.cultivoUuid();
+        console.log(`cultivo.selectedUuid: ${selectedUuid}`);
+        if (!itemsList || !selectedUuid || selectedUuid.length == 0) {
+            return new Cultivo();
+        }
+        const itemSelected = itemsList.find((m: Cultivo) => m.cultivoUuid === selectedUuid);
+        console.log(`Num:${itemsList.length} cultivo sel:${itemSelected}`);
+        return itemSelected || new Cultivo();
     });
 
     constructor() { }
 
-    // MÉTODOS
-    /**
-     * Establece el UUID del cultivo activo.
-     * @param uuid El ID único del cultivo.
-     */
-    public setCultivoUuid(uuid: string | null): void {
-        this.cultivoUuid.set(uuid);
-    }
-
-    /**
-     * Agrega un nuevo cultivo al terreno activo y lo establece como activo.
-     */
+    // CRUD METHODS
     public addCultivo(): void {
-        const cultivoUuid = crypto.randomUUID();
-        const activeTerreno = this.terrenoService.terreno();
+        const terreno = this.boletaService.terreno();
+        if (!terreno) return;
 
-        if (!activeTerreno || !activeTerreno.terrenoUuid) {
-            console.error('No hay terreno activo para agregar un cultivo.');
-            return;
-        }
+        //agrego el nuevo cultivo
+        let terrenoUpdate = JSON.parse(JSON.stringify(terreno)) as Terreno;
+        let newItem = new Cultivo();
+        newItem.cultivoUuid = Utils.generaUUID();
+        terrenoUpdate.cultivos = [...(terrenoUpdate.cultivos || []), newItem]
 
-        this.boletaData.update(boleta => {
-            const terrenoIndex = boleta.terrenos.findIndex(t => t.terrenoUuid === activeTerreno.terrenoUuid);
-
-            if (terrenoIndex === -1) {
-                return boleta;
+        //actualizo los terrenos
+        let terrenos: Terreno[] = JSON.parse(JSON.stringify(this.boletaService.boleta().terrenos));
+        const terrenosUpdated = terrenos.map(item => {
+            if (item.terrenoUuid === terrenoUpdate.terrenoUuid) {
+                return JSON.parse(JSON.stringify(terrenoUpdate)) as Terreno;
             }
-
-            const updatedTerrenos = [...boleta.terrenos];
-            const updatedTerreno = { ...updatedTerrenos[terrenoIndex] };
-
-            const newCultivo = new Cultivo();
-            newCultivo.cultivoUuid = cultivoUuid;
-
-            updatedTerreno.cultivos = [...(updatedTerreno.cultivos || []), newCultivo];
-            updatedTerrenos[terrenoIndex] = updatedTerreno;
-
+            return item;
+        });
+        //actualizo la boleta
+        this.boletaService.boletaData.update(boleta => {
             return {
                 ...boleta,
-                terrenos: updatedTerrenos,
+                terrenos: terrenosUpdated
             };
         });
 
-
-        this.setCultivoUuid(cultivoUuid);
+        //actualizo el uuid seleccionado
+        this.boletaService.cultivoUuid.set(`${newItem.cultivoUuid}`);
     }
 
-    /**
-     * Elimina el cultivo seleccionado del terreno activo.
-     */
     public removeCultivo(): void {
-        const selectedUuid = this.cultivoUuid();
-        const activeTerreno = this.terrenoService.terreno();
-
-        if (!selectedUuid || !activeTerreno || !activeTerreno.terrenoUuid) {
+        const selectedUuid = this.boletaService.cultivoUuid();
+        if (!selectedUuid) {
             return;
         }
-
-        this.boletaData.update(boleta => {
-            const terrenoIndex = boleta.terrenos.findIndex(t => t.terrenoUuid === activeTerreno.terrenoUuid);
-
-            if (terrenoIndex === -1) {
-                return boleta;
+        const terreno = this.boletaService.terreno();
+        if (!terreno) return;
+        //elimino el cultivo
+        let terrenoUpdate = JSON.parse(JSON.stringify(terreno)) as Terreno;
+        const cultivos = terrenoUpdate.cultivos.filter(m => m.cultivoUuid !== selectedUuid);
+        //actualizo los cultivos del terreno
+        terrenoUpdate.cultivos = [...(terrenoUpdate.cultivos || [])]
+        //actualizo los terrenos
+        let terrenos: Terreno[] = JSON.parse(JSON.stringify(this.boletaService.boleta().terrenos));
+        const terrenosUpdated = terrenos.map(item => {
+            if (item.terrenoUuid === terrenoUpdate.terrenoUuid) {
+                return JSON.parse(JSON.stringify(terrenoUpdate)) as Terreno;
             }
-
-            const updatedTerrenos = [...boleta.terrenos];
-            const updatedTerreno = { ...updatedTerrenos[terrenoIndex] };
-
-            const newCultivos = updatedTerreno.cultivos.filter(c => c.cultivoUuid !== selectedUuid);
-            updatedTerreno.cultivos = newCultivos;
-            updatedTerrenos[terrenoIndex] = updatedTerreno;
-
+            return item;
+        });
+        //actualizo la boleta
+        this.boletaService.boletaData.update(boleta => {
             return {
                 ...boleta,
-                terrenos: updatedTerrenos,
+                terrenos: terrenosUpdated
             };
         });
-
-        this.setCultivoUuid(null);
+        //actualizo el uuid seleccionado
+        if (terreno.cultivos.length > 0) {
+            this.boletaService.cultivoUuid.set(
+                terreno.cultivos[terreno.cultivos.length - 1].cultivoUuid
+            )
+        } else {
+            this.boletaService.cultivoUuid.set(null);
+        }
     }
 
-    /**
-     * Actualiza un campo específico del cultivo seleccionado.
-     * @param event El evento del control de entrada.
-     * @param fieldPath La ruta al campo a actualizar.
-     */
     public onInputChange(event: any, fieldPath: string): void {
-        console.log('Actualizando campo', fieldPath, 'con valor', event);
-        const valueInput = event.detail?.value !== undefined ? event.detail.value : event;
-        const selectedUuid = this.cultivoUuid();
-        const activeTerreno = this.terrenoService.terreno();
+        const valueInput = onInputChangeValue(event);
+        console.log(`onInputChange MO: ${fieldPath} - ${valueInput} `)
 
-        if (!selectedUuid || !activeTerreno || !activeTerreno.terrenoUuid) {
+        //valida que exista
+        const cultivo = this.cultivo();
+        if (cultivo.cultivoUuid.length == 0) {
             return;
         }
+        //actualizo el valor
+        let updatedItem: any = JSON.parse(JSON.stringify(this.cultivo()));
+        // console.log(`mo: ${JSON.stringify(updatedItem)}`);
+        updatedItem[fieldPath] = valueInput;
+        console.log(`cultivo : ${JSON.stringify(updatedItem)}`);
 
-        this.boletaData.update(boleta => {
-            console.log("ingre a actualizar cultivo del signal")
-            const terrenoIndex = boleta.terrenos.findIndex(t => t.terrenoUuid === activeTerreno.terrenoUuid);
-            if (terrenoIndex === -1) {
-                return boleta;
+        //actualizo los datos de la boleta
+        const terreno = this.boletaService.terreno();
+        if (terreno.terrenoUuid.length == 0) return;
+        let terrenoUpdate = JSON.parse(JSON.stringify(terreno)) as Terreno;
+
+
+        //actualizo los cultivos del terreno
+        const itemsUpdated = terreno.cultivos.map(item => {
+            if (item.cultivoUuid === updatedItem.cultivoUuid) {
+                return JSON.parse(JSON.stringify(updatedItem)) as Cultivo;
             }
+            return item;
+        });
+        terrenoUpdate.cultivos = [...(itemsUpdated || [])]
 
-            const updatedTerrenos = [...boleta.terrenos];
-            const updatedTerreno = { ...updatedTerrenos[terrenoIndex] };
-            const cultivoIndex = updatedTerreno.cultivos.findIndex(c => c.cultivoUuid === selectedUuid);
+        //actualizo el terreno en la boleta
+        this.updateTerrenosOnBoleta(terrenoUpdate);
+    }
 
-            if (cultivoIndex === -1) {
-                return boleta;
+    updateTerrenosOnBoleta(terrenoUpdate: Terreno) {
+        //actualizo los terrenos
+        let terrenos: Terreno[] = JSON.parse(JSON.stringify(this.boletaService.boleta().terrenos));
+        const terrenosUpdated = terrenos.map(item => {
+            if (item.terrenoUuid === terrenoUpdate.terrenoUuid) {
+                return JSON.parse(JSON.stringify(terrenoUpdate)) as Terreno;
             }
-
-            const updatedCultivos = [...updatedTerreno.cultivos];
-            const updatedCultivo = { ...updatedCultivos[cultivoIndex] };
-
-            // Actualiza el campo utilizando la ruta de propiedades
-            let currentObject: any = updatedCultivo;
-            const parts = fieldPath.split('.');
-            for (let i = 0; i < parts.length - 1; i++) {
-                currentObject = currentObject[parts[i]];
-            }
-            currentObject[parts[parts.length - 1]] = valueInput;
-
-            updatedCultivos[cultivoIndex] = updatedCultivo;
-            updatedTerreno.cultivos = updatedCultivos;
-            updatedTerrenos[terrenoIndex] = updatedTerreno;
-
+            return item;
+        });
+        //actualizo la boleta
+        this.boletaService.boletaData.update(boleta => {
             return {
                 ...boleta,
-                terrenos: updatedTerrenos,
+                terrenos: terrenosUpdated
             };
         });
     }

@@ -2,6 +2,7 @@ import { Injectable, signal, computed, inject, WritableSignal } from '@angular/c
 import { Boleta, CultivoForestal, Terreno } from '../interfaces/boleta.interface';
 import { DataService } from './data.service';
 import { TerrenoService } from './terreno.service';
+import { Utils } from '../utils/utils';
 
 @Injectable({
     providedIn: 'root',
@@ -51,7 +52,7 @@ export class ForestalService {
      * Agrega un nuevo cultivo forestal al terreno activo y lo establece como activo.
      */
     public addCultivoForestal(): void {
-        const forestalUuid = crypto.randomUUID();
+        const forestalUuid = Utils.generaUUID();
         const activeTerreno = this.terrenoService.terreno();
 
         if (!activeTerreno || !activeTerreno.terrenoUuid) {

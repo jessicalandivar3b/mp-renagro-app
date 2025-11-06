@@ -69,3 +69,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+others/tmp.json
+others/cnf/cmp.sh

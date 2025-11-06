@@ -9,7 +9,14 @@ import { AppComponent } from './app/app.component';
 import { addIcons } from 'ionicons';
 import {
   personCircleOutline, mapOutline, clipboardOutline, refreshCircleOutline, chevronDownOutline,
-  clipboardSharp, home, homeSharp, addCircleOutline, removeCircleOutline, listOutline, arrowBackOutline, arrowForwardOutline
+  clipboardSharp, home, homeSharp, addCircleOutline, removeCircleOutline, listOutline, arrowBackOutline, arrowForwardOutline,
+  locateOutline,
+  documentTextOutline,
+  saveOutline,
+  personCircleSharp,
+  logOutSharp,
+  leafOutline,
+  createOutline
 } from 'ionicons/icons';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -40,5 +47,14 @@ addIcons({
   'refresh-circle-outline': refreshCircleOutline,
   'chevron-down-outline': chevronDownOutline,
   'arrow-back-outline': arrowBackOutline,
-  'arrow-forward-outline': arrowForwardOutline
+  'arrow-forward-outline': arrowForwardOutline,
+  'locate-outline': locateOutline,
+  'document-text-outline': documentTextOutline,
+  'save-outline': saveOutline,
+  'person-circle-sharp': personCircleSharp,
+  'log-out-sharp': logOutSharp,
+  'leaf-outline': leafOutline,
+  // 'tree-outline': tree
+  'create-outline': createOutline,
+
 });

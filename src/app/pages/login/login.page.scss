@@ -1,15 +1,19 @@
-/* src/app/pages/login/login.page.scss */
+/* ***************************************************************
+ * src/app/pages/login/login.page.scss (VERSIÓN CORREGIDA)
+ * ***************************************************************
+ */
 
 // Paleta de colores minimalista
 $primary-color: #022f16;
 $secondary-color: #4CAF50;
-$card-bg: #FFFFFF;
-$text-color: #075f3d;
+$text-color-light: #075f3d; // Usado para el modo claro del H2
 $error-color: #f44336;
 $button-text-color: #FFFFFF;
 
 // Estilo del ion-content para centrar el formulario y aplicar el fondo degradado
 ion-content {
+  // NOTA: Los degradados o imágenes de fondo no se adaptan automáticamente
+  // Se quedan fijos en modo claro/oscuro. Si quieres que cambie, usa @media.
   --background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
   display: flex;
   justify-content: center;
@@ -19,9 +23,11 @@ ion-content {
 
 // Estilos de la tarjeta de login
 .login-card {
-  background-color: $card-bg;
+  // Usamos --ion-background-color para que el fondo de la tarjeta se adapte
+  background-color: var(--ion-background-color); 
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  // Usamos una sombra más sutil y adaptativa
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); 
   padding: 30px;
   width: 100%;
   max-width: 380px;
@@ -51,7 +57,8 @@ ion-content {
 .logo-section h2 {
   font-size: 2.2rem;
   font-weight: 600;
-  color: #125834;
+  // Usamos la variable de texto adaptativa o el color Sass
+  color: var(--ion-text-color, $text-color-light); 
   margin-bottom: 0;
   background-color: transparent !important;
   border: none !important;
@@ -59,7 +66,10 @@ ion-content {
 
 // Estilos de los campos de entrada
 ion-item {
-  --background: #ffffff;
+  // DEJAMOS QUE IONIC GESTIONE EL FONDO DEL ITEM EN MODO OSCURO,
+  // O USAMOS UNA VARIABLE QUE YA SOBREESCRIBIMOS EN variables.scss.
+  // Esto evita el fondo blanco fijo.
+  --background: var(--ion-item-background); 
   --border-radius: 8px;
   --border-style: none;
   margin-bottom: 15px;
@@ -68,9 +78,10 @@ ion-item {
 
 // Estilos del input y placeholder
 ion-input {
-  --color: $text-color;
-  --placeholder-color: #9e9e9e;
-  --placeholder-opacity: 1;
+  // ¡USAMOS LA VARIABLE CSS GLOBAL QUE YA SE ADAPTA!
+  --color: var(--ion-text-color); 
+  --placeholder-color: var(--ion-text-color-rgb, 158, 158, 158);
+  --placeholder-opacity: 0.7;
 }
 
 // Mensaje de error
@@ -95,5 +106,29 @@ ion-button {
   &:hover {
     --background: darken($primary-color, 10%);
   }
+}
 
+
+/* ************************************************************
+ * FIX ESPECÍFICO DE MODO OSCURO (ALTA PRIORIDAD)
+ * ESTE BLOQUE ES PARA ANULAR ESTILOS NATIVOS DE ANDROID
+ * ************************************************************
+ */
+@media (prefers-color-scheme: dark) {
+    ion-input {
+        // Variable que controla el color del texto que escribe el usuario.
+        // La forzamos a blanco por si la variable adaptativa falla.
+        --color: #ffffff !important; 
+        
+        // Variable que controla el color del placeholder/label flotante
+        --placeholder-color: #bbbbbb !important; 
+        
+        // Si usas el modo 'stacked' o 'floating', también ayuda a que la etiqueta sea visible
+        --ion-color-base: #ffffff !important; 
+    }
+
+    // Opcional: Si el ion-item tiene un borde, asegúrate de que sea visible
+    ion-item {
+        --border-color: #444444; 
+    }
 }

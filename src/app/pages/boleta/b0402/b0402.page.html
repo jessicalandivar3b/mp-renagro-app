@@ -455,7 +455,7 @@
             </div>
             <div class="split-40">
                 <ion-input #otraVacunaInput="ngModel" name="otraVacuna" type="text"
-                    required="true" maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="boleta().bovino.otraVacuna"
+                    required="true" maxlength="100" mpText [(ngModel)]="boleta().bovino.otraVacuna"
                     (ionChange)="this.boletaService.onInputChange($event, 'bovino.otraVacuna')">
                 </ion-input>
             </div>

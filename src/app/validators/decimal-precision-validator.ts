@@ -13,9 +13,11 @@ export class MpDecimalPrecisionValidator implements Validator {
             return null;
         }
         const valueAsString = String(control.value);
-        //const decimalPattern = new RegExp(`^\\d+(\\.\\d{1,${this.maxDecimals}})?$`);
-        const decimalPattern = new RegExp(this.maxDecimals === 0 ? "^\\d+$" : `^\\d+(\\.\\d{1,${this.maxDecimals}})?$`);
 
+        let decimalPattern = new RegExp(`^\\d+?$`);
+        if (this.maxDecimals > 0) {
+            decimalPattern = new RegExp(`^\\d+(\\.\\d{1,${this.maxDecimals}})?$`);
+        }
 
         if (decimalPattern.test(valueAsString)) {
             return null;

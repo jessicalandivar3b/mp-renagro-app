@@ -24,6 +24,7 @@
 <ion-content [fullscreen]="true" class="ion-padding">
     <form #frmData="ngForm">
         <ion-list>
+            @if(forestal().forestalUuid.length>1 ){
 
             <h1>3.2 - Especies forestales en monocultivo</h1>
 
@@ -54,8 +55,7 @@
                 </div>
                 <div class="split-40">
                     <ion-input #otroNombreEspecieForestalInput="ngModel" name="otroNombreEspecieForestal" type="text"
-                        required="true" maxlength="+process.env.DTO_MAX_LENGTH" mpText
-                        [(ngModel)]="forestal().otroNombreEspecieForestal"
+                        required="true" maxlength="100" mpText [(ngModel)]="forestal().otroNombreEspecieForestal"
                         (ionChange)="this.forestalService.onInputChange($event, 'otroNombreEspecieForestal')">
                     </ion-input>
                 </div>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="split-40">
                     <ion-input #otroMaquinariaEquipoInput="ngModel" name="otroMaquinariaEquipo" type="text"
-                        maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="boleta().otroMaquinariaEquipo"
+                        maxlength="100" mpText [(ngModel)]="boleta().otroMaquinariaEquipo"
                         (ionChange)="this.boletaService.onInputChange($event, 'otroMaquinariaEquipo')">
                     </ion-input>
                 </div>
@@ -173,7 +173,7 @@
                 <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
             </ion-item>
             }
-
+            }
         </ion-list>
     </form>
 </ion-content>

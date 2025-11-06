@@ -1,14 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { IonicModule, ModalController, NavController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CatalogoService } from 'src/app/services/catalogo.service';
-import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
+import { IonicModule, ModalController, NavController } from '@ionic/angular';
 import { MpInputErrorComponent } from "src/app/components/mp-input-error/mp-input-error.component";
 import { MpSearchModalComponent } from 'src/app/components/mp-search-modal/mp-search-modal.component';
-import { MpTextValidator } from 'src/app/validators/text-validator';
+import { CatalogoService } from 'src/app/services/catalogo.service';
+import { DataService } from 'src/app/services/data.service';
+import { NavegacionService } from 'src/app/services/navegacion.service';
 import { MpAlphanumericValidator } from "src/app/validators/alphanumeric-validator";
 import { MpDecimalPrecisionValidator } from 'src/app/validators/decimal-precision-validator';
+import { MpTextValidator } from 'src/app/validators/text-validator';
+
 
 import { TerrenoService } from 'src/app/services/terreno.service';
 
@@ -20,6 +23,8 @@ import { TerrenoService } from 'src/app/services/terreno.service';
 })
 export class B0102Page {
   private navCtrl = inject(NavController);
+  private router = inject(Router);
+  private navegacionService = inject(NavegacionService);
   public readonly catalogoService = inject(CatalogoService);
 
   public readonly boletaService = inject(DataService);
@@ -40,12 +45,11 @@ export class B0102Page {
   }
 
   public onButtonBack(): void {
-    //this.navCtrl.navigateForward('/home/b0101');
-    this.navCtrl.pop();
+    this.navegacionService.goToPrevious(this.router.url);
   }
 
   public onButtonNext(): void {
-    this.navCtrl.navigateForward('home/b0201-02');
+    this.navegacionService.goToNext(this.router.url);
   }
 
   public goToTerrenosPage(): void {

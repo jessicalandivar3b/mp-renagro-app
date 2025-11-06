@@ -24,7 +24,7 @@
 <ion-content [fullscreen]="true" class="ion-padding">
     <form #frmData="ngForm">
         <ion-list>
-
+            @if (boleta().terrenos.length>0) {
             @if (terreno().terrenoNoShow) {
             <ion-item class="split-60-40">
                 <div class="split-60">
@@ -145,7 +145,7 @@
                 </ion-toggle>
             </ion-item>
             }
-
+            }
         </ion-list>
     </form>
 </ion-content>

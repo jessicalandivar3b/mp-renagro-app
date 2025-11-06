@@ -1,10 +1,13 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
+
 
 
 export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./pages/home/home.page').then(m => m.HomePage),
+    canActivate: [authGuard],
     children: [
       { path: "b0101", loadComponent: () => import("./pages/boleta/b0101/b0101.page").then(m => m.B0101Page) },
       { path: "b0102", loadComponent: () => import("./pages/boleta/b0102/b0102.page").then(m => m.B0102Page) },
@@ -59,11 +62,24 @@ export const routes: Routes = [
     path: 'upload-excel',
     loadComponent: () => import('./pages/upload-excel/upload-excel.page').then(m => m.UploadExcelPage)
   },
+
+   {
+    path: 'act-usuario',
+    loadComponent: () => import('./pages/act-usuario/act-usuario.page').then(m => m.UsuarioEditarPage),
+    canActivate: [authGuard] 
+    
+  },
+   {
+    path: 'act-password',
+    loadComponent: () => import('./pages/act-password/act-password.page').then( m => m.ActPasswordPage)
+  },
   {
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full',
   },
+ 
+
 
 
 

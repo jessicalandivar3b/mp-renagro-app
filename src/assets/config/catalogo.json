@@ -14725,7 +14725,7 @@
       "descripcionGrupo": "PROVINCIA",
       "codigo": "5",
       "descripcion": "CARCHI",
-      "padre": "",
+      "padre": "Z1",
       "codigoEquivale": "04"
     },
     {
@@ -14741,7 +14741,7 @@
       "descripcionGrupo": "PROVINCIA",
       "codigo": "6",
       "descripcion": "COTOPAXI",
-      "padre": "",
+      "padre": "Z1",
       "codigoEquivale": "05"
     },
     {
@@ -14757,7 +14757,7 @@
       "descripcionGrupo": "PROVINCIA",
       "codigo": "9",
       "descripcion": "ESMERALDAS",
-      "padre": "",
+      "padre": "Z1",
       "codigoEquivale": "08"
     },
     {
@@ -14781,7 +14781,7 @@
       "descripcionGrupo": "PROVINCIA",
       "codigo": "11",
       "descripcion": "IMBABURA",
-      "padre": "",
+      "padre": "Z1",
       "codigoEquivale": "10"
     },
     {
@@ -14797,7 +14797,7 @@
       "descripcionGrupo": "PROVINCIA",
       "codigo": "13",
       "descripcion": "LOS RIOS",
-      "padre": "",
+      "padre": "Z1",
       "codigoEquivale": "12"
     },
     {
@@ -14805,7 +14805,7 @@
       "descripcionGrupo": "PROVINCIA",
       "codigo": "14",
       "descripcion": "MANABI",
-      "padre": "",
+      "padre": "Z1",
       "codigoEquivale": "13"
     },
     {
@@ -14845,7 +14845,7 @@
       "descripcionGrupo": "PROVINCIA",
       "codigo": "18",
       "descripcion": "PICHINCHA",
-      "padre": "",
+      "padre": "Z1",
       "codigoEquivale": "17"
     },
     {
@@ -14861,7 +14861,7 @@
       "descripcionGrupo": "PROVINCIA",
       "codigo": "24",
       "descripcion": "SANTO DOMINGO DE LOS TSACHILAS",
-      "padre": "",
+      "padre": "Z1",
       "codigoEquivale": "23"
     },
     {
@@ -14869,7 +14869,7 @@
       "descripcionGrupo": "PROVINCIA",
       "codigo": "22",
       "descripcion": "SUCUMBIOS",
-      "padre": "",
+      "padre": "Z1",
       "codigoEquivale": "21"
     },
     {

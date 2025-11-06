@@ -5,7 +5,8 @@ import { IonicModule, NavController } from '@ionic/angular';
 import { TerrenoService } from 'src/app/services/terreno.service';
 import { CatalogoService } from 'src/app/services/catalogo.service';
 import { Terreno } from 'src/app/interfaces/boleta.interface';
-import { Utils } from 'src/app/utilis/utils';
+import { Utils } from 'src/app/utils/utils';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-terrenos-list',
@@ -17,10 +18,10 @@ import { Utils } from 'src/app/utilis/utils';
 export class TerrenosListPage {
 
   public readonly catalogoService = inject(CatalogoService);
+  public readonly boletaService = inject(DataService);
   public readonly terrenoService = inject(TerrenoService);
   private navCtrl = inject(NavController);
-  public terrenos = this.terrenoService.terrenosList;
-  public totalSuperficieGlobal = this.terrenoService.totalSuperficieGlobal;
+  public totalSuperficieGlobal = 0;//this.terrenoService.totalSuperficieGlobal;
 
 
   constructor() { }
@@ -68,29 +69,27 @@ export class TerrenosListPage {
   }
 
   public selectTerreno(terrenoUuid: string): void {
-    this.terrenoService.setTerrenoUuid(terrenoUuid);
+    this.boletaService.terrenoUuid.set(terrenoUuid);
     console.log(`Contexto Terreno cambiado a: ${terrenoUuid}`);
     this.navCtrl.navigateBack('/home/b0102');
   }
 
-  public navegarACultivo(terrenoUuid: string, cultivoUuid: string | undefined): void {
-    this.terrenoService.setTerrenoUuid(terrenoUuid);
+  public navegarACultivo(terrenoUuid: string, cultivoUuid: string): void {
+    this.boletaService.terrenoUuid.set(terrenoUuid);
     console.log(`Contexto Terreno padre cambiado a: ${terrenoUuid}`);
 
-    const idCultivo = cultivoUuid || 'nuevo';
-    this.terrenoService.setCultivoUuid(idCultivo);
-    console.log(`Contexto Cultivo cambiado a: ${idCultivo}`);
+    this.boletaService.cultivoUuid.set(cultivoUuid);
+    console.log(`Contexto Cultivo cambiado a: ${cultivoUuid}`);
 
     this.navCtrl.navigateForward('/home/b0301');
   }
 
-  public navegarAForestal(terrenoUuid: string, forestalUuid: string | undefined): void {
-    this.terrenoService.setTerrenoUuid(terrenoUuid);
+  public navegarAForestal(terrenoUuid: string, forestalUuid: string): void {
+    this.boletaService.terrenoUuid.set(terrenoUuid);
     console.log(`Contexto Terreno padre cambiado a: ${terrenoUuid}`);
 
-    const idForestal = forestalUuid || 'nuevo';
-    this.terrenoService.setCultivoForestalUuid(idForestal);
-    console.log(`Contexto Cultivo Forestal cambiado a: ${idForestal}`);
+    this.boletaService.cultivoForestalUuid.set(forestalUuid);
+    console.log(`Contexto Cultivo Forestal cambiado a: ${forestalUuid}`);
 
     this.navCtrl.navigateForward('/home/b0302');
   }

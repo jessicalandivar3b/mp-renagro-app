@@ -94,8 +94,8 @@
                 <ion-label><span class="label-codigo">9.1.3</span>Indicar el número telefónico celular:</ion-label>
             </div>
             <div class="split-40">
-                <ion-input #informanteTelefonoInput="ngModel" name="informanteTelefono" type="text"
-                    minlength="10" maxlength="10" mpText [(ngModel)]="boleta().informanteTelefono"
+                <ion-input #informanteTelefonoInput="ngModel" name="informanteTelefono" type="number"
+                    minlength="10" maxlength="10" mpNumeric [(ngModel)]="boleta().informanteTelefono"
                     (ionChange)="this.boletaService.onInputChange($event, 'informanteTelefono')">
                 </ion-input>
             </div>

@@ -1,14 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { IonicModule, ModalController, NavController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CatalogoService } from 'src/app/services/catalogo.service';
-import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { MpInputErrorComponent } from "src/app/components/mp-input-error/mp-input-error.component";
 import { MpSearchModalComponent } from 'src/app/components/mp-search-modal/mp-search-modal.component';
-import { MpTextValidator } from 'src/app/validators/text-validator';
+import { CatalogoService } from 'src/app/services/catalogo.service';
+import { DataService } from 'src/app/services/data.service';
+import { NavegacionService } from 'src/app/services/navegacion.service';
 import { MpAlphanumericValidator } from "src/app/validators/alphanumeric-validator";
 import { MpDecimalPrecisionValidator } from 'src/app/validators/decimal-precision-validator';
+import { MpTextValidator } from 'src/app/validators/text-validator';
+
 
 
 @Component({
@@ -18,12 +21,13 @@ import { MpDecimalPrecisionValidator } from 'src/app/validators/decimal-precisio
   imports: [IonicModule, CommonModule, FormsModule, MpInputErrorComponent, MpTextValidator, MpAlphanumericValidator, MpDecimalPrecisionValidator]
 })
 export class B0901Page {
-  private navCtrl = inject(NavController);
+  private router = inject(Router);
+  private navegacionService = inject(NavegacionService);
   public readonly catalogoService = inject(CatalogoService);
 
-  public readonly boletaService = inject(DataService);
-  public boleta = this.boletaService.boleta;
-
+	public readonly boletaService = inject(DataService);
+	public boleta = this.boletaService.boleta;
+ 
   private modalController = inject(ModalController);
 
   constructor() { }
@@ -37,11 +41,10 @@ export class B0901Page {
   }
 
   public onButtonBack(): void {
-    //this.navCtrl.navigateForward('/home');
-    this.navCtrl.pop();
+    this.navegacionService.goToPrevious(this.router.url);
   }
 
   public onButtonNext(): void {
-    this.navCtrl.navigateForward('/home/b1101');
+    this.navegacionService.goToNext(this.router.url);
   }
 }

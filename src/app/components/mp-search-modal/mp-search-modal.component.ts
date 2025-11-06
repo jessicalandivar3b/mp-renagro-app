@@ -5,9 +5,11 @@ import { CommonModule } from '@angular/common';
 import { CatalogoItem } from 'src/app/interfaces/catalogo';
 import { CatalogoService } from 'src/app/services/catalogo.service';
 import { DataService } from 'src/app/services/data.service';
-import { Boleta, MiembroHogar, Terreno } from 'src/app/interfaces/boleta.interface';
+import { Boleta, Cultivo, CultivoForestal, MiembroHogar, Terreno } from 'src/app/interfaces/boleta.interface';
 import { TerrenoService } from 'src/app/services/terreno.service';
 import { MiembroHogarService } from 'src/app/services/miembro-hogar.service';
+import { CultivoService } from 'src/app/services/cultivo.service';
+import { ForestalService } from 'src/app/services/forestal.service';
 
 @Component({
   selector: 'mp-search-modal',
@@ -24,6 +26,8 @@ export class MpSearchModalComponent {
   private readonly catalogoService = inject(CatalogoService);
   private readonly boletaService = inject(DataService);
   private readonly terrenoService = inject(TerrenoService);
+  private readonly cultivoService = inject(CultivoService);
+  private readonly forestalService = inject(ForestalService);
   private readonly miembroHogarService = inject(MiembroHogarService);
 
   private searchQuery = signal('');
@@ -74,52 +78,60 @@ export class MpSearchModalComponent {
     this.searchQuery.set(event.target.value);
   }
 
+  setValue(grupo: string, campo: string, valor: string) {
+    switch (grupo) {
+      case 'terreno':
+        // const campoTerreno = campoStr as keyof Terreno;
+        this.terrenoService.onInputChange(valor, campo);
+        break;
+
+      case 'miembroHogar':
+        // const campoMiembro = campo as keyof MiembroHogar;
+        this.miembroHogarService.onInputChange(valor, campo);
+        break;
+
+      case 'cultivo':
+        // const campoCultivo = campo as keyof Cultivo;
+        this.cultivoService.onInputChange(valor, campo);
+        break;
+
+      case 'forestal':
+        // const campoForestal = campo as keyof CultivoForestal;
+        this.forestalService.onInputChange(valor, campo);
+        break;
+
+      case 'boleta':
+        // const campoForestal = campo as keyof CultivoForestal;
+        this.boletaService.onInputChange(valor, campo);
+        break;
+
+      default:
+        // Usamos las propiedades pasadas al modal (this.grupo y this.campo) para formar la ruta completa.
+        this.boletaService.onInputChange(valor, `${this.grupo}.${this.campo}`);
+        break;
+    }
+  }
+
+
   selectItem(item: CatalogoItem): void {
-    console.log('selectItem:', item.codigo, this.campo, this.grupo)
+    console.log(`selectItem=>${this.grupo}.${this.campo}=${item.codigo}`);
     const grupoStr = '' + this.grupo;
     const campoStr = '' + this.campo;
-    if (grupoStr == 'terreno') {
-      let campoJson = campoStr as keyof Terreno;
-      this.terrenoService.onInputChange(item.codigo, campoJson);
-    } else
-      if (grupoStr == 'miembroHogar') {
-        let campoJson = campoStr as keyof Terreno;
-        this.miembroHogarService.onInputChange(item.codigo, campoJson);
-      } else {
-        let campoJson = campoStr as keyof Boleta;
-        this.boletaService.onInputChange(item.codigo, campoJson);
-      }
-
+    this.setValue(grupoStr, campoStr, item.codigo);
 
     let campoCatalogo = this.catalogoService.getCampoCatalogoByGrupoCampo(grupoStr, campoStr)();
-    console.log('campoCatalogo al seleccionar item', campoCatalogo);
     if (campoCatalogo && campoCatalogo.encera) {
       // console.log('campoCatalogo.encera', campoCatalogo.encera);
       for (const campoEncera of campoCatalogo.encera) {
-        if (grupoStr == 'terreno') {
-          let campoJson = campoEncera as keyof Terreno;
-          this.terrenoService.onInputChange(campoJson, '');
-        } else
-          if (grupoStr == 'miembroHogar') {
-            let campoJson = campoEncera as keyof MiembroHogar;
-            this.miembroHogarService.onInputChange(campoJson, '');
-          } else {
-            let campoJson = campoEncera as keyof Boleta;
-            this.boletaService.onInputChange(campoJson, '');
-          }
+        this.setValue(grupoStr, campoEncera, '');
       }
     }
-console.log("Emite item seleccionado");
-console.log(item);
+
     this.itemSelected.emit(item);
-    //this.closeModal();
-    this.closeModal(item); 
+    this.closeModal(item);
   }
 
-  /*closeModal(): void {
-    this.modalController.dismiss();
-  }*/
- closeModal(item?: CatalogoItem): void {
+  closeModal(item?: CatalogoItem): void {
   this.modalController.dismiss(item);
 }
 }

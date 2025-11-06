@@ -27,6 +27,7 @@
 <ion-content [fullscreen]="true" class="ion-padding">
     <form #frmData="ngForm">
         <ion-list>
+            @if (miembroHogarService.miembrosHogar().length>0) {
 
             <h2>8.2.1 - Detalle la información de la PERSONA PRODUCTORA y MIEMBROS DEL HOGAR que FORMAN PARTE DE LAS
                 DECISIONES sobre el manejo de los terrenos que corresponden a esta entrevista:</h2>
@@ -237,7 +238,7 @@
             <mp-input-error field="horasOtrasResponsabilidades" [control]="horasOtrasResponsabilidadesInput.control"
                 [value]="miembroHogar().horasOtrasResponsabilidades"></mp-input-error>
             }
-
+            }
         </ion-list>
     </form>
 </ion-content>

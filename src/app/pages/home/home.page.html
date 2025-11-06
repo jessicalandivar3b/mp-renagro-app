@@ -6,13 +6,15 @@
   </ion-header>
   <ion-content>
     <ion-list id="inbox-list">
-      <ion-menu-toggle auto-hide="false">
+
+      <!-- <ion-menu-toggle auto-hide="false">
         <ion-item routerDirection="root" [routerLink]="['/upload-excel']" lines="none" detail="false"
           routerLinkActive="selected">
           <ion-icon aria-hidden="true" slot="start" ios="cloud-upload-outline" md="cloud-upload-sharp"></ion-icon>
           <ion-label>Cargar Archivos</ion-label>
         </ion-item>
-      </ion-menu-toggle>
+      </ion-menu-toggle> -->
+
       <ion-menu-toggle auto-hide="false">
         @for (p of appPages; track p.title) {
         <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
@@ -25,6 +27,28 @@
         </ion-item>
         }
       </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false" class="ion-margin-top">
+        <ion-item routerDirection="root" [routerLink]="['/act-usuario']" lines="none" detail="false" button>
+          <ion-icon aria-hidden="true" slot="start" ios="person-circle-outline" md="person-circle-sharp"></ion-icon>
+          <ion-label>Actualizar Usuario</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+     
+  <ion-menu-toggle auto-hide="false">
+    <ion-item routerDirection="root" [routerLink]="['/act-password']" lines="none" detail="false" button>
+      <ion-icon aria-hidden="true" slot="start" ios="key-outline" md="key-sharp"></ion-icon>
+      <ion-label>Cambiar Contraseña</ion-label>
+    </ion-item>
+  </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false">
+        <ion-item lines="none" detail="false" (click)="onLogout()" button>
+          <ion-icon aria-hidden="true" slot="start" ios="log-out-outline" md="log-out-sharp"></ion-icon>
+          <ion-label>Cerrar Sesión</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
     </ion-list>
   </ion-content>
 </ion-menu>

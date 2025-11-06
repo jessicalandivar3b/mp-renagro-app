@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+// src/app/pages/home/home.page.ts
+
+import { Component, inject } from '@angular/core'; // 💡 1. Importar 'inject'
 import {
   IonContent,
   IonHeader,
@@ -14,9 +16,10 @@ import {
 } from '@ionic/angular/standalone';
 import { RouterModule } from '@angular/router';
 
+import { AuthService } from 'src/app/services/auth.service'; 
+
 @Component({
   selector: 'app-home',
-
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
@@ -35,6 +38,9 @@ import { RouterModule } from '@angular/router';
   ]
 })
 export class HomePage {
+  
+  
+  private authService = inject(AuthService); 
 
   public appPages = [
     { title: "Listado", url: "listado", icon: "home" },
@@ -66,5 +72,10 @@ export class HomePage {
   ];
 
   constructor() { }
+
+
+  public onLogout(): void {
+    this.authService.logout();
+  }
 
 }

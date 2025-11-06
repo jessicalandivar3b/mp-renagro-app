@@ -38,7 +38,7 @@
             </div>
             <div class="split-40">
                 <ion-input #nombreAsociacionCoopInput="ngModel" name="nombreAsociacionCoop" type="text"
-                    required="true" maxlength="Parametros.MAX_LENGTH_GENERICO" mpAlphanumeric [(ngModel)]="boleta().nombreAsociacionCoop"
+                    required="true" maxlength="100" mpAlphanumeric [(ngModel)]="boleta().nombreAsociacionCoop"
                     (ionChange)="this.boletaService.onInputChange($event, 'nombreAsociacionCoop')">
                 </ion-input>
             </div>

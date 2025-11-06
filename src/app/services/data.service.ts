@@ -1,39 +1,55 @@
-import { Injectable, signal, effect, inject, computed } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Boleta, Bovino, PecuarioOtro, PersonaInformante, PersonaProductora, Pollo, Porcino, Terreno } from '../interfaces/boleta.interface';
-import { BoletaDto } from '../interfaces/boleta.dto.inteface';
 import { environment } from 'src/environments/environment';
-import { TerrenoService } from './terreno.service';
-import { AuthService } from './auth.service';
-import { MiembroHogarService } from './miembro-hogar.service';
-import { CultivoService } from './cultivo.service';
-import { ForestalService } from './forestal.service';
-import { Utils } from '../utilis/utils';
-import { updateBoletaVisibility } from '../utilis/showFields';
+import { Boleta, Terreno } from '../interfaces/boleta.interface';
+import { boletaNew } from '../utils/boleta-new';
+import { boletaOnInputChange } from '../utils/boleta-on-input-change';
+import { Utils } from '../utils/utils';
+import { boletaShowFields } from '../utils/boleta-show-fields';
 import { updateBoletaCalcs } from '../utils/calcFields';
+import { CatalogoService } from './catalogo.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class DataService {
-    private authService = inject(AuthService);
+    // private authService = inject(AuthService);
     private readonly LOCAL_STORAGE_KEY = 'renagroBoleta';
     private http = inject(HttpClient);
     private readonly apiUrl = `${environment.ApiBoletasUrl}/boletas`;
-    public boletaData = signal<Boleta>(this.loadFromLocalStorage() || new Boleta());
+    // Inicialización con una nueva Boleta, la carga de LocalStorage se mueve al constructor.
+    public boletaData = signal<Boleta>(new Boleta());
     public boleta = this.boletaData.asReadonly();
+    private catalogoService = inject(CatalogoService);
 
-    constructor(private terrenoService: TerrenoService,
-        private miembroHogarService: MiembroHogarService,
-        private cultivoService: CultivoService,
-        private forestalService: ForestalService
-    ) {
-        this.terrenoService.initialize(this.boletaData);
-        this.miembroHogarService.initialize(this.boletaData);
-        this.cultivoService.initialize(this.boletaData);
-        this.forestalService.initialize(this.boletaData);
+    //items seleccionados de los listados
+    public miembroHogarUuid = signal<string | null>(null);
+    public terrenoUuid = signal<string | null>(null);
+    public cultivoUuid = signal<string | null>(null);
+    public cultivoForestalUuid = signal<string | null>(null);
+
+    public readonly terreno = computed(() => {
+        const itemsList = this.boleta().terrenos;
+        const selectedUuid = this.terrenoUuid();
+        console.log(`terreno.selectedUuid: ${selectedUuid}`);
+        if (!itemsList || !selectedUuid || selectedUuid.length == 0) {
+            return new Terreno();
+        }
+        const itemSelected = itemsList.find((m: Terreno) => m.terrenoUuid === selectedUuid);
+        console.log(`Num:${itemsList.length} terreno sel:${itemSelected}`);
+        return itemSelected || new Terreno();
+    });
+
+    // --------------------------------------------------------------------------
+    // 🎯 CONSTRUCTOR MODIFICADO
+    // --------------------------------------------------------------------------
+    constructor() {
+        const databoleta = this.loadFromLocalStorage();
+        if (databoleta) {
+            this.boletaData.set(databoleta);
+        }
         effect(() => {
             this.saveToLocalStorage();
         });
@@ -45,56 +61,57 @@ export class DataService {
      * @param boletaParcial La boleta seleccionada del listado.
      */
     public setActiveBoletaFromList(boletaParcial: Boleta): void {
-        // 1. Obtener una boleta limpia para asegurar que todos los sub-objetos y arrays existan.
-        const emptyBoleta = this.createEmptyBoleta();
-
-        // 2. Fusionar los datos. Object.assign(target, source).
-        // Se recomienda usar Object.assign({}, target, source) para evitar mutar 'emptyBoleta'.
-        // Los valores de 'boletaParcial' (seleccionada) SOBRESCRIBEN los de 'emptyBoleta'.
+        const emptyBoleta = new Boleta();
         const boletaCompleta = Object.assign({}, emptyBoleta, boletaParcial);
-
-        this.boletaData.set(boletaCompleta);
+        this.boletaData.set({ ...boletaCompleta });
         console.log(`[DataService] Boleta activa (fusionada) establecida. ID: ${boletaCompleta.boletaIdLevanta}`);
 
-        // Opcional: Si necesitas seleccionar automáticamente el último terreno al cargar una boleta
+        //  seleccionar automáticamente el último registro
         if (boletaCompleta.terrenos && boletaCompleta.terrenos.length > 0) {
-            const lastTerreno = boletaCompleta.terrenos[boletaCompleta.terrenos.length - 1];
-            this.terrenoService.setTerrenoUuid(lastTerreno.terrenoUuid);
+            this.terrenoUuid.set(boletaCompleta.terrenos[boletaCompleta.terrenos.length - 1].terrenoUuid);
         } else {
-            this.terrenoService.setTerrenoUuid(null);
+            this.terrenoUuid.set(null);
+        }
+        if (boletaCompleta.miembroHogar && boletaCompleta.miembroHogar.length > 0) {
+            this.miembroHogarUuid.set(
+                boletaCompleta.miembroHogar[boletaCompleta.miembroHogar.length - 1].miembroUuid
+            );
+        } else {
+            this.miembroHogarUuid.set(null);
         }
     }
 
 
     private loadFromLocalStorage(): Boleta | null {
         try {
+            console.log(`loadFromLocalStorage ingresa: ${this.LOCAL_STORAGE_KEY}`);
             const data = localStorage.getItem(this.LOCAL_STORAGE_KEY);
             if (data) {
+                console.log(`loadFromLocalStorage caracters: ${data.length}`);
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                navigator.clipboard.writeText(data).catch(() => { });
                 const boleta = JSON.parse(data) as Boleta;
+                console.log(`loadFromLocalStorage: ${boleta.miembroHogar.length}`);
 
                 // Seleccion del terreno
                 if (boleta.terrenos && boleta.terrenos.length > 0) {
                     const lastTerreno = boleta.terrenos[boleta.terrenos.length - 1];
-                    this.terrenoService.setTerrenoUuid(lastTerreno.terrenoUuid);
-                    // Si el último terreno tiene cultivos, selecciona el último
-                    if (lastTerreno.cultivos && lastTerreno.cultivos.length > 0) {
-                        const lastCultivo = lastTerreno.cultivos[lastTerreno.cultivos.length - 1];
-                        this.cultivoService.setCultivoUuid(lastCultivo.cultivoUuid);
-                    } else {
-                        this.cultivoService.setCultivoUuid(null);
-                    }
-
-                    // Si el último terreno tiene cultivos forestales, selecciona el último
-                    if (lastTerreno.cultivosForestales && lastTerreno.cultivosForestales.length > 0) {
-                        const lastCultivoForestal = lastTerreno.cultivosForestales[lastTerreno.cultivosForestales.length - 1];
-                        this.forestalService.setForestalUuid(lastCultivoForestal.forestalUuid);
-                    } else {
-                        this.forestalService.setForestalUuid(null);
-                    }
+                    this.terrenoUuid.set(lastTerreno.terrenoUuid);
                 } else {
-                    this.terrenoService.setTerrenoUuid(null);
-                    this.cultivoService.setCultivoUuid(null);
-                    this.forestalService.setForestalUuid(null);
+                    this.terrenoUuid.set(null);
+                    this.cultivoUuid.set(null);
+                    this.cultivoForestalUuid.set(null);
+                }
+
+                //miembro de hogar
+                if (boleta.miembroHogar && boleta.miembroHogar.length > 0) {
+                    this.miembroHogarUuid.set(
+                        boleta.miembroHogar[boleta.miembroHogar.length - 1].miembroUuid
+                    );
+                } else {
+                    this.miembroHogarUuid.set(null);
                 }
 
                 return boleta;
@@ -107,7 +124,7 @@ export class DataService {
 
     private saveToLocalStorage(): void {
         try {
-            // console.log('saveToLocalStorage.Terrenos=>', this.boleta().terrenos);
+            console.log('saveToLocalStorage=>', this.boleta().miembroHogar);
             const dataToSave = JSON.stringify(this.boleta());
             localStorage.setItem(this.LOCAL_STORAGE_KEY, dataToSave);
         } catch (e) {
@@ -118,136 +135,31 @@ export class DataService {
     // -------------------------------------------------------------------------
     // 🎯 MÉTODO MODIFICADO A PÚBLICO para ser usado en setActiveBoletaFromList
     // -------------------------------------------------------------------------
-    /**
-    * Genera un nuevo objeto Boleta con valores iniciales y un ID temporal único.
-    * @returns Una nueva instancia de Boleta.
-    */
-    public createEmptyBoleta(): Boleta {
-        const timestamp = Date.now();
-        // Aseguramos que el código de encuestador sea un string (o '000' por defecto)
-        const codigoEncuestadorStr = this.authService.getCodigoEncuestador() || '000';
-        const codigoEncuestadorNum = Number(codigoEncuestadorStr);
-
-        // Generamos un ID temporal único
-        const newBoletaIdLevanta = `NEW-${codigoEncuestadorStr}-${timestamp}`;
-
-        // 1. Crear una nueva instancia de la clase Boleta
-        const newBoleta = new Boleta();
-
-        // 2. Inicialización de los campos de control críticos
-        newBoleta.boletaIdLevanta = newBoletaIdLevanta;
-        newBoleta.codigoEncuestador = codigoEncuestadorNum; // Toma el código del usuario
-
-        // Usamos 'PENDIENTE_ENVIO' para que el guard de ruta no lo rechace. 
-        newBoleta.estadoBoleta = 'PENDIENTE_ENVIO';
-
-        // 3. Inicialización de los campos de la sección B0101 (Ubicación geográfica)
-
-        // Strings
-        newBoleta.provincia = '';
-        newBoleta.canton = '';
-        newBoleta.parroquia = '';
-        newBoleta.sectorMuestreo = '';
-        newBoleta.codigoUPA = '';
-
-        // Números (Inicializados a 0 para consistencia con los inputs)
-        newBoleta.poligono = 0;
-        newBoleta.numeroUPA = 0;
-        newBoleta.numeroBoleta = 0;
-
-        // 💡 IMPORTANTE: INICIALIZACIÓN DE SUB-OBJETOS Y ARRAYS
-        // Si cualquiera de estos es null, el Guard fallará.
-        newBoleta.personaProductora = new PersonaProductora();
-        newBoleta.personaInformante = new PersonaInformante();
-        newBoleta.bovino = new Bovino();
-        newBoleta.porcino = new Porcino();
-        newBoleta.pollo = new Pollo();
-        newBoleta.pecuarioOtro = new PecuarioOtro();
-
-        newBoleta.terrenos = []; // ¡Fundamental!
-        newBoleta.miembroHogar = []; // ¡Fundamental!
-        // 4. Mantenimiento de Visibilidad (Show)
-        newBoleta.provinciaShow = true;
-        newBoleta.cantonShow = true;
-        newBoleta.parroquiaShow = true;
-        newBoleta.sectorMuestreoShow = true;
-        newBoleta.poligonoShow = true;
-        newBoleta.numeroUPAShow = true;
-        newBoleta.codigoEncuestadorShow = true;
-        newBoleta.numeroBoletaShow = true;
-        newBoleta.codigoUPAShow = true;
-
-        return newBoleta;
-    }
-    // -------------------------------------------------------------------------
-    // -------------------------------------------------------------------------
 
     /**
-      * Crea una nueva boleta vacía y la establece como la boleta activa
-      * (Este método permanece igual).
-      */
-    public createAndSetActiveBoleta(): void {
-        const newBoleta = this.createEmptyBoleta();
-
-        // 1. Establece la nueva boleta como la boleta activa
-        this.boletaData.set(newBoleta);
-
-        // 2. Deselecciona el terreno activo
-        this.terrenoService.setTerrenoUuid(null);
-
-        console.log(`[DataService] Nueva boleta creada y activada con ID: ${newBoleta.boletaIdLevanta}`);
+     * Crea una nueva boleta vacía y la establece como la boleta activa
+     * (Este método permanece igual).
+     */
+    public createAndSetActiveBoleta(codigoEncuestador: number): void {
+        const newBoleta = boletaNew(codigoEncuestador);
+        let boleta = JSON.parse(JSON.stringify(newBoleta)) as Boleta;
+        this.boletaData.set(boleta);
+        this.miembroHogarUuid.set(null);
+        this.terrenoUuid.set(null);
+        this.cultivoUuid.set(null);
+        this.cultivoForestalUuid.set(null);
     }
 
-    resetBoleta(): string | null {
-        this.boletaData.set(new Boleta());
-        this.terrenoService.setTerrenoUuid(null); // Deselect the terreno
-        return null;
+    onInputChange(event: any, filePath: string): void {
+        this.boletaShowsCalcs(boletaOnInputChange(this.boleta(), event, filePath));
     }
 
-    onInputChange(event: any, fieldPath: string): void {
-        // ... (Tu lógica de onInputChange se mantiene igual)
-        let valueInput: any = null;
-        if (!event.target) {
-            valueInput = event;
-        } else {
-            const tagName = event.target.tagName;
-            if (tagName === 'ION-TOGGLE') {
-                valueInput = event.detail.checked;
-            } else {
-                valueInput = event.detail.value;
-            }
-        }
-
-        if (fieldPath.includes('.')) {
-            const parts = fieldPath.split('.');
-            this.boletaData.update(currentBoleta => {
-                let currentObject: any = { ...currentBoleta };
-                let tempObject = currentObject;
-
-                for (let i = 0; i < parts.length - 1; i++) {
-                    const part = parts[i];
-                    if (!tempObject[part]) {
-                        tempObject[part] = {};
-                    }
-                    tempObject = tempObject[part];
-                }
-                const finalField = parts[parts.length - 1];
-                tempObject[finalField] = valueInput;
-                return currentObject;
-            });
-        } else {
-            this.boletaData.update(currentBoleta => ({
-                ...currentBoleta,
-                [fieldPath]: valueInput,
-            }));
-        }
-
-        //actualizo los Show
+    boletaShowsCalcs(boleta: Boleta): void {
+        let boletaShows = boletaShowFields(boleta);
+        let boletaCalcs = updateBoletaCalcs(boletaShows, this.catalogoService);
         this.boletaData.update(currentBoleta => {
-            const boletaUpdate = updateBoletaVisibility(currentBoleta);
-            return updateBoletaCalcs(boletaUpdate);
+            return boletaCalcs
         });
-
     }
 
     boletaSave(): Observable<any> {

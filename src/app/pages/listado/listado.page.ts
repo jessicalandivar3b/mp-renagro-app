@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
@@ -22,6 +22,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BoletasService } from 'src/app/services/boletas.service';
 import { DataService } from 'src/app/services/data.service';
 import { Boleta } from 'src/app/interfaces/boleta.interface';
+import { VersionCheckService } from 'src/app/services/version-check.service';
 
 @Component({
   selector: 'app-listado',
@@ -47,6 +48,7 @@ import { Boleta } from 'src/app/interfaces/boleta.interface';
   ]
 })
 export class ListadoPage implements OnInit {
+  public versionCheckService = inject(VersionCheckService);
   private authService = inject(AuthService);
   private boletasService = inject(BoletasService);
   private dataService = inject(DataService);
@@ -153,7 +155,7 @@ export class ListadoPage implements OnInit {
   // 🔹 NUEVA BOLETA
   // ==================================================
   public nuevaBoleta(): void {
-    this.dataService.createAndSetActiveBoleta();
+    this.dataService.createAndSetActiveBoleta(Number(this.authService.getCodigoEncuestador()));
     this.mostrarToast('Iniciando nueva boleta. 📝', 'success', 2000);
     this.router.navigateByUrl('/home/b0101');
   }
@@ -201,4 +203,44 @@ export class ListadoPage implements OnInit {
       }
     });
   }
+
+  // ==================================================
+  // 🔹 UTILIDAD: COPIAR JSON AL PORTAPAPELES
+  // ==================================================
+  public async copyJsonToClipboard(boleta: Boleta): Promise<void> {
+    if (!boleta) {
+      this.mostrarToast('Error: No hay datos de boleta para copiar.', 'danger');
+      return;
+    }
+
+    try {
+      const jsonString = JSON.stringify(boleta, null, 2);
+      await navigator.clipboard.writeText(jsonString);
+      this.mostrarToast('JSON de la boleta copiado al portapapeles. ✅', 'success', 2000);
+    } catch (err) {
+      console.error('Error al copiar el JSON:', err);
+      this.mostrarToast('Error al copiar. La API del portapapeles falló.', 'danger');
+    }
+  }
+
+  /**
+   * 🎯 Copia el JSON completo de la boleta actual (la que está en edición) al portapapeles.
+   */
+  public async copyCurrentActiveBoletaJson(): Promise<void> {
+    const boletaActiva = this.dataService.boleta();
+    if (!boletaActiva || !boletaActiva.boletaIdLevanta) {
+      this.mostrarToast('Error: No hay una boleta activa en memoria para copiar.', 'danger');
+      return;
+    }
+
+    try {
+      const jsonString = JSON.stringify(boletaActiva, null, 2);
+      await navigator.clipboard.writeText(jsonString);
+      this.mostrarToast(`Boleta ${boletaActiva.boletaIdLevanta} copiada al portapapeles. ✅`, 'tertiary', 2500);
+    } catch (err) {
+      console.error('Error al copiar el JSON:', err);
+      this.mostrarToast('Error al copiar. Falla de la API del portapapeles.', 'danger');
+    }
+  }
+
 }

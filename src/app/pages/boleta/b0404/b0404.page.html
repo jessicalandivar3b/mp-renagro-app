@@ -110,7 +110,7 @@
             </div>
             <div class="split-40">
                 <ion-input #otraEnfermedadInput="ngModel" name="otraEnfermedad" type="text"
-                    required="true" maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="boleta().pollo.otraEnfermedad"
+                    required="true" maxlength="100" mpText [(ngModel)]="boleta().pollo.otraEnfermedad"
                     (ionChange)="this.boletaService.onInputChange($event, 'pollo.otraEnfermedad')">
                 </ion-input>
             </div>
@@ -290,7 +290,7 @@
             </div>
             <div class="split-40">
                 <ion-input #otraRazonNoRegistroInput="ngModel" name="otraRazonNoRegistro" type="text"
-                    required="true" maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="boleta().pollo.otraRazonNoRegistro"
+                    required="true" maxlength="100" mpText [(ngModel)]="boleta().pollo.otraRazonNoRegistro"
                     (ionChange)="this.boletaService.onInputChange($event, 'pollo.otraRazonNoRegistro')">
                 </ion-input>
             </div>

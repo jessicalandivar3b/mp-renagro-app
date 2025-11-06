@@ -3,63 +3,67 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button (click)="captureCoordinates()">
+                <ion-icon name="locate-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-title>11.1 - CAPTURA DE COORDENADAS (GPS) (WGS 84 - UTM)</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
     <form #frmData="ngForm">
-    <ion-list>
+        <ion-list>
+            @if (boleta().longitudShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">11.1</span>Longitud</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #longitudInput="ngModel" name="longitud" type="number" required="true"
+                        [mpDecimalPrecision]="0" [(ngModel)]="boleta().longitud"
+                        (ionChange)="this.boletaService.onInputChange($event, 'longitud')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="longitud" [control]="longitudInput.control"
+                [value]="boleta().longitud"></mp-input-error>
+            }
 
-        @if (boleta().longitudShow) {
-        <ion-item class="split-60-40">
-            <div class="split-60">
-                <ion-label><span class="label-codigo">11.1</span>Longitud</ion-label>
-            </div>
-            <div class="split-40">
-                <ion-input #longitudInput="ngModel" name="longitud" type="number"
-                    required="true" [mpDecimalPrecision]="0" [(ngModel)]="boleta().longitud"
-                    (ionChange)="this.boletaService.onInputChange($event, 'longitud')">
-                </ion-input>
-            </div>
-        </ion-item>
-        <mp-input-error field="longitud" [control]="longitudInput.control"
-            [value]="boleta().longitud"></mp-input-error>
-      }
+            @if (boleta().latitudShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">11.2</span>Latitud</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #latitudInput="ngModel" name="latitud" type="number" required="true"
+                        [mpDecimalPrecision]="0" [(ngModel)]="boleta().latitud"
+                        (ionChange)="this.boletaService.onInputChange($event, 'latitud')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="latitud" [control]="latitudInput.control"
+                [value]="boleta().latitud"></mp-input-error>
+            }
 
-        @if (boleta().latitudShow) {
-        <ion-item class="split-60-40">
-            <div class="split-60">
-                <ion-label><span class="label-codigo">11.2</span>Latitud</ion-label>
-            </div>
-            <div class="split-40">
-                <ion-input #latitudInput="ngModel" name="latitud" type="number"
-                    required="true" [mpDecimalPrecision]="0" [(ngModel)]="boleta().latitud"
-                    (ionChange)="this.boletaService.onInputChange($event, 'latitud')">
-                </ion-input>
-            </div>
-        </ion-item>
-        <mp-input-error field="latitud" [control]="latitudInput.control"
-            [value]="boleta().latitud"></mp-input-error>
-      }
+            @if (boleta().altitudShow) {
+            <ion-item class="split-60-40">
+                <div class="split-60">
+                    <ion-label><span class="label-codigo">11.3</span>Altitud</ion-label>
+                </div>
+                <div class="split-40">
+                    <ion-input #altitudInput="ngModel" name="altitud" type="number" required="true" min="0" max="4500"
+                        [mpDecimalPrecision]="0" [(ngModel)]="boleta().altitud"
+                        (ionChange)="this.boletaService.onInputChange($event, 'altitud')">
+                    </ion-input>
+                </div>
+            </ion-item>
+            <mp-input-error field="altitud" [control]="altitudInput.control"
+                [value]="boleta().altitud"></mp-input-error>
+            }
 
-        @if (boleta().altitudShow) {
-        <ion-item class="split-60-40">
-            <div class="split-60">
-                <ion-label><span class="label-codigo">11.3</span>Altitud</ion-label>
-            </div>
-            <div class="split-40">
-                <ion-input #altitudInput="ngModel" name="altitud" type="number"
-                    required="true" min="0" max="4500" [mpDecimalPrecision]="0" [(ngModel)]="boleta().altitud"
-                    (ionChange)="this.boletaService.onInputChange($event, 'altitud')">
-                </ion-input>
-            </div>
-        </ion-item>
-        <mp-input-error field="altitud" [control]="altitudInput.control"
-            [value]="boleta().altitud"></mp-input-error>
-      }
-
-    </ion-list>
+        </ion-list>
     </form>
 </ion-content>
 <ion-footer>

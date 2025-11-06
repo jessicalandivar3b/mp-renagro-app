@@ -17,14 +17,14 @@
         <ion-col size="6" class="ion-text-center ion-padding-end ion-border-right">
           <p class="summary-label ion-no-margin">Total de Terrenos</p>
           <!-- Usa la señal terrenos() para contar el número de elementos -->
-          <h2 class="summary-value ion-no-margin">{{ terrenos().length }}</h2>
+          <h2 class="summary-value ion-no-margin">{{ terrenoService.terrenos().length }}</h2>
         </ion-col>
 
         <!-- Superficie Total Global -->
         <ion-col size="6" class="ion-text-center ion-padding-start">
           <p class="summary-label ion-no-margin">Superficie Total (M²)</p>
           <!-- Usa la señal totalSuperficieGlobal() para el cálculo total -->
-          <h2 class="summary-value ion-no-margin">{{ totalSuperficieGlobal() || 0 }}</h2>
+          <!-- <h2 class="summary-value ion-no-margin">{{ totalSuperficieGlobal() || 0 }}</h2> -->
         </ion-col>
 
       </ion-row>
@@ -35,22 +35,22 @@
   <!-- Utilizamos ion-accordion-group para crear la vista de árbol colapsable -->
   <ion-accordion-group expand="inset">
 
-    @for (terreno of terrenos(); track terreno.terrenoUuid) {
+    @for (terreno of terrenoService.terrenos(); track terreno.terrenoUuid) {
     <ion-accordion value="terreno-{{ terreno.terrenoUuid }}">
 
       <!-- ENCABEZADO (HEADER): Muestra la info principal. El 'button' ya no está. -->
       <!-- Usamos toggle-icon="default" para que el acordeón maneje el ícono de expansión. -->
       <ion-item slot="header" toggle-icon="default" class="ion-no-padding">
-        <ion-icon name="map-outline" slot="start" color="primary" class="ion-padding-start"></ion-icon>
+        <!-- <ion-icon name="map-outline" slot="start" color="primary" class="ion-padding-start"></ion-icon> -->
         <ion-label class="ion-text-wrap ion-padding-vertical">
           <h3>Terreno No. {{ terreno.terrenoNo || '(sin número)' }}</h3>
           <p>{{ catalogoService.getDescripcionByCodigo(terreno.accesoTierra)() }}-{{
             catalogoService.getDescripcionByCodigo(terreno.coberturaTierra)() }}</p>
         </ion-label>
         <ion-text slot="end" class="ion-text-right ion-padding-end">
-                              <span class="superficie-text">{{ getSuperficieTerrenoEnM2(terreno) | number:'1.2-2' }}
+          <span class="superficie-text">{{ getSuperficieTerrenoEnM2(terreno) | number:'1.2-2' }}
             M²</span>
-                  </ion-text>
+        </ion-text>
 
         <!-- Botón de NAVEGACIÓN (B0102): Colocamos la navegación en un botón explícito -->
         <ion-buttons slot="end">
@@ -65,12 +65,13 @@
       <!-- ESTE CONTENIDO SE MUESTRA AL EXPANDIR EL ACORDEÓN -->
       <div slot="content" class="ion-no-padding">
         <ion-list lines="full">
+          @for (cultivo of terreno.cultivos; track cultivo.cultivoUuid) {
 
           <!-- Opción para ir a la pantalla de Cultivos (B0301) -->
           <ion-item button detail class="sub-tabla-item"
-            (click)="navegarACultivo(terreno.terrenoUuid, terreno.cultivos?.[0]?.cultivoUuid)">
-            <ion-icon name="leaf-outline" slot="start"
-              [color]="terreno.isCultivoEnTerrenos ? 'success' : 'medium'"></ion-icon>
+            (click)="navegarACultivo(terreno.terrenoUuid, cultivo.cultivoUuid)">
+            <!-- <ion-icon name="leaf-outline" slot="start"
+              [color]="terreno.isCultivoEnTerrenos ? 'success' : 'medium'"></ion-icon> -->
             <ion-label>
               <h4>Cultivos</h4>
               <p [class.text-green]="terreno.isCultivoEnTerrenos">
@@ -79,21 +80,22 @@
               </p>
             </ion-label>
             <!-- >>> CÓDIGO AGREGADO PARA SUPERFICIE DE CULTIVOS (Líneas 101-110) >>> -->
-                        <!-- INSERCIÓN DE SUPERFICIE PLANTADA  DE CULTIVOS -->
-                        <ion-text slot="end" class="ion-text-right ion-no-padding superficie-resumen">
-                                          <p class="ion-no-margin resumen-line superficie-resumen-valor">
-                                                                                Plantada: {{
+            <!-- INSERCIÓN DE SUPERFICIE PLANTADA  DE CULTIVOS -->
+            <ion-text slot="end" class="ion-text-right ion-no-padding superficie-resumen">
+              <p class="ion-no-margin resumen-line superficie-resumen-valor">
+                Plantada: {{
                 getSuperficieResumenCultivo(terreno).plantada | number:'1.2-2' }} M²
-                                              </p>
-                                        </ion-text>
+              </p>
+            </ion-text>
             <!-- <<< FIN DEL CÓDIGO AGREGADO PARA SUPERFICIE DE CULTIVOS <<< -->
           </ion-item>
-
+          }
           <!-- Opción para ir a la pantalla de Cultivos Forestales (B0302) -->
+          @for (forestales of terreno.cultivosForestales; track forestales.forestalUuid) {
           <ion-item button detail class="sub-tabla-item"
-            (click)="navegarAForestal(terreno.terrenoUuid, terreno.cultivosForestales?.[0]?.forestalUuid)">
-            <ion-icon name="tree-outline" slot="start"
-              [color]="terreno.isPoseeEspeciesForestales ? 'success' : 'medium'"></ion-icon>
+            (click)="navegarAForestal(terreno.terrenoUuid, forestales.forestalUuid)">
+            <!-- <ion-icon name="tree-outline" slot="start"
+              [color]="terreno.isPoseeEspeciesForestales ? 'success' : 'medium'"></ion-icon> -->
             <ion-label>
               <h4>Cultivos Forestales</h4>
               <p [class.text-green]="terreno.isPoseeEspeciesForestales">
@@ -102,17 +104,18 @@
               </p>
             </ion-label>
             <!-- >>> CÓDIGO AGREGADO PARA SUPERFICIE FORESTAL (Líneas 125-131) >>> -->
-                        <!-- INSERCIÓN DE SUPERFICIE PLANTADA FORESTAL -->
-                       
+            <!-- INSERCIÓN DE SUPERFICIE PLANTADA FORESTAL -->
+
             <!-- Nota: Se utiliza un solo bloque de p para "superficie plantada" según la referencia visual. -->
-                        <ion-text slot="end" class="ion-text-right ion-no-padding superficie-resumen">
-                                          <p class="ion-no-margin resumen-line superficie-resumen-valor">
-                                                                                Plantada: {{
+            <ion-text slot="end" class="ion-text-right ion-no-padding superficie-resumen">
+              <p class="ion-no-margin resumen-line superficie-resumen-valor">
+                Plantada: {{
                 getSuperficieResumenForestal(terreno).plantada | number:'1.2-2' }} M²
-                                              </p>
-                                        </ion-text>
+              </p>
+            </ion-text>
             <!-- <<< FIN DEL CÓDIGO AGREGADO PARA SUPERFICIE FORESTAL <<< -->
           </ion-item>
+          }
 
         </ion-list>
       </div>

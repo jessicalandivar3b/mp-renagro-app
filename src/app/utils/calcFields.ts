@@ -1,13 +1,19 @@
 import { ObservacionesRegistry } from '../clases/observaciones-registry.class';
-import { Boleta } from '../interfaces/boleta.interface';
+import { Boleta, Terreno } from '../interfaces/boleta.interface';
+import { CatalogoService } from '../services/catalogo.service';
 
-export function updateBoletaCalcs(boletaData: Boleta): Boleta {
+export function updateBoletaCalcs(boletaData: Boleta, catalogoService: CatalogoService): Boleta {
     const boleta = JSON.parse(JSON.stringify(boletaData)) as Boleta;
+    let parroquiaDpa = catalogoService.getEquivaleByCodigo(boleta.parroquia)() ?? "--==--";
     let observacionesRegistry = new ObservacionesRegistry();
+    boleta.codigoUPA = parroquiaDpa + String(boleta.poligono).padStart(3, '0') + String(boleta.numeroUPA).padStart(3, '0') + String(boleta.codigoEncuestador).padStart(3, '0') + String(boleta.numeroBoleta).padStart(3, '0');//9
+    boleta.personaProductora.isPersonaJuridica = !boleta.personaProductora.isPersonaNatural;//10
     if (!((boleta.bovino.vacasEnProduccion ?? 0 > 0) && (boleta.bovino.litrosLecheObtenido ?? 0 > 0))) {
         observacionesRegistry.register('boleta.bovino.vacasEnProduccion', 'Si tiene litros de leche debe tener vacas en producion');
     }//35
-    boleta.personaProductora.isPersonaJuridica = !boleta.personaProductora.isPersonaNatural;//10
+    if ((boleta.terrenos.filter((m: Terreno) => m.isTerrenoPrincipal)).length != 1) {
+        observacionesRegistry.register('boleta.terrenos', 'Debe tener 1 terreno principal');
+    }//13
     boleta.isAsesoramientoTecnico = boleta.isExtensionAgropecuaria;//22
     boleta.isCredito = boleta.isPrestamoGestiono;//28
     boleta.isEspacioComercio = boleta.sitioAgricola !== "291" || boleta.sitioBovina !== "291" || boleta.sitioPorcicola !== "291" || boleta.sitioAvicola !== "291" || boleta.sitioOtrasAves !== "291" || boleta.sitioOvinoCaprino !== "291" || boleta.sitioCuyesConejos !== "291" || boleta.sitioApicola !== "291" || boleta.sitioForestal !== "291";//27

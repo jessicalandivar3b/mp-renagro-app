@@ -3,14 +3,43 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Boletas Asignadas</ion-title>
+    <ion-title>Boletas - Versión:{{ versionCheckService.versionApp() }}</ion-title>
     <ion-note slot="end" class="ion-padding-end ion-text-light">
-      Código: <strong>{{ codigoEncuestador }}</strong>
+      Encuestador: <strong>{{ codigoEncuestador }}</strong>
+      Boletas: <strong>{{ boletas().length }}</strong>
     </ion-note>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding-vertical">
+
+  @if (versionCheckService.versionActualizar()) {
+  <ion-item color="danger">
+    <ion-label class="ion-text-wrap">
+      <p><b>Actualización OBLIGATORIA.</b></p>
+      <p>Versión Mínima Requerida: {{ versionCheckService.versionMinima() }}</p>
+      <p>
+        <a [href]="versionCheckService.versionUrl()" target="_blank" rel="noopener noreferrer">
+          Haga clic aquí para actualizar
+        </a>
+      </p>
+    </ion-label>
+  </ion-item>
+  }
+  @if (versionCheckService.versionPendiente() && !versionCheckService.versionActualizar()) {
+  <ion-item color="warning">
+    <ion-label class="ion-text-wrap">
+      <p><b>Nueva versión disponible.</b></p>
+      <p>Considere actualizar a la versión {{ versionCheckService.versionActual() }}</p>
+      <p>
+        <a [href]="versionCheckService.versionUrl()" target="_blank" rel="noopener noreferrer">
+          Haga clic aquí para actualizar
+        </a>
+      </p>
+    </ion-label>
+  </ion-item>
+  }
+
 
   @if (isLoading()) {
   <div class="ion-text-center ion-padding">
@@ -30,12 +59,6 @@
 
   @if (!isLoading() && boletas().length > 0) {
   <ion-list>
-    <ion-item lines="none" class="list-header">
-      <ion-label>
-        <h2 class="ion-no-margin">Total de Boletas: {{ boletas().length }}</h2>
-      </ion-label>
-    </ion-item>
-
     @for (boleta of boletas(); track boleta.codigoUPA) {
     <ion-item lines="full" detail button (click)="selectBoleta(boleta.codigoUPA)" class="boleta-card">
       <ion-label class="ion-text-wrap">
@@ -53,8 +76,8 @@
               }
             </ion-note>
             <ion-button size="small" fill="clear" color="primary" class="btn-ver-json"
-              (click)="$event.stopPropagation(); showJsonPanel(boleta);">
-              Ver JSON
+              (click)="$event.stopPropagation(); copyJsonToClipboard(boleta);">
+              Copiar JSON
             </ion-button>
           </div>
           <p class="detail-info upa-line ion-no-margin">
@@ -91,43 +114,30 @@
   </div>
   }
 
-  @if (isJsonPanelOpen()) {
-  <div class="json-panel-overlay" (click)="closeJsonPanel()"></div>
-  <div class="json-panel-sidebar">
-    <ion-header class="ion-no-border">
-      <ion-toolbar color="dark">
-        <ion-title>JSON de Boleta</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="closeJsonPanel()">
-            <ion-icon name="close-outline" slot="icon-only"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content class="ion-padding-vertical">
-      <pre class="json-code" [innerHTML]="formatJson(selectedBoletaJson())"></pre>
-    </ion-content>
-  </div>
-  }
 </ion-content>
 
 <ion-footer>
   <ion-toolbar class="mp-footer-buttons-toolbar">
     <div class="mp-footer-buttons-container">
 
+      <ion-button fill="solid" color="secondary" (click)="nuevaBoleta()" class="mp-footer-button">
+        <ion-icon name="document-text-outline" slot="start"></ion-icon>
+        <span> Nueva </span>
+      </ion-button>
+
       <ion-button fill="solid" color="primary" (click)="grabarBoletaActual()" [disabled]="isSaving()"
         class="mp-footer-button">
         @if (isSaving()) {
         <ion-spinner name="crescent"></ion-spinner>
         } @else {
-        <span>💾 Grabar Boleta Actual</span>
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        <span> Grabar </span>
         }
       </ion-button>
 
-      <ion-button fill="solid" color="secondary" (click)="nuevaBoleta()" class="mp-footer-button">
-        <ion-icon name="document-text-outline" slot="start"></ion-icon>
-        <span> Nueva Boleta</span>
+      <ion-button fill="solid" color="secondary" (click)="copyCurrentActiveBoletaJson()" class="mp-footer-button">
+        <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+        <span> JSON </span>
       </ion-button>
 
     </div>

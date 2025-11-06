@@ -1,147 +1,117 @@
-// miembro-hogar.service.ts
-import { Injectable, signal, computed, WritableSignal } from '@angular/core';
-import { Boleta, MiembroHogar } from '../interfaces/boleta.interface';
+import { computed, inject, Injectable } from '@angular/core';
+import { MiembroHogar } from '../interfaces/boleta.interface';
+import { DataService } from './data.service';
+import { Utils } from '../utils/utils';
 
 @Injectable({
     providedIn: 'root',
 })
 export class MiembroHogarService {
+    private boletaService = inject(DataService);
 
-    // The main signal from DataService will be passed here.
-    private boletaData!: WritableSignal<Boleta>;
-    // Signal to track the selected member's ID.
-    private miembroHogarUuid = signal<string | null>(null);
-
-    // PROPERTIES (SIGNALS)
     /**
-     * Returns the selected MiembroHogar object. Returns a new instance if none is selected.
+     * Listado de miembros de hogar
+     */
+    public readonly miembrosHogar = computed(() => {
+        const miembrosList = this.boletaService.boleta().miembroHogar;
+        return miembrosList;
+    });
+
+    /**
+     * Miembro de hogar seleccionado
      */
     public readonly miembroHogar = computed(() => {
-        const miembrosList = this.boletaData()?.miembroHogar;
-        const selectedUuid = this.miembroHogarUuid();
-
-        if (!miembrosList || !selectedUuid) {
+        const miembrosList = this.boletaService.boleta().miembroHogar;
+        const selectedUuid = this.boletaService.miembroHogarUuid();
+        console.log(`selectedUuid: ${selectedUuid}`);
+        if (!miembrosList || !selectedUuid || selectedUuid.length == 0) {
             return new MiembroHogar();
         }
-
         const foundMember = miembrosList.find((m: MiembroHogar) => m.miembroUuid === selectedUuid);
+        console.log(`Num:${miembrosList.length} miembroHogar sel:${foundMember}`);
         return foundMember || new MiembroHogar();
     });
 
-    /**
-     * Returns the index of the selected member in the array.
-     */
-    public readonly miembroHogarIndex = computed(() => {
-        const miembrosList = this.boletaData()?.miembroHogar;
-        const selectedUuid = this.miembroHogarUuid();
-
-        if (!miembrosList || !selectedUuid) {
-            return -1;
-        }
-
-        return miembrosList.findIndex(m => m.miembroUuid === selectedUuid);
-    });
-
-    /**
-     * Exposes the list of members for the view.
-     */
-    public readonly miembrosList = computed(() => {
-        const boleta = this.boletaData;
-        if (!boleta) {
-            return [];
-        }
-        return boleta().miembroHogar;
-    });
-
-    // CONSTRUCTOR
     constructor() { }
 
-    /**
-     * Initializes the service by receiving the main boleta signal from DataService.
-     * @param boletaSignal The writable signal of the main boleta.
-     */
-    public initialize(boletaSignal: WritableSignal<Boleta>): void {
-        this.boletaData = boletaSignal;
-    }
-
-    /**
-     * Sets the UUID of the currently selected household member.
-     * @param uuid The unique ID of the member.
-     */
-    public setMiembroHogarUuid(uuid: string | null): void {
-        this.miembroHogarUuid.set(uuid);
-    }
-
     // CRUD METHODS
-    /**
-     * ➕ Adds a new household member to the boleta and sets it as active.
-     */
     public addMiembroHogar(): void {
-        const memberUuid = crypto.randomUUID();
-        this.boletaData.update(boleta => {
-            const newMember = new MiembroHogar();
-            // Assuming MiembroHogar has a 'miembroUuid' property.
-            newMember.miembroUuid = memberUuid;
+        let newMember = new MiembroHogar();
+        //genero los datos iniciales
+        newMember.miembroUuid = Utils.generaUUID();
+        newMember.noHogar = this.boletaService.boleta().miembroHogar.length + 1;
+        this.boletaService.boletaData.update(boleta => {
             return {
                 ...boleta,
                 miembroHogar: [...(boleta.miembroHogar || []), newMember],
             };
         });
-        this.setMiembroHogarUuid(memberUuid);
+        this.boletaService.miembroHogarUuid.set(`${newMember.miembroUuid}`);
     }
 
-    /**
-     * ➖ Removes the currently selected household member from the boleta.
-     */
     public removeMiembroHogar(): void {
-        const selectedUuid = this.miembroHogarUuid();
+        const selectedUuid = this.boletaService.miembroHogarUuid();
         if (!selectedUuid) {
             return;
         }
 
-        this.boletaData.update(boleta => {
-            const newMembers = boleta.miembroHogar.filter(m => m.miembroUuid !== selectedUuid);
+        this.boletaService.boletaData.update(boleta => {
+            const filteredMembers = boleta.miembroHogar.filter(m => m.miembroUuid !== selectedUuid);
+            //actualiza las secuencias
+            const renumberedMembers = filteredMembers.map((miembro, index) => {
+                const updatedMember = {
+                    ...miembro,
+                    noHogar: index + 1
+                };
+                return updatedMember;
+            });
+
             return {
                 ...boleta,
-                miembroHogar: newMembers,
+                miembroHogar: renumberedMembers
             };
         });
-        this.setMiembroHogarUuid(null);
+        //actualizo el uuid seleccionado
+        if (this.boletaService.boleta().miembroHogar.length > 0) {
+            this.boletaService.miembroHogarUuid.set(
+                this.boletaService.boleta().miembroHogar[this.boletaService.boleta().miembroHogar.length - 1].miembroUuid
+            )
+        } else {
+            this.boletaService.miembroHogarUuid.set(null);
+        }
     }
 
-    /**
-     * 📝 Updates a specific field of the currently selected household member.
-     * @param event The event object from the input control.
-     * @param fieldPath The path to the field (e.g., 'primerNombre', 'domicilio.calle').
-     */
     public onInputChange(event: any, fieldPath: string): void {
         const valueInput = event.detail?.value !== undefined ? event.detail.value : event;
-        const selectedUuid = this.miembroHogarUuid();
-        if (!selectedUuid) {
+        // console.log(`onInputChange MO: ${fieldPath} - ${valueInput} `)
+
+        //valida que exista
+        const miembrosList = this.miembrosHogar();
+        const selectedUuid = this.boletaService.miembroHogarUuid();
+        // console.log(`selectedUuid: ${selectedUuid}`);
+        if (!miembrosList || !selectedUuid || selectedUuid.length == 0) {
             return;
         }
 
-        this.boletaData.update(boleta => {
-            const index = boleta.miembroHogar.findIndex(m => m.miembroUuid === selectedUuid);
-            if (index === -1) {
-                return boleta;
-            }
+        //actualizo el valor
+        let updatedMember: any = JSON.parse(JSON.stringify(this.miembroHogar()));
+        // console.log(`mo: ${JSON.stringify(updatedMember)}`);
+        updatedMember[fieldPath] = valueInput;
+        // console.log(`mo : ${JSON.stringify(updatedMember)}`);
 
-            const updatedMembers = [...boleta.miembroHogar];
-            const updatedMember = { ...updatedMembers[index] };
-
-            let currentObject: any = updatedMember;
-            const parts = fieldPath.split('.');
-            for (let i = 0; i < parts.length - 1; i++) {
-                currentObject = currentObject[parts[i]];
-            }
-            currentObject[parts[parts.length - 1]] = valueInput;
-
-            updatedMembers[index] = updatedMember;
+        //actualizo los datos de la boleta
+        this.boletaService.boletaData.update(boleta => {
+            const currentMembers = boleta.miembroHogar;
+            const updatedMembers = currentMembers.map(miembro => {
+                if (miembro.miembroUuid === updatedMember.miembroUuid) {
+                    return updatedMember;
+                }
+                return miembro;
+            });
 
             return {
                 ...boleta,
-                miembroHogar: updatedMembers,
+                miembroHogar: updatedMembers
             };
         });
     }

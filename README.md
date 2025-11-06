@@ -31,7 +31,19 @@ npm install -g @ionic/cli @angular/cli
 
 npm install @capacitor/android
 npm install @capacitor/assets --save-dev
+
+#gps
+npm install @capacitor/geolocation
+
+npm install uuid
+
 ````
+
+Revisar los permisos en
+
+[Abrir AndroidManifest.xml](android/app/src/main/AndroidManifest.xml)
+
+
 
 # ejecutar
 
@@ -54,15 +66,45 @@ ionic serve -o
 - Aceptar los permisos que se solicitan en el pc y en el telefono
 
 ````
-rm -rf ~/.gradle/caches
-ionic cap run android
+ionic cap run android -l --external
 ````
+- -l: Live-Reload.
+- --external: Permite que el celular se conecte al servidor de desarrollo
+
+### Ver logs 
+- En el navegador ejecutar
+chrome://inspect/#devices
+
+- Aparece el dispositivo seleccionas inspect
 
 # Generar apk
 
-````
-sh others/cnf/cnf.sh
-````
+Actualizar la version en: android/app/build.gradle
+
+[Abrir build.gradle de Android](android/app/build.gradle)
+[Abrir environment.ts](src/environments/environment.prod.ts)
+
+```
+	versionCode 3
+	versionName "1.0.3"
+```
+
+[Abrir build.gradle de Android](others/cnf/cnf.sh)
+
+```
+#Genera la versión de producción
+ionic build --prod
+
+#Sincroniza los cambios con el proyecto Android
+npx cap sync android
+
+#Abre el proyecto nativo en Android Studio
+npx cap open android
+
+
+
+```
+
 Se abre automatiamente android studio
 
 - generar apk en android studio

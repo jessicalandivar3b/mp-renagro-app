@@ -9,145 +9,142 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
     <form #frmData="ngForm">
-        <ion-list>
+    <ion-list>
 
-            <h2>2.4.1 - La persona productora tiene los siguientes medios de comunicación:</h2>
+        <h2>2.4.1 - La persona productora tiene los siguientes medios de comunicación:</h2>
 
-            @if (boleta().isTelefonoConvencionalShow) {
-            <ion-item>
-                <ion-label><span class="label-codigo">2.4.1.1.1</span>Tiene teléfono convencional?</ion-label>
-                <ion-toggle slot="end" [checked]="boleta().isTelefonoConvencional"
-                    (ionChange)="this.boletaService.onInputChange($event, 'isTelefonoConvencional')">
-                </ion-toggle>
-            </ion-item>
-            }
+        @if (boleta().isTelefonoConvencionalShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.4.1.1.1</span>Tiene teléfono convencional?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isTelefonoConvencional"
+                (ionChange)="this.boletaService.onInputChange($event, 'isTelefonoConvencional')">
+            </ion-toggle>
+        </ion-item>
+      }
 
-            @if (boleta().telefonoConvencionalShow) {
-            <ion-item class="split-60-40">
-                <div class="split-60">
-                    <ion-label><span class="label-codigo">2.4.1.1.2</span>Teléfono convencional</ion-label>
-                </div>
-                <div class="split-40">
-                    <ion-input #telefonoConvencionalInput="ngModel" name="telefonoConvencional" type="text"
-                        required="true" minlength="9" maxlength="9" mpAlphanumeric
-                        [(ngModel)]="boleta().telefonoConvencional"
-                        (ionChange)="this.boletaService.onInputChange($event, 'telefonoConvencional')">
-                    </ion-input>
-                </div>
-            </ion-item>
-            <mp-input-error field="telefonoConvencional" [control]="telefonoConvencionalInput.control"
-                [value]="boleta().telefonoConvencional"></mp-input-error>
-            }
+        @if (boleta().telefonoConvencionalShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">2.4.1.1.2</span>Teléfono convencional</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #telefonoConvencionalInput="ngModel" name="telefonoConvencional" type="number"
+                    required="true" minlength="9" maxlength="9" mpNumeric [(ngModel)]="boleta().telefonoConvencional"
+                    (ionChange)="this.boletaService.onInputChange($event, 'telefonoConvencional')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="telefonoConvencional" [control]="telefonoConvencionalInput.control"
+            [value]="boleta().telefonoConvencional"></mp-input-error>
+      }
 
-            @if (boleta().isTelefonoCelularShow) {
-            <ion-item>
-                <ion-label><span class="label-codigo">2.4.1.2.1</span>Tiene teléfono celular?</ion-label>
-                <ion-toggle slot="end" [checked]="boleta().isTelefonoCelular"
-                    (ionChange)="this.boletaService.onInputChange($event, 'isTelefonoCelular')">
-                </ion-toggle>
-            </ion-item>
-            }
+        @if (boleta().isTelefonoCelularShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.4.1.2.1</span>Tiene teléfono celular?</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isTelefonoCelular"
+                (ionChange)="this.boletaService.onInputChange($event, 'isTelefonoCelular')">
+            </ion-toggle>
+        </ion-item>
+      }
 
-            @if (boleta().telefonoCelularShow) {
-            <ion-item class="split-60-40">
-                <div class="split-60">
-                    <ion-label><span class="label-codigo">2.4.1.2.2</span>Teléfono celular</ion-label>
-                </div>
-                <div class="split-40">
-                    <ion-input #telefonoCelularInput="ngModel" name="telefonoCelular" type="text" required="true"
-                        minlength="10" maxlength="10" mpAlphanumeric [(ngModel)]="boleta().telefonoCelular"
-                        (ionChange)="this.boletaService.onInputChange($event, 'telefonoCelular')">
-                    </ion-input>
-                </div>
-            </ion-item>
-            <mp-input-error field="telefonoCelular" [control]="telefonoCelularInput.control"
-                [value]="boleta().telefonoCelular"></mp-input-error>
-            }
+        @if (boleta().telefonoCelularShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">2.4.1.2.2</span>Teléfono celular</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #telefonoCelularInput="ngModel" name="telefonoCelular" type="number"
+                    required="true" minlength="10" maxlength="10" mpNumeric [(ngModel)]="boleta().telefonoCelular"
+                    (ionChange)="this.boletaService.onInputChange($event, 'telefonoCelular')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="telefonoCelular" [control]="telefonoCelularInput.control"
+            [value]="boleta().telefonoCelular"></mp-input-error>
+      }
 
-            @if (boleta().isDireccionEmailShow) {
-            <ion-item>
-                <ion-label><span class="label-codigo">2.4.1.3.1</span>Correo electrónico</ion-label>
-                <ion-toggle slot="end" [checked]="boleta().isDireccionEmail"
-                    (ionChange)="this.boletaService.onInputChange($event, 'isDireccionEmail')">
-                </ion-toggle>
-            </ion-item>
-            }
+        @if (boleta().isDireccionEmailShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.4.1.3.1</span>Correo electrónico</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isDireccionEmail"
+                (ionChange)="this.boletaService.onInputChange($event, 'isDireccionEmail')">
+            </ion-toggle>
+        </ion-item>
+      }
 
-            @if (boleta().direccionEmailShow) {
-            <ion-item class="split-60-40">
-                <div class="split-60">
-                    <ion-label><span class="label-codigo">2.4.1.3.2</span>Tiene correo electrónico</ion-label>
-                </div>
-                <div class="split-40">
-                    <ion-input #direccionEmailInput="ngModel" name="direccionEmail" type="text" required="true"
-                        mpAlphanumeric [(ngModel)]="boleta().direccionEmail"
-                        (ionChange)="this.boletaService.onInputChange($event, 'direccionEmail')">
-                    </ion-input>
-                </div>
-            </ion-item>
-            <mp-input-error field="direccionEmail" [control]="direccionEmailInput.control"
-                [value]="boleta().direccionEmail"></mp-input-error>
-            }
+        @if (boleta().direccionEmailShow) {
+        <ion-item class="split-60-40">
+            <div class="split-60">
+                <ion-label><span class="label-codigo">2.4.1.3.2</span>Tiene correo electrónico</ion-label>
+            </div>
+            <div class="split-40">
+                <ion-input #direccionEmailInput="ngModel" name="direccionEmail" type="text"
+                    required="true" mpText [(ngModel)]="boleta().direccionEmail"
+                    (ionChange)="this.boletaService.onInputChange($event, 'direccionEmail')">
+                </ion-input>
+            </div>
+        </ion-item>
+        <mp-input-error field="direccionEmail" [control]="direccionEmailInput.control"
+            [value]="boleta().direccionEmail"></mp-input-error>
+      }
 
-            @if (boleta().isInternetShow) {
-            <ion-item>
-                <ion-label><span class="label-codigo">2.4.1.4</span>Internet</ion-label>
-                <ion-toggle slot="end" [checked]="boleta().isInternet"
-                    (ionChange)="this.boletaService.onInputChange($event, 'isInternet')">
-                </ion-toggle>
-            </ion-item>
-            }
+        @if (boleta().isInternetShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.4.1.4</span>Internet</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isInternet"
+                (ionChange)="this.boletaService.onInputChange($event, 'isInternet')">
+            </ion-toggle>
+        </ion-item>
+      }
 
-            @if (boleta().isComputadoraShow) {
-            <ion-item>
-                <ion-label><span class="label-codigo">2.4.1.5</span>Computadora</ion-label>
-                <ion-toggle slot="end" [checked]="boleta().isComputadora"
-                    (ionChange)="this.boletaService.onInputChange($event, 'isComputadora')">
-                </ion-toggle>
-            </ion-item>
-            }
+        @if (boleta().isComputadoraShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.4.1.5</span>Computadora</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isComputadora"
+                (ionChange)="this.boletaService.onInputChange($event, 'isComputadora')">
+            </ion-toggle>
+        </ion-item>
+      }
 
-            <h2>2.5.1 - La persona productora tiene los siguientes servicios básicos:</h2>
+        <h2>2.5.1 - La persona productora tiene los siguientes servicios básicos:</h2>
 
-            @if (boleta().isServicioHigienicoShow) {
-            <ion-item>
-                <ion-label><span class="label-codigo">2.5.1.1</span>Servicio higiénico o escusado</ion-label>
-                <ion-toggle slot="end" [checked]="boleta().isServicioHigienico"
-                    (ionChange)="this.boletaService.onInputChange($event, 'isServicioHigienico')">
-                </ion-toggle>
-            </ion-item>
-            }
+        @if (boleta().isServicioHigienicoShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.5.1.1</span>Servicio higiénico o escusado</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isServicioHigienico"
+                (ionChange)="this.boletaService.onInputChange($event, 'isServicioHigienico')">
+            </ion-toggle>
+        </ion-item>
+      }
 
-            @if (boleta().isAguaPorTuberiaShow) {
-            <ion-item>
-                <ion-label><span class="label-codigo">2.5.1.2</span>Agua por tubería</ion-label>
-                <ion-toggle slot="end" [checked]="boleta().isAguaPorTuberia"
-                    (ionChange)="this.boletaService.onInputChange($event, 'isAguaPorTuberia')">
-                </ion-toggle>
-            </ion-item>
-            }
+        @if (boleta().isAguaPorTuberiaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.5.1.2</span>Agua por tubería</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isAguaPorTuberia"
+                (ionChange)="this.boletaService.onInputChange($event, 'isAguaPorTuberia')">
+            </ion-toggle>
+        </ion-item>
+      }
 
-            @if (boleta().isAguaOtroMedioShow) {
-            <ion-item>
-                <ion-label><span class="label-codigo">2.5.1.3</span>Agua por otros medios (tanquero, lluvia, río,
-                    etc.)</ion-label>
-                <ion-toggle slot="end" [checked]="boleta().isAguaOtroMedio"
-                    (ionChange)="this.boletaService.onInputChange($event, 'isAguaOtroMedio')">
-                </ion-toggle>
-            </ion-item>
-            }
+        @if (boleta().isAguaOtroMedioShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.5.1.3</span>Agua por otros medios (tanquero, lluvia, río, etc.)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isAguaOtroMedio"
+                (ionChange)="this.boletaService.onInputChange($event, 'isAguaOtroMedio')">
+            </ion-toggle>
+        </ion-item>
+      }
 
-            @if (boleta().isEnergiaElectricaShow) {
-            <ion-item>
-                <ion-label><span class="label-codigo">2.5.1.4</span>Energía eléctrica - red pública (medidor
-                    propio)</ion-label>
-                <ion-toggle slot="end" [checked]="boleta().isEnergiaElectrica"
-                    (ionChange)="this.boletaService.onInputChange($event, 'isEnergiaElectrica')">
-                </ion-toggle>
-            </ion-item>
-            }
+        @if (boleta().isEnergiaElectricaShow) {
+        <ion-item>
+            <ion-label><span class="label-codigo">2.5.1.4</span>Energía eléctrica - red pública (medidor propio)</ion-label>
+            <ion-toggle slot="end" [checked]="boleta().isEnergiaElectrica"
+                (ionChange)="this.boletaService.onInputChange($event, 'isEnergiaElectrica')">
+            </ion-toggle>
+        </ion-item>
+      }
 
-        </ion-list>
+    </ion-list>
     </form>
 </ion-content>
 <ion-footer>

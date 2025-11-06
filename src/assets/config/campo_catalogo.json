@@ -288,6 +288,7 @@
         "grupo": "boleta",
         "campo": "provincia",
         "catalogo": "PROV",
+        "padre": "tmpZona",
         "encera": [
             "canton",
             "parroquia"

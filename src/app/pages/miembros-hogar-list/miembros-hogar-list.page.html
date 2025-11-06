@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true">
   <ion-list>
 
-    @for (miembro of miembrosHogar(); track miembro.miembroUuid) {
+    @for (miembro of boletaService.boleta().miembroHogar; track miembro.miembroUuid) {
 
     <ion-item button detail (click)="selectMiembro(miembro.miembroUuid)">
 

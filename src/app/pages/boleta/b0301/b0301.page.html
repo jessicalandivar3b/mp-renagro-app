@@ -26,6 +26,7 @@
 <ion-content [fullscreen]="true" class="ion-padding">
     <form #frmData="ngForm">
         <ion-list>
+            @if(cultivo().cultivoUuid.length>1 ){
 
             <h1>3.1 - Cultivos perennes, transitorios, flores, silvicultura, fungicultura y mosaicos</h1>
 
@@ -57,7 +58,7 @@
                 </div>
                 <div class="split-40">
                     <ion-input #otroNombreCultivoInput="ngModel" name="otroNombreCultivo" type="text" required="true"
-                        maxlength="Parametros.MAX_LENGTH_GENERICO" mpText [(ngModel)]="cultivo().otroNombreCultivo"
+                        maxlength="100" mpText [(ngModel)]="cultivo().otroNombreCultivo"
                         (ionChange)="this.cultivoService.onInputChange($event, 'otroNombreCultivo')">
                     </ion-input>
                 </div>
@@ -88,7 +89,7 @@
             <h2>3.2.5 - Superficie plantada</h2>
 
             @if (cultivo().superficiePlantadaUnidadShow) {
-            <ion-item button (click)='openModal("superficiePlantadaUnidad","cultivos")'>
+            <ion-item button (click)='openModal("superficiePlantadaUnidad","cultivo")'>
                 <ion-label><span class="label-codigo">3.1.1.3.1</span>Unidad de superficie plantada/sembrada</ion-label>
                 <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().superficiePlantadaUnidad)() }}
                     {{ cultivo().superficiePlantadaUnidad }}</ion-text>
@@ -115,7 +116,7 @@
             <h3>3.1.1.4 - De este cultivo,indique la superficie que recibe riego</h3>
 
             @if (cultivo().superficieRiegoUnidadShow) {
-            <ion-item button (click)='openModal("superficieRiegoUnidad","cultivos")'>
+            <ion-item button (click)='openModal("superficieRiegoUnidad","cultivo")'>
                 <ion-label><span class="label-codigo">3.1.1.4.1</span>Unidad de superficie de riego</ion-label>
                 <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().superficieRiegoUnidad)() }}
                     {{ cultivo().superficieRiegoUnidad }}</ion-text>
@@ -124,7 +125,7 @@
             }
 
             @if (cultivo().metodoDeRiegoShow) {
-            <ion-item button (click)='openModal("metodoDeRiego","cultivos")'>
+            <ion-item button (click)='openModal("metodoDeRiego","cultivo")'>
                 <ion-label><span class="label-codigo">3.1.1.5</span>Principal método de riego.</ion-label>
                 <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().metodoDeRiego)() }}
                     {{ cultivo().metodoDeRiego }}</ion-text>
@@ -133,7 +134,7 @@
             }
 
             @if (cultivo().cultivoAsociadoShow) {
-            <ion-item button (click)='openModal("cultivoAsociado","cultivos")'>
+            <ion-item button (click)='openModal("cultivoAsociado","cultivo")'>
                 <ion-label><span class="label-codigo">3.1.1.6</span>El cultivo está:</ion-label>
                 <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().cultivoAsociado)() }}
                     {{ cultivo().cultivoAsociado }}</ion-text>
@@ -142,7 +143,7 @@
             }
 
             @if (cultivo().formaCultivarShow) {
-            <ion-item button (click)='openModal("formaCultivar","cultivos")'>
+            <ion-item button (click)='openModal("formaCultivar","cultivo")'>
                 <ion-label><span class="label-codigo">3.1.1.7</span>Cultivado a:</ion-label>
                 <ion-text slot="end">{{ catalogoService.getDescripcionByCodigo(cultivo().formaCultivar)() }}
                     {{ cultivo().formaCultivar }}</ion-text>
@@ -249,6 +250,7 @@
                     (ionChange)="this.cultivoService.onInputChange($event, 'isLlevaRegistroProduccion')">
                 </ion-toggle>
             </ion-item>
+            }
             }
 
         </ion-list>
